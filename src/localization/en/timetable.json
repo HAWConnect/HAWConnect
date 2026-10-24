@@ -1,0 +1,111 @@
+{
+	"details": {
+		"title": "Course details",
+		"weeklySemesterHours": "SWS",
+		"exam": "Exam",
+		"studyGroup": "Study group",
+		"courseOfStudies": "Course of studies",
+		"error": {
+			"title": "Details not available",
+			"message": "The details for this lecture are not available."
+		}
+	},
+	"overview": {
+		"title": "Overview",
+		"goal": "Goal",
+		"content": "Content",
+		"literature": "Literature"
+	},
+	"time": {
+		"minutes": "minutes"
+	},
+	"dots": {
+		"title": "Lecture Status",
+		"completed": "Completed lectures",
+		"ongoing": "Ongoing lecture",
+		"upcoming": "Upcoming lectures",
+		"total": "The total number of dots shows how many lectures you have on this day"
+	},
+	"error": {
+		"cannotDisplayLecture": "Cannot display lecture",
+		"empty": {
+			"title": "Timetable not configured",
+			"title2": "No lectures found",
+			"subtitle": "Timetable not configured yet.",
+			"message": "To display your timetable, you have to configure it using the HAW Hamburg timetable website.",
+			"button": "Configure now",
+			"tip1": "Configure your timetable on the HAW Hamburg website",
+			"tip2": "Once set up, it automatically syncs lectures and lecturers",
+			"tip3": "Tap the refresh button after configuration",
+			"refresh": "Refresh"
+		},
+		"filtered": {
+			"title": "No future lectures found",
+			"message": "Looks like there are no more lectures this semester."
+		},
+		"web": {
+			"title": "Not available on web",
+			"message": "Download the app to view the details of this lecture."
+		}
+	},
+	"viewModes": {
+		"list": "List",
+		"oneDay": "Single Day",
+		"threeDays": "Three Days",
+		"fiveDays": "Weekdays (Mon-Fri)",
+		"sevenDays": "Full Week"
+	},
+	"preferences": {
+		"title": "View Mode",
+		"preview": "Preview",
+		"showCalendarEvents": "Show HAW Events",
+		"additionalContent": "Additional Content",
+		"showExams": "Show Exams"
+	},
+	"calendar": {
+		"academicCalendar": "Semester Dates",
+		"weekDayShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+		"more": "more"
+	},
+	"weekNumberPrefix": "CW",
+	"weekdays": {
+		"short": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+		"single": ["M", "T", "W", "T", "F", "S", "S"],
+		"long": [
+			"Monday",
+			"Tuesday",
+			"Wednesday",
+			"Thursday",
+			"Friday",
+			"Saturday",
+			"Sunday"
+		]
+	},
+	"import": {
+		"instructions": "Import an iCalendar link or .ics file obtained from myHAW. No university login is required.",
+		"name": "Calendar name",
+		"link": "Private calendar link",
+		"previewLink": "Preview calendar link",
+		"file": "Choose .ics file",
+		"preview": "Preview · {{count}} calendar records",
+		"previewRange": "Showing up to 10 occurrences from the last 30 days and next 180 days.",
+		"confirm": "Confirm import",
+		"cancel": "Cancel",
+		"updated": "Last Update",
+		"refresh": "Refresh calendar",
+		"replace": "Replace calendar",
+		"remove": "Remove calendar",
+		"fileRefresh": "Import an updated file to get changes.",
+		"replacing": "The next confirmed import will replace the selected calendar.",
+		"defaultName": "myHAW calendar",
+		"failed": "Unable to import. Check the file or link. Links may require authentication or be blocked by browser access rules; try an .ics file. Existing calendars are unchanged.",
+		"tooLarge": "Calendar exceeds the 2 MB import limit.",
+		"storageFailed": "The private link could not be stored securely. No calendar was changed.",
+		"manage": "Import / manage calendars",
+		"empty": "No calendar imported yet.",
+		"allDay": "All day",
+		"unavailable": "This service is not connected to HAW Hamburg yet.",
+		"demo": "Load sample calendar",
+		"demoName": "Sample calendar (demo)"
+	}
+}

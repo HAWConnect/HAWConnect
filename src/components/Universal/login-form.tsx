@@ -1,0 +1,396 @@
+import { toast } from 'burnt'
+import * as Haptics from 'expo-haptics'
+import React, { use, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import {
+	Alert,
+	Animated,
+	Linking,
+	Platform,
+	Pressable,
+	Text,
+	TextInput,
+	TouchableOpacity,
+	View
+} from 'react-native'
+import { useCSSVariable, useResolveClassNames } from 'uniwind'
+import { createGuestSession, createSession } from '@/api/university-session'
+import { DashboardContext, UserKindContext } from '@/components/contexts'
+import { queryClient } from '@/components/provider'
+import {
+	STATUS_URL,
+	USER_EMPLOYEE,
+	USER_GUEST,
+	USER_STUDENT
+} from '@/data/constants'
+import { useIsServiceDown } from '@/hooks/useServiceStatus'
+import { trimErrorMsg } from '@/utils/api-utils'
+import { ServiceStatus } from '@/utils/gatus-status'
+import { loadSecureAsync } from '@/utils/storage'
+import { toColor } from '@/utils/uniwind-utils'
+import Button from './button'
+import PlatformIcon from './icon'
+
+const ORIGINAL_ERROR_WRONG_CREDENTIALS = 'Wrong credentials'
+const ORGINAL_ERROR_MISSING = 'Wrong or missing parameter'
+const KNOWN_BACKEND_ERRORS = ['Response is not valid JSON']
+const ORIGINAL_ERROR_NO_CONNECTION = 'Network request failed'
+
+const LoginForm = ({
+	navigateHome
+}: {
+	navigateHome: () => void
+}): React.JSX.Element => {
+	const [username, setUsername] = useState('')
+	const [password, setPassword] = useState('')
+	const labelColor = String(
+		toColor(useCSSVariable('--color-label')) ?? '#606062'
+	)
+	const primaryColor = String(
+		toColor(useCSSVariable('--color-primary')) ?? '#007aff'
+	)
+	const borderColor = String(
+		toColor(useCSSVariable('--color-border')) ?? '#d8d8d8'
+	)
+	const { userKind, toggleUserKind } = React.use(UserKindContext)
+	const [loading, setLoading] = useState(false)
+	const { t } = useTranslation('flow')
+	const { resetOrder } = use(DashboardContext)
+	const [showPassword, setShowPassword] = useState(false)
+	const shakeAnimation = useState(new Animated.Value(0))[0]
+	const universityDown = useIsServiceDown(ServiceStatus.University)
+	const warningColor = toColor(useCSSVariable('--color-warning'))
+
+	const shake = () => {
+		Animated.sequence([
+			Animated.timing(shakeAnimation, {
+				toValue: 5,
+				duration: 50,
+				useNativeDriver: true
+			}),
+			Animated.timing(shakeAnimation, {
+				toValue: -5,
+				duration: 50,
+				useNativeDriver: true
+			}),
+			Animated.timing(shakeAnimation, {
+				toValue: 5,
+				duration: 50,
+				useNativeDriver: true
+			}),
+			Animated.timing(shakeAnimation, {
+				toValue: 0,
+				duration: 50,
+				useNativeDriver: true
+			})
+		]).start()
+	}
+
+	async function login(): Promise<void> {
+		let showStatus = true
+		try {
+			setLoading(true)
+			const userKind = await createSession(username, password)
+			toggleUserKind(userKind)
+			resetOrder(userKind ? USER_STUDENT : USER_EMPLOYEE)
+			await queryClient.invalidateQueries()
+			if (Platform.OS === 'ios') {
+				void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
+			}
+			toast({
+				title: t('login.toast'),
+				preset: 'done',
+				haptic: 'success',
+				duration: 2.5,
+				from: 'top'
+			})
+			navigateHome()
+		} catch (e) {
+			console.error('Failed to login', e)
+			shake()
+
+			const error = e as Error
+			const message = trimErrorMsg(error.message)
+			setLoading(false)
+
+			let title = t('login.alert.error.title')
+			let msg = t('login.alert.error.generic')
+
+			if (message.includes(ORIGINAL_ERROR_WRONG_CREDENTIALS)) {
+				title = t('login.alert.error.wrongCredentials.title')
+				msg = t('login.alert.error.wrongCredentials.message')
+				showStatus = false
+				setPassword('')
+			} else if (message.includes(ORIGINAL_ERROR_NO_CONNECTION)) {
+				title = t('login.alert.error.noConnection.title')
+				msg = t('login.alert.error.noConnection.message')
+				showStatus = false
+			} else if (universityDown) {
+				title = t('login.universityOutage.title')
+				msg = t('login.universityOutage.message')
+				showStatus = true
+			} else if (message.includes(ORGINAL_ERROR_MISSING)) {
+				msg = t('login.alert.error.missing')
+				showStatus = false
+			} else if (
+				KNOWN_BACKEND_ERRORS.some((error) => message.includes(error))
+			) {
+				msg = t('login.alert.error.backend')
+			}
+			if (Platform.OS === 'web') {
+				toast({ title: msg, preset: 'error', duration: 2.5 })
+			} else {
+				Alert.alert(
+					title,
+					msg,
+					[
+						{ text: t('misc.ok', { ns: 'common' }) },
+						...(showStatus
+							? [
+									{
+										text: t('error.crash.status', { ns: 'common' }),
+										onPress: async () =>
+											(await Linking.openURL(STATUS_URL)) as Promise<void>
+									}
+								]
+							: [])
+					],
+					{ cancelable: false }
+				)
+			}
+		}
+	}
+
+	async function guestLogin(): Promise<void> {
+		setLoading(true)
+		setUsername('')
+		setPassword('')
+
+		try {
+			await createGuestSession(userKind !== USER_GUEST)
+		} catch (error) {
+			console.error('Failed to create guest session', error)
+		}
+
+		toggleUserKind(undefined)
+
+		if (Platform.OS === 'web') {
+			setTimeout(() => {
+				navigateHome()
+				setLoading(false)
+			}, 0)
+		} else {
+			navigateHome()
+			setLoading(false)
+		}
+	}
+
+	useEffect(() => {
+		if (Platform.OS === 'ios') {
+			const loadSavedData = async (): Promise<void> => {
+				try {
+					const savedUsername = await loadSecureAsync('username')
+					const savedPassword = await loadSecureAsync('password')
+					if (savedUsername !== null && savedPassword !== null) {
+						setUsername(savedUsername)
+						setPassword(savedPassword)
+						Alert.alert(
+							t('login.alert.restored.title'),
+							t('login.alert.restored.message'),
+							[{ text: t('misc.ok', { ns: 'common' }) }],
+							{ cancelable: false }
+						)
+					}
+				} catch (error) {
+					console.error('Error loading saved credentials:', error)
+				}
+			}
+			void loadSavedData()
+		}
+	}, [])
+
+	const signInDisabled =
+		username.trim() === '' || password.trim() === '' || loading
+
+	const textInputStyle = useResolveClassNames('flex-1 text-text text-base ml-2')
+	const textInputPlatformStyle = Platform.select({
+		ios: {
+			height: 44,
+			lineHeight: 20,
+			paddingTop: 11,
+			paddingBottom: 11
+		},
+		android: {
+			height: 44,
+			paddingVertical: 0,
+			textAlignVertical: 'center' as const,
+			includeFontPadding: false
+		},
+		default: {
+			height: 44,
+			paddingVertical: 0
+		}
+	})
+	const inputWrapperStyle = useResolveClassNames(
+		'flex-row items-center bg-input-background rounded-sm border-hairline border-border px-3'
+	)
+
+	return (
+		<View className="items-center justify-center w-full">
+			<View className="w-full max-w-[400px] self-center pb-[30px] px-[25px] pt-[30px] bg-card rounded-[24px] border-hairline border-border">
+				<Text className="w-full text-text text-[28px] font-bold text-center mb-2">
+					{t('login.getStarted')}
+				</Text>
+				<Text className="w-full text-label text-base text-center mb-[30px]">
+					{t('login.title2')}
+				</Text>
+
+				{universityDown ? (
+					<Pressable
+						testID="login-university-outage"
+						className="w-full mb-5 flex-row items-center gap-2.5 rounded-sm px-3 py-2.5"
+						style={{ backgroundColor: `${String(warningColor)}18` }}
+						onPress={() => {
+							void Linking.openURL(STATUS_URL)
+						}}
+					>
+						<PlatformIcon
+							ios={{ name: 'exclamationmark.triangle.fill', size: 16 }}
+							android={{ name: 'warning', size: 20, variant: 'filled' }}
+							web={{ name: 'TriangleAlert', size: 18 }}
+							style={{ color: warningColor }}
+						/>
+						<Text className="text-text flex-1 text-[14px] font-medium">
+							{t('login.universityOutage.title')}
+						</Text>
+						<PlatformIcon
+							ios={{ name: 'chevron.right', size: 12, weight: 'semibold' }}
+							android={{ name: 'chevron_right', size: 18 }}
+							web={{ name: 'ChevronRight', size: 16 }}
+							style={{ color: labelColor, opacity: 0.6 }}
+						/>
+					</Pressable>
+				) : null}
+
+				<View className="w-full gap-4">
+					<View style={inputWrapperStyle}>
+						<PlatformIcon
+							ios={{ name: 'person', size: 20 }}
+							android={{ name: 'person', size: 24 }}
+							web={{ name: 'User', size: 20 }}
+							style={{ color: labelColor }}
+						/>
+						<TextInput
+							testID="login-username"
+							style={[textInputStyle, textInputPlatformStyle]}
+							selectionColor={primaryColor}
+							placeholderTextColor={labelColor}
+							defaultValue={username}
+							placeholder={t('login.usernamePlaceholder')}
+							returnKeyType="next"
+							onChangeText={setUsername}
+							autoCapitalize="none"
+							clearButtonMode="while-editing"
+							autoComplete="email"
+							textContentType="emailAddress"
+							autoCorrect={false}
+						/>
+					</View>
+
+					<Animated.View
+						style={[
+							inputWrapperStyle,
+							{ transform: [{ translateX: shakeAnimation }] }
+						]}
+					>
+						<PlatformIcon
+							ios={{ name: 'lock', size: 20 }}
+							android={{ name: 'lock', size: 24 }}
+							web={{ name: 'Lock', size: 20 }}
+							style={{ color: labelColor }}
+						/>
+						<TextInput
+							testID="login-password"
+							style={[textInputStyle, textInputPlatformStyle]}
+							selectionColor={primaryColor}
+							placeholderTextColor={labelColor}
+							placeholder={t('login.password')}
+							defaultValue={password}
+							returnKeyType="done"
+							onChangeText={setPassword}
+							onSubmitEditing={() => {
+								if (username !== '') {
+									login().catch((error: unknown) => console.debug(error))
+								}
+							}}
+							selectTextOnFocus={true}
+							secureTextEntry={!showPassword}
+							autoCapitalize="none"
+							clearButtonMode="while-editing"
+							autoComplete="current-password"
+							textContentType="password"
+							autoCorrect={false}
+						/>
+						<TouchableOpacity
+							testID="login-toggle-password"
+							className="p-1"
+							onPress={() => setShowPassword(!showPassword)}
+						>
+							<PlatformIcon
+								ios={{ name: showPassword ? 'eye.slash' : 'eye', size: 16 }}
+								android={{
+									name: showPassword ? 'visibility_off' : 'visibility',
+									size: 20
+								}}
+								web={{ name: showPassword ? 'EyeOff' : 'Eye', size: 18 }}
+								style={{ color: labelColor }}
+							/>
+						</TouchableOpacity>
+					</Animated.View>
+				</View>
+
+				<Button
+					testID="login-submit"
+					disabled={signInDisabled}
+					loading={loading}
+					onPress={() =>
+						login().catch((error: unknown) => console.debug(error))
+					}
+					style={{ marginTop: 24, width: '100%' }}
+				>
+					{t('login.button')}
+				</Button>
+
+				<View className="w-full flex-row items-center mt-[26px]">
+					<View
+						className="flex-1 h-hairline"
+						style={{
+							backgroundColor: borderColor
+						}}
+					/>
+					<Text className="text-label mx-2.5 text-[13px]">{t('login.or')}</Text>
+					<View
+						className="flex-1 h-hairline"
+						style={{
+							backgroundColor: borderColor
+						}}
+					/>
+				</View>
+
+				<TouchableOpacity
+					testID="login-guest"
+					className="w-full items-center pt-1.5 mt-3.5"
+					onPress={() =>
+						guestLogin().catch((error: unknown) => console.debug(error))
+					}
+				>
+					<Text className="text-label text-sm font-normal">
+						{t('login.guest')}
+					</Text>
+				</TouchableOpacity>
+			</View>
+		</View>
+	)
+}
+
+export default LoginForm

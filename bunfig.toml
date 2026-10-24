@@ -1,0 +1,19 @@
+# bunfig.toml
+[install]
+# Only install package versions published at least 3 days ago
+minimumReleaseAge = 259200
+
+[test]
+preload = ["./src/utils/tests/setup.ts"]
+coverageSkipTestFiles = true
+coveragePathIgnorePatterns = [
+	"src/__generated__/**",
+	"src/data/licenses.json",
+	"src/app/**",
+	"src/components/**",
+	"src/hooks/**",
+	"src/assets/**",
+	"src/utils/tests/**",
+	"ios/**",
+	"android/**"
+]

@@ -1,0 +1,63 @@
+name: Expo SDK dependencies
+
+on:
+  schedule:
+    # Daily 04:00 UTC — checks for Expo SDK-compatible dependency updates
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: expo-sdk-deps
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Sync Expo SDK dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: ./.github/actions/setup
+
+      - name: Check Expo SDK dependencies
+        id: check
+        run: |
+          if bun pkgs; then
+            echo "needed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "needed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Apply Expo SDK dependency sync
+        if: steps.check.outputs.needed == 'true'
+        run: bunx expo install --fix -- --minimum-release-age 0
+
+      # App token so the opened PR triggers workflows (GITHUB_TOKEN does not).
+      - name: Generate GitHub App token
+        if: steps.check.outputs.needed == 'true'
+        id: app-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.HAWCONNECT_ACTIONS_CLIENT_ID }}
+          private-key: ${{ secrets.HAWCONNECT_ACTIONS_APP_PRIVATE_KEY }}
+
+      - name: Create pull request
+        if: steps.check.outputs.needed == 'true'
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          branch: chore/expo-sdk-deps
+          base: main
+          title: 'build(deps): sync expo sdk dependencies'
+          commit-message: 'build(deps): sync expo sdk dependencies'
+          labels: dependencies
+          body: |
+            Automated sync of Expo SDK-compatible dependency versions via `expo install --fix`.
+
+            These packages are intentionally excluded from Renovate — see `renovate.json` and the project README.
+
+            After merging, confirm CI passes (especially React Doctor).

@@ -1,0 +1,79 @@
+import { Link, type RelativePathString } from 'expo-router'
+import type React from 'react'
+import { Pressable, Text, View } from 'react-native'
+
+const RowEntry = ({
+	title,
+	leftChildren,
+	rightChildren,
+	onPress,
+	href,
+	backgroundColor,
+	icon,
+	testID
+}: {
+	title: string
+	leftChildren: React.JSX.Element
+	rightChildren: React.JSX.Element
+	onPress?: () => void
+	href?: RelativePathString
+	isExamCard?: boolean
+	backgroundColor?: string
+	icon?: React.JSX.Element
+	testID?: string
+}): React.JSX.Element => {
+	const content = (
+		<View
+			className="rounded-mg bg-card border-hairline border-border overflow-hidden px-3.5 py-4 w-full"
+			style={backgroundColor ? { backgroundColor } : undefined}
+		>
+			<View className="flex-col rounded-md justify-center">
+				<View className="flex-row gap-1 pb-1.5">
+					{icon}
+					<Text
+						className="text-text text-base font-semibold"
+						numberOfLines={2}
+						textBreakStrategy="highQuality"
+					>
+						{title}
+					</Text>
+				</View>
+
+				<View className="flex-row justify-between w-full">
+					<View className="flex-[2] items-start justify-start">
+						{leftChildren}
+					</View>
+					<View className="flex-1 items-end justify-end">{rightChildren}</View>
+				</View>
+			</View>
+		</View>
+	)
+
+	if (!href) {
+		return onPress ? (
+			<Pressable
+				testID={testID}
+				onPress={onPress}
+				className="active:opacity-90"
+			>
+				{content}
+			</Pressable>
+		) : (
+			content
+		)
+	}
+
+	return (
+		<Link href={href} asChild>
+			<Pressable
+				testID={testID}
+				onPress={onPress}
+				className="active:opacity-90"
+			>
+				{content}
+			</Pressable>
+		</Link>
+	)
+}
+
+export default RowEntry

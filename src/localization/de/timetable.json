@@ -1,0 +1,111 @@
+{
+	"details": {
+		"title": "Kursdetails",
+		"weeklySemesterHours": "SWS",
+		"exam": "Prüfung",
+		"studyGroup": "Lerngruppe",
+		"courseOfStudies": "Studiengang",
+		"error": {
+			"title": "Details nicht verfügbar",
+			"message": "Die Details zu dieser Vorlesung sind nicht verfügbar."
+		}
+	},
+	"overview": {
+		"title": "Übersicht",
+		"goal": "Ziel",
+		"content": "Inhalt",
+		"literature": "Literatur"
+	},
+	"time": {
+		"minutes": "Minuten"
+	},
+	"dots": {
+		"title": "Vorlesungsstatus",
+		"completed": "Abgeschlossene Vorlesungen",
+		"ongoing": "Laufende Vorlesung",
+		"upcoming": "Anstehende Vorlesungen",
+		"total": "Die Gesamtanzahl der Punkte zeigt, wie viele Vorlesungen du an diesem Tag hast"
+	},
+	"error": {
+		"cannotDisplayLecture": "Vorlesung kann nicht angezeigt werden",
+		"empty": {
+			"title": "Stundenplan nicht konfiguriert",
+			"title2": "Keine Vorlesungen gefunden",
+			"subtitle": "Stundenplan nicht konfiguriert.",
+			"message": "Um deinen Stundenplan anzuzeigen, musst du ihn über die HAW Hamburg Stundenplan Webseite konfigurieren.",
+			"button": "Jetzt konfigurieren",
+			"tip1": "Konfiguriere deinen Stundenplan auf der HAW Hamburg Webseite",
+			"tip2": "Nach der Einrichtung werden Vorlesungen und Dozenten automatisch synchronisiert",
+			"tip3": "Nutze den Aktualisieren-Button nach der Konfiguration",
+			"refresh": "Aktualisieren"
+		},
+		"filtered": {
+			"title": "Keine Vorlesungen gefunden",
+			"message": "Es scheint keine weiteren Vorlesungen in diesem Semester zu geben."
+		},
+		"web": {
+			"title": "Nicht verfügbar im Web",
+			"message": "Lade die App herunter, um die Details dieser Vorlesung anzuzeigen."
+		}
+	},
+	"viewModes": {
+		"list": "Liste",
+		"oneDay": "Ein Tag",
+		"threeDays": "Drei Tage",
+		"fiveDays": "Wochentage (Mo-Fr)",
+		"sevenDays": "Vollständige Woche"
+	},
+	"preferences": {
+		"title": "Ansicht",
+		"preview": "Vorschau",
+		"showCalendarEvents": "HAW Events anzeigen",
+		"additionalContent": "Zusätzliche Inhalte",
+		"showExams": "Prüfungen anzeigen"
+	},
+	"calendar": {
+		"academicCalendar": "Semesterzeiten",
+		"weekDayShort": ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+		"more": "mehr"
+	},
+	"weekNumberPrefix": "KW",
+	"weekdays": {
+		"short": ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],
+		"single": ["M", "D", "M", "D", "F", "S", "S"],
+		"long": [
+			"Montag",
+			"Dienstag",
+			"Mittwoch",
+			"Donnerstag",
+			"Freitag",
+			"Samstag",
+			"Sonntag"
+		]
+	},
+	"import": {
+		"instructions": "Importiere einen iCalendar-Link oder eine .ics-Datei aus myHAW. Eine Hochschulanmeldung ist nicht erforderlich.",
+		"name": "Kalendername",
+		"link": "Privater Kalenderlink",
+		"previewLink": "Kalenderlink prüfen",
+		"file": ".ics-Datei auswählen",
+		"preview": "Vorschau · {{count}} Kalendereinträge",
+		"previewRange": "Bis zu 10 Termine aus den letzten 30 und nächsten 180 Tagen.",
+		"confirm": "Import bestätigen",
+		"cancel": "Abbrechen",
+		"updated": "Letzte Aktualisierung",
+		"refresh": "Kalender aktualisieren",
+		"replace": "Kalender ersetzen",
+		"remove": "Kalender entfernen",
+		"fileRefresh": "Eine aktualisierte Datei importieren, um Änderungen zu laden.",
+		"replacing": "Der nächste bestätigte Import ersetzt den ausgewählten Kalender.",
+		"defaultName": "myHAW-Kalender",
+		"failed": "Import nicht möglich. Datei oder Link prüfen. Links können eine Anmeldung erfordern oder im Browser gesperrt sein; versuche eine .ics-Datei. Vorhandene Kalender bleiben unverändert.",
+		"tooLarge": "Der Kalender überschreitet die Importgrenze von 2 MB.",
+		"storageFailed": "Der private Link konnte nicht sicher gespeichert werden. Es wurde kein Kalender geändert.",
+		"manage": "Kalender importieren / verwalten",
+		"empty": "Noch kein Kalender importiert.",
+		"allDay": "Ganztägig",
+		"unavailable": "Dieser Dienst ist noch nicht mit der HAW Hamburg verbunden.",
+		"demo": "Beispielkalender laden",
+		"demoName": "Beispielkalender (Demo)"
+	}
+}

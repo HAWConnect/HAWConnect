@@ -1,0 +1,80 @@
+{
+	"whatsnew": {
+		"title": "Was ist neu?",
+		"version": "in Version {{version}}",
+		"continue": "Weiter"
+	},
+	"onboarding": {
+		"links": {
+			"privacy": "Datenschutzerklärung",
+			"imprint": "Impressum",
+			"faq": "Mehr erfahren",
+			"agree1": "Durch Fortfahren stimmst du der ",
+			"agree2": " zu.",
+			"safety": "Datensicherheit"
+		},
+		"page1": {
+			"title": "Willkommen bei"
+		},
+		"cards": {
+			"title1": "Dein Studienalltag an einem Ort",
+			"description1": "Importiere deinen Stundenplan aus einer ICS-Datei und entdecke den Hamburger Mensaplan.",
+			"title2": "Von Studierenden für Studierende",
+			"description2": "HAWConnect ist ein unabhängiges Projekt von Studierenden der HAW Hamburg. Die App steht in keiner offiziellen Verbindung zur Hochschule.",
+			"title3": "Deine Daten, deine Wahl",
+			"description3": "Nutze HAWConnect als Gast auf diesem Gerät oder melde dich mit deiner HAW-E-Mail an, um Kalender und Einstellungen zu synchronisieren.",
+			"title4": "Auch unterwegs",
+			"description4": "Das Projekt unterstützt Web, Android und iOS. Gastdaten bleiben im jeweiligen Browser oder auf dem Gerät."
+		}
+	},
+	"login": {
+		"title1": "Anmelden",
+		"title1Sub": "Von Studierenden für Studierende",
+		"title2": "mit deinem HAW Hamburg-Account",
+		"getStarted": "Los geht's",
+		"toast": "Anmeldung erfolgreich",
+		"alert": {
+			"error": {
+				"title": "Anmeldung fehlgeschlagen",
+				"wrongCredentials": {
+					"title": "Falsche Anmeldedaten",
+					"message": "Deine Anmeldedaten sind falsch. Bitte versuche es erneut."
+				},
+				"missing": "Bitte fülle alle Felder aus.",
+				"generic": "Beim Verbinden mit dem Server ist ein Fehler aufgetreten.",
+				"backend": "Das HAW Hamburg-Backend ist derzeit nicht verfügbar. Bitte versuche es später erneut.",
+				"noConnection": {
+					"title": "Keine Netzwerkverbindung",
+					"message": "Bitte überprüfe deine Internetverbindung und versuche es erneut."
+				}
+			},
+			"restored": {
+				"title": "Anmeldedaten wiederhergestellt",
+				"message": "Frühere Anmeldedaten wurden im iOS-Schlüsselbund gefunden."
+			}
+		},
+		"universityOutage": {
+			"title": "HAW Hamburg-Login momentan nicht verfügbar",
+			"message": "Anmeldung ist momentan nicht möglich."
+		},
+		"username": "Benutzername",
+		"password": "Passwort",
+		"usernamePlaceholder": "abc1234",
+		"button": "Anmelden",
+		"guest": "als Gast fortfahren",
+		"or": "oder",
+		"subtitles": {
+			"grades": "um deine Noten zu sehen",
+			"freeRooms": "um freie Räume zu suchen",
+			"mapSuggestions": "um Karten-Vorschläge zu erhalten",
+			"timetable": "für deinen Stundenplan",
+			"exams": "um deinen Prüfungsplan zu sehen",
+			"searchLecturers": "um alle Dozenten zu suchen",
+			"viewLecturers": "um deine Dozenten zu sehen",
+			"universityNews": "um die HAW Hamburg-News anzuzeigen",
+			"printerBalance": "um dein Druckguthaben zu prüfen",
+			"food": "für den Mensaplan",
+			"sync": "um deine Kalender zu synchronisieren"
+		}
+	}
+}

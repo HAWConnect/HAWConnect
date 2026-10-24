@@ -1,0 +1,59 @@
+appId: ${APP_ID}
+---
+- openLink: "hawconnect://onboarding"
+- waitForAnimationToEnd:
+    timeout: 3000
+# If Metro never attached, iOS may still show the bare Development Build shell.
+- runFlow:
+    when:
+      platform: iOS
+      visible: ".*Development Build.*"
+    commands:
+      - runFlow:
+          file: "reconnect-development-client.yaml"
+      - openLink: "hawconnect://onboarding"
+      - waitForAnimationToEnd:
+          timeout: 3000
+- runFlow:
+    when:
+      visible:
+        id: "onboarding-continue"
+    commands:
+      - extendedWaitUntil:
+          visible:
+            id: "onboarding-continue"
+            enabled: true
+          timeout: 30000
+      - assertVisible: ".*(Alles an einem Ort|Everything in one place).*"
+      - assertVisible: ".*(Von Studierenden für Studierende|By students for students).*"
+      - assertVisible: ".*(Weit verbreitet und vertrauenswürdig|Widely used and trustworthy).*"
+      - tapOn:
+          id: "onboarding-continue"
+      - waitForAnimationToEnd:
+          timeout: 3000
+      - runFlow:
+          when:
+            visible: ".*(Anmeldedaten wiederhergestellt|Credentials restored).*"
+          commands:
+            - tapOn: "OK"
+- extendedWaitUntil:
+    visible:
+      id: "login-guest"
+    timeout: 120000
+- runFlow:
+    when:
+      visible: ".*(Anmeldedaten wiederhergestellt|Credentials restored).*"
+    commands:
+      - tapOn: "OK"
+- tapOn:
+    id: "login-guest"
+- runFlow:
+    when:
+      platform: iOS
+      visible: "(Allow Once|Allow While Using App|Einmal erlauben|Beim Verwenden der App erlauben)"
+    commands:
+      - tapOn: "(Allow Once|Allow While Using App|Einmal erlauben|Beim Verwenden der App erlauben)"
+- extendedWaitUntil:
+    visible:
+      id: "home-screen"
+    timeout: 60000

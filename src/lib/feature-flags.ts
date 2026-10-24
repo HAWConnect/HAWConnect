@@ -1,0 +1,36 @@
+import {
+	evaluateFliptBoolean,
+	type FeatureFlagContextAttributes
+} from '@/lib/flipt'
+
+/**
+ * Flipt flag keys for namespace `hawconnect-app`.
+ * Keep in sync with `production/hawconnect-app/features.yaml` in the flags repo.
+ */
+export const FeatureFlagKeys = {
+	newsCard: 'news-card'
+} as const satisfies Record<string, string>
+
+type FeatureFlagKeyValues =
+	(typeof FeatureFlagKeys)[keyof typeof FeatureFlagKeys]
+
+/** Registered flag keys, or `string` while the registry is empty. */
+export type FeatureFlagKey = [FeatureFlagKeyValues] extends [never]
+	? string
+	: FeatureFlagKeyValues
+
+export type FeatureFlagState = Record<FeatureFlagKey, boolean>
+
+export function createDefaultFeatureFlagState(): FeatureFlagState {
+	return Object.fromEntries(
+		Object.values(FeatureFlagKeys).map((key) => [key, false])
+	) as FeatureFlagState
+}
+
+export async function evaluateBooleanFlag(
+	flagKey: FeatureFlagKey,
+	defaultValue = false,
+	attributes: FeatureFlagContextAttributes = {}
+): Promise<boolean> {
+	return evaluateFliptBoolean(flagKey, defaultValue, attributes)
+}

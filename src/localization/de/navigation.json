@@ -1,0 +1,135 @@
+{
+	"navigation": {
+		"home": "Home",
+		"dashboardScreen": "Dashboard",
+		"loginScreen": "HAWConnect Login",
+		"changelog": "Changelog",
+		"appIcon": "App Icon",
+		"eventDetails": "Event Details",
+		"dashboard": "HAWConnect",
+		"timetable": "Kalender",
+		"map": "Karte",
+		"food": "Essen",
+		"campusMap": "Campus Karte",
+		"settings": "Einstellungen",
+		"preferences": "Einstellungen",
+		"timetableSettings": "Stundenplan-Einstellungen",
+		"flags": "Kennzeichnungen",
+		"flagsSearch": "Suche Kennzeichnungen",
+		"allergensSearch": "Suche Allergene",
+		"allergens": "Allergene",
+		"details": "Details",
+		"theme": "Design",
+		"profile": "Profil",
+		"about": "Über",
+		"version": "Version Details",
+		"advancedSearch": "Erweiterte Suche",
+		"calendar": "Semesterzeiten",
+		"examDetails": "Prüfungsdetails",
+		"quicklinks": "Quick Links",
+		"dots": "Vorlesungsstatus",
+		"organiser": "Veranstalter Details",
+		"lecturers": {
+			"title": "Dozenten",
+			"search": "Suche alle Dozenten"
+		},
+		"lecturer": "Dozenten-Details",
+		"grades": {
+			"title": "Noten",
+			"search": "Suche Fächer"
+		},
+		"news": "HAW Hamburg Neuigkeiten",
+		"library": "Bibliothek",
+		"libraryCode": "Bibliotheksnummer",
+		"licenses": {
+			"title": "Lizenzen",
+			"search": "Suche Lizenzen"
+		},
+		"license": "Lizenz",
+		"login": "Anmelden",
+		"legal": "Rechtliches",
+		"roomReport": "Problem mit einem Raum melden",
+		"clEvents": "Campus Life Events",
+		"hawEvents": "HAW Events",
+		"calendarImport": "Kalender importieren",
+		"clubs": "Clubs",
+		"collapseSidebar": "Seitenleiste einklappen",
+		"expandSidebar": "Seitenleiste ausklappen",
+		"privacy": "Datenschutzerklärung",
+		"imprint": "Impressum"
+	},
+	"cards": {
+		"titles": {
+			"timetable": "Als nächstes",
+			"calendar": "Semesterzeiten",
+			"rooms": "Räume",
+			"lecturers": "Dozenten",
+			"news": "HAW Hamburg Neuigkeiten",
+			"library": "Bibliothek",
+			"events": "Campus Life Events",
+			"hawEvents": "HAW Events",
+			"reimanns": "Reimanns",
+			"canisius": "Canisius Konvikt",
+			"mensa": "Mensa Ingolstadt",
+			"mensaNeuburg": "Theke Neuburg",
+			"food": "Essen",
+			"login": "Kalender importieren",
+			"links": "Quick Links",
+			"clubs": "Clubs"
+		},
+		"announcements": {
+			"readMore": "Tippe, um mehr zu erfahren."
+		},
+		"events": {
+			"by": "von {{name}}"
+		},
+		"news": {
+			"more": "Lese alle {{count}} Artikel"
+		},
+		"calendar": {
+			"exam": "Prüfung: {{name}}",
+			"ends": "endet ",
+			"type": {
+				"exam": "Prüfung",
+				"event": "HAW Hamburg Event"
+			}
+		},
+		"timetable": {
+			"startingSoon_one": "startet in {{count}} min",
+			"startingSoon_other": "startet in {{count}} mins",
+			"ongoing": "endet um {{time}}",
+			"endingSoon_one": "endet in {{count}} min",
+			"endingSoon_other": "endet in {{count}} mins",
+			"lecturesRemaining_one": "{{count}} Vorlesung verbleibend",
+			"lecturesRemaining_other": "{{count}} Vorlesungen verbleibend",
+			"ongoingLectures_one": "{{count}} laufende Vorlesung",
+			"ongoingLectures_other": "{{count}} laufende Vorlesungen",
+			"noMoreLectures": "Keine weiteren Vorlesungen",
+			"noEvents": "Keine anstehenden Vorlesungen",
+			"enjoyDay": "Genieße deinen Tag!",
+			"nextEvent": "Nächste"
+		},
+		"login": {
+			"title": "Dein Stundenplan aus myHAW",
+			"message": "Kalenderlink oder .ics-Datei importieren. Ohne Anmeldung."
+		}
+	},
+	"contextMenu": {
+		"reset": "Karten zurücksetzen",
+		"hide": "Karte ausblenden",
+		"settings": "Dashboard Einstellungen"
+	},
+	"unmatched": {
+		"title": "Nicht gefunden",
+		"error": {
+			"title": "Nicht gefunden",
+			"message": "Die angeforderte Seite ist nicht verfügbar.",
+			"button": "Zurück"
+		}
+	},
+	"profile": {
+		"error": {
+			"button": "myHAW"
+		}
+	}
+}

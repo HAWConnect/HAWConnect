@@ -1,0 +1,498 @@
+import AccountGate from '@/components/Account/account-gate'
+import CrashView from '@/components/Error/crash-view'
+import Provider from '@/components/provider'
+import { Splash } from '@/components/splash'
+import { usePreferencesStore } from '@/hooks/usePreferencesStore'
+import { usePresentationMode } from '@/hooks/usePresentationMode'
+import { useTransparentHeaderStyle } from '@/hooks/useTransparentHeader'
+import { useUniversalLinkHandler } from '@/hooks/useUniversalLinkHandler'
+import i18n from '@/localization/i18n'
+import { getPlatformHeaderButtons } from '@/utils/header-buttons'
+import '@/global.css'
+import { getLocales } from 'expo-localization'
+import { useQuickActionRouting } from 'expo-quick-actions/router'
+import { Stack } from 'expo-router'
+import Head from 'expo-router/head'
+import * as WebBrowser from 'expo-web-browser'
+import type React from 'react'
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { AppState, LogBox, Platform } from 'react-native'
+import { configureReanimatedLogger } from 'react-native-reanimated'
+import { useCSSVariable } from 'uniwind'
+import { toColor } from '@/utils/uniwind-utils'
+
+WebBrowser.maybeCompleteAuthSession()
+
+configureReanimatedLogger({
+	strict: false
+})
+
+export const unstable_settings = {
+	// Ensure any route can link back to `/`
+	initialRouteName: 'index'
+}
+// Ignore common React Native warnings
+LogBox.ignoreLogs([
+	/VirtualizedLists should never be nested inside plain ScrollViews/, // avoid nested list warnings
+	/Invalid prop `isParentDetached` supplied to .*React\.Fragment/ // ignore isParentDetached fragment prop warning
+])
+
+export const ErrorBoundary = CrashView
+
+function RootLayout(): React.JSX.Element {
+	const { t } = useTranslation(['navigation', 'common'])
+	const savedLanguage = usePreferencesStore((state) => state.language)
+	const presentationMode = usePresentationMode()
+	const smallSheetPresentationMode = usePresentationMode(true)
+	const transparentHeaderStyle = useTransparentHeaderStyle()
+
+	useQuickActionRouting()
+	useUniversalLinkHandler()
+
+	useEffect(() => {
+		const loadLanguage = async (): Promise<void> => {
+			if (
+				savedLanguage !== null &&
+				((Platform.OS === 'android' && Platform.Version < 33) ||
+					Platform.OS === 'web')
+			) {
+				await i18n.changeLanguage(savedLanguage)
+			}
+		}
+
+		void loadLanguage()
+	}, [])
+
+	useEffect(() => {
+		const changeLanguage = async (): Promise<void> => {
+			const locale = getLocales()[0]
+			const language = locale.languageCode
+			if (language === 'de' || language === 'en')
+				await i18n.changeLanguage(language)
+		}
+
+		const handleAppStateChange = (nextAppState: string): void => {
+			if (nextAppState === 'active') {
+				void changeLanguage()
+			}
+		}
+
+		const subscription = AppState.addEventListener(
+			'change',
+			handleAppStateChange
+		)
+
+		return () => {
+			subscription.remove()
+		}
+	}, [])
+	const backgroundColor = String(
+		toColor(useCSSVariable('--color-background')) ?? '#f2f2f2'
+	)
+	const cardColor = String(toColor(useCSSVariable('--color-card')) ?? '#ffffff')
+	const textColor = String(toColor(useCSSVariable('--color-text')) ?? '#1c1c30')
+	const primaryColor = String(
+		toColor(useCSSVariable('--color-primary')) ?? '#007aff'
+	)
+
+	const [isReady, setIsReady] = useState(false)
+	useEffect(() => {
+		setIsReady(true)
+	}, [])
+
+	return (
+		<Splash isReady={isReady}>
+			<Head>
+				<title>HAWConnect</title>
+				<meta
+					name="description"
+					content={t('meta.appDescription', { ns: 'common' })}
+				/>
+				<meta
+					property="og:description"
+					content={t('meta.appDescription', { ns: 'common' })}
+				/>
+				<meta property="expo:handoff" content="true" />
+				<meta property="expo:spotlight" content="true" />
+			</Head>
+			<Stack
+				initialRouteName="(tabs)"
+				screenOptions={{
+					contentStyle: { backgroundColor },
+					headerStyle: { backgroundColor: cardColor },
+					headerTintColor: primaryColor,
+					headerTitleStyle: { color: textColor }
+				}}
+			>
+				<Stack.Screen
+					name="(screens)/auth-confirm"
+					options={{ headerShown: false }}
+				/>
+				<Stack.Screen
+					name="(screens)/calendar-import"
+					options={{ title: t('navigation.calendarImport') }}
+				/>
+				<Stack.Screen
+					name="(tabs)"
+					options={{
+						title: t('navigation.home'),
+						headerShown: false,
+						animation: 'none',
+						gestureEnabled: false
+					}}
+				/>
+				<Stack.Screen
+					name="index"
+					options={{
+						title: t('navigation.home'),
+						headerShown: false,
+						animation: 'none',
+						gestureEnabled: false
+					}}
+				/>
+
+				<Stack.Screen
+					name="(screens)/login"
+					options={{
+						title: t('navigation.loginScreen'),
+						animation: 'none',
+						gestureEnabled: false,
+						headerShown: false,
+						headerBackVisible: false,
+						headerBackButtonMenuEnabled: false
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/food-preferences"
+					options={{
+						title: t('navigation.preferences'),
+						...transparentHeaderStyle
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/food-flags"
+					options={{
+						title: t('navigation.flags'),
+						...transparentHeaderStyle,
+						...Platform.select({ ios: { presentation: 'modal' } })
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/food-allergens"
+					options={{
+						title: t('navigation.allergens'),
+						...transparentHeaderStyle,
+						...Platform.select({ ios: { presentation: 'modal' } })
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/food/[id]"
+					options={{
+						title: t('navigation.details'),
+						...Platform.select({
+							ios: {
+								...presentationMode
+							}
+						}),
+						...getPlatformHeaderButtons({
+							onShare: () => {
+								/* do nothing yet */
+							}
+						})
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/lecture"
+					options={{
+						title: t('navigation.details'),
+						...Platform.select({
+							ios: {
+								...presentationMode
+							}
+						}),
+						...getPlatformHeaderButtons({
+							onShare: () => {
+								/* do nothing yet */
+							}
+						})
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/webview"
+					options={{
+						title: t('navigation.details'),
+						...Platform.select({
+							ios: {
+								presentation: 'modal'
+							}
+						})
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/theme"
+					options={{
+						title: t('navigation.theme'),
+						...transparentHeaderStyle
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/timetable-settings"
+					options={{
+						title: t('navigation.timetableSettings'),
+						...transparentHeaderStyle
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/app-icon"
+					options={{
+						title: t('navigation.appIcon'),
+						...transparentHeaderStyle
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/profile"
+					options={{
+						title: t('navigation.profile'),
+						...transparentHeaderStyle
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/about"
+					options={{
+						title: t('navigation.about'),
+						...transparentHeaderStyle
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/privacy"
+					options={{
+						title: t('navigation.privacy'),
+						...transparentHeaderStyle
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/imprint"
+					options={{
+						title: t('navigation.imprint'),
+						...transparentHeaderStyle
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/legal"
+					options={{
+						title: t('navigation.legal'),
+						...transparentHeaderStyle
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/licenses"
+					options={{
+						title: t('navigation.licenses.title'),
+						...transparentHeaderStyle
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/license"
+					options={{
+						title: t('navigation.license'),
+						...Platform.select({
+							ios: {
+								presentation: 'modal'
+							}
+						})
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/dashboard"
+					options={{
+						title: t('navigation.dashboardScreen'),
+						...transparentHeaderStyle
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/room-search"
+					options={{
+						title: t('navigation.advancedSearch'),
+						...transparentHeaderStyle
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/campus-life-events"
+					options={{
+						title: t('navigation.clEvents'),
+						...transparentHeaderStyle
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/haw-events"
+					options={{
+						title: t('navigation.hawEvents'),
+						...transparentHeaderStyle
+					}}
+				/>
+
+				<Stack.Screen
+					name="(screens)/clubs"
+					options={{
+						title: t('navigation.clubs'),
+						...transparentHeaderStyle
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/calendar"
+					options={{
+						title: t('navigation.calendar'),
+						...transparentHeaderStyle
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/exam"
+					options={{
+						title: t('navigation.examDetails'),
+						...Platform.select({
+							ios: {
+								...presentationMode,
+								...getPlatformHeaderButtons({
+									noShare: true
+								})
+							}
+						})
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/links"
+					options={{
+						title: t('navigation.quicklinks'),
+						...Platform.select({
+							ios: {
+								...smallSheetPresentationMode,
+								...getPlatformHeaderButtons({
+									noShare: true
+								})
+							}
+						})
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/dots"
+					options={{
+						title: t('navigation.dots'),
+						...Platform.select({
+							ios: {
+								...smallSheetPresentationMode,
+								...getPlatformHeaderButtons({
+									noShare: true
+								})
+							}
+						})
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/lecturers"
+					options={{
+						title: t('navigation.lecturers.title'),
+						...transparentHeaderStyle
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/lecturer"
+					options={{
+						title: t('navigation.lecturer'),
+						...Platform.select({
+							ios: {
+								...presentationMode
+							}
+						}),
+						...getPlatformHeaderButtons({})
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/news"
+					options={{
+						title: t('navigation.news'),
+						...transparentHeaderStyle
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/onboarding"
+					options={{
+						headerShown: false,
+
+						animation: 'none',
+						gestureEnabled: false,
+						...Platform.select({
+							ios: {
+								presentation: 'fullScreenModal'
+							}
+						})
+					}}
+				/>
+
+				<Stack.Screen
+					name="(screens)/room-report"
+					options={{
+						title: t('navigation.roomReport'),
+						...Platform.select({
+							ios: {
+								presentation: 'modal'
+							}
+						})
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/events/cl/[id]"
+					options={{
+						title: t('navigation.eventDetails'),
+						...Platform.select({
+							ios: {
+								...presentationMode
+							}
+						}),
+						...getPlatformHeaderButtons({
+							onShare: () => {
+								/* do nothing yet */
+							}
+						})
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/university-departments"
+					options={{
+						title: t('common:pages.universityEvents.departments.title')
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/events/club/[id]"
+					options={{
+						headerShown: false
+					}}
+				/>
+				<Stack.Screen
+					name="(screens)/events/organizer/[id]"
+					options={{
+						title: t('navigation.organiser'),
+						...Platform.select({
+							ios: {
+								...presentationMode
+							}
+						}),
+						...getPlatformHeaderButtons({ noShare: true })
+					}}
+				/>
+			</Stack>
+		</Splash>
+	)
+}
+
+const ProviderComponent = (): React.JSX.Element => {
+	return (
+		<Provider>
+			<AccountGate>
+				<RootLayout />
+			</AccountGate>
+		</Provider>
+	)
+}
+
+export default ProviderComponent

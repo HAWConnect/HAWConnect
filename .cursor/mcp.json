@@ -1,0 +1,16 @@
+{
+	"mcpServers": {
+		"expo": {
+			"url": "https://mcp.expo.dev/mcp"
+		},
+		"uniwind": {
+			"url": "https://docs.uniwind.dev/mcp"
+		},
+		"argent": {
+			"command": "argent",
+			"args": [
+				"mcp"
+			]
+		}
+	}
+}

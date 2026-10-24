@@ -1,0 +1,14 @@
+# Local changelog generation. No upstream repository or publishing account is configured.
+[changelog]
+header = "# Changelog\n\n"
+body = """
+{% if version %}## {{ version }}{% else %}## Unreleased{% endif %}
+{% for commit in commits %}
+- {{ commit.message | upper_first }} ({{ commit.id | truncate(length=7, end="") }})
+{% endfor %}
+"""
+trim = true
+[git]
+conventional_commits = true
+filter_unconventional = false
+sort_commits = "oldest"

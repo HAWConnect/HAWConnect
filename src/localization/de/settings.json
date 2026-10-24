@@ -1,0 +1,308 @@
+{
+	"menu": {
+		"guest": {
+			"title": "Anmelden",
+			"subtitle": "Melde dich an, um alle Funktionen der App freizuschalten.",
+			"banner": {
+				"title": "Loslegen",
+				"message": "Deine Kalender und Einstellungen werden auf diesem Gerät gespeichert."
+			}
+		},
+		"employee": {
+			"subtitle1": "Mitarbeitenden Account",
+			"subtitle2": "Tippe zum Abmelden"
+		},
+		"error": {
+			"subtitle2": "Ziehe zum Aktualisieren oder tippe zum Abmelden",
+			"noData": {
+				"title": "Keine Daten vorhanden",
+				"subtitle1": "Es scheint als seist du nicht länger immatrikuliert.",
+				"subtitle2": "Bitte überprüfe deinen myHAW-Account."
+			}
+		},
+		"formlist": {
+			"preferences": {
+				"title": "Einstellungen",
+				"dashboard": "Dashboard",
+				"food": "Essen",
+				"language": "Sprache",
+				"timetable": "Stundenplan"
+			},
+			"appearance": {
+				"title": "Darstellung",
+				"theme": "Design",
+				"appIcon": "App Icon"
+			},
+			"language": {
+				"title": "Sprache wechseln",
+				"message": "Bestätige, um die Sprache der App auf Englisch zu ändern.",
+				"confirm": "Bestätigen"
+			},
+			"legal": {
+				"title": "App",
+				"about": "Über",
+				"share": "Teile die App",
+				"shareMessage": "HAWConnect",
+				"shareMessageAndroid": "HAWConnect",
+				"download": "App herunterladen"
+			}
+		},
+		"copyright": "© 2026 by HAWConnect.",
+		"infrastructureBy": "Infrastruktur von",
+		"loadPersonalDataError": "Persönliche Daten konnten nicht geladen werden"
+	},
+	"about": {
+		"header": {
+			"developed": "Gepflegt von"
+		},
+		"formlist": {
+			"app": {
+				"title": "App",
+				"version": "Version",
+				"changelog": "Changelog"
+			},
+			"legal": {
+				"title": "Rechtliches",
+				"button": "Rechtliche Infos"
+			},
+			"contact": {
+				"title": "Kontakt",
+				"feedback": "Feedback",
+				"rateAndroid": "Bewerte uns im Play Store",
+				"rateiOS": "Bewerte uns im App Store"
+			},
+			"systemStatus": "Systemstatus",
+			"appWebsite": "Projekt-Webseite",
+			"community": "HAWConnect"
+		},
+		"easterEgg": {
+			"title": "Easter Egg",
+			"message": "Du hast das exklusive App-Icon \"Paradies Katze\" freigeschaltet! 😻",
+			"messageAndroid": "Du hast ein Easter Egg gefunden! 🐣",
+			"confirm": "Nice!"
+		},
+		"analytics": {
+			"title": "Analytics",
+			"toggle": "Anonyme Nutzungsdaten Sammeln",
+			"message": "Hilf uns, die App zu verbessern, indem du anonyme Nutzungsdaten sendest. Ein Rückschluss auf deine Identität ist zu keinem Zeitpunkt möglich.",
+			"link": "Über Analytics"
+		},
+		"projectTitle": "Von Studierenden für Studierende",
+		"description": "HAWConnect ist eine studentisch gepflegte Open-Source-Campus-App für die HAW Hamburg. Hier findest du deinen importierten Stundenplan, Hamburger Mensapläne, Campus-Karten, Semesterzeiten, Veranstaltungen, studentische Projekte und hilfreiche Hochschullinks.",
+		"independence": "Ein unabhängiges studentisches Projekt. HAWConnect ist kein offiziell unterstütztes Angebot der HAW Hamburg.",
+		"openSource": "Open Source",
+		"licenses": "Open-Source-Lizenzen",
+		"platform": {
+			"web": "Web-App",
+			"native": "Mobile App"
+		},
+		"maintainers": "Studierende der HAW Hamburg"
+	},
+	"legal": {
+		"formlist": {
+			"legal": {
+				"title": "Rechtliches",
+				"privacy": "Datenschutzerklärung",
+				"imprint": "Impressum"
+			},
+			"us": {
+				"title": "Sonstiges",
+				"source": "Quellcode",
+				"faq": "FAQ"
+			}
+		},
+		"notConfigured": "Noch nicht verfügbar",
+		"loadFailed": "Dieses Dokument konnte nicht geladen werden. Prüfe deine Verbindung und versuche es erneut.",
+		"notPublished": "Dieses Dokument wurde noch nicht veröffentlicht.",
+		"openDocument": "Veröffentlichtes Dokument öffnen"
+	},
+	"changelog": {
+		"footer": "Um alle Änderungen zu sehen, besuche die Veröffentlichungen auf "
+	},
+	"licenses": {
+		"footer": "Diese Bibliotheken wurden zur Erstellung dieser App verwendet. Einige sind plattformspezifisch und sind daher in deinem Build nicht enthalten.",
+		"fields": {
+			"name": "Name",
+			"version": "Version",
+			"repository": "Repository"
+		}
+	},
+	"profile": {
+		"error": {
+			"title": "Keine Daten vorhanden",
+			"message": "Es scheint als seist du nicht länger immatrikuliert. Bitte überprüfe deinen myHAW-Account.",
+			"button": "myHAW"
+		},
+		"formlist": {
+			"grades": {
+				"title": "Noten",
+				"button": "Noten und Fächer"
+			},
+			"user": {
+				"title": "Benutzer",
+				"matrical": "Matrikelnummer",
+				"library": "Bibliotheksnummer",
+				"printer": "Druckguthaben",
+				"status": "Rückmeldung",
+				"statusInactive": "Fehlend"
+			},
+			"study": {
+				"title": "Studium",
+				"degree": "Abschluss",
+				"spo": "Prüfungsordnung",
+				"group": "Studiengruppe"
+			},
+			"contact": {
+				"title": "Kontakt",
+				"phone": "Telefon",
+				"street": "Straße",
+				"city": "Stadt"
+			}
+		},
+		"logout": {
+			"button": "Abmelden",
+			"alert": {
+				"title": "Bestätigen",
+				"message": "Das wird dich aus der App abmelden und alle deine Daten löschen.",
+				"cancel": "Abbrechen",
+				"confirm": "Abmelden"
+			}
+		}
+	},
+	"theme": {
+		"themes": {
+			"title": "Design",
+			"default": "Automatisch",
+			"dark": "Dunkel",
+			"light": "Hell",
+			"footer": "Ändere das Farbschema der App. Dies ermöglicht es dir, die Systemeinstellungen zu überschreiben."
+		},
+		"splash": {
+			"title": "Startbildschirm",
+			"showSplash": "Animierten Startbildschirm anzeigen"
+		},
+		"accent": {
+			"title": "Akzentfarbe",
+			"blue": "Blau",
+			"green": "Grün",
+			"purple": "Lila"
+		}
+	},
+	"dashboard": {
+		"shown": "Alle Karten",
+		"hidden": "Ausgeblendete Karten",
+		"noShown": "Dashboard ist leer",
+		"noShownButton": "Konfigurieren",
+		"noShownDescription": "Füge Karten zu deinem Dashboard hinzu, um loszulegen.",
+		"reset": "Reihenfolge zurücksetzen",
+		"footer": "Passe dein Dashboard an, indem du die Karten per Drag & Drop in die gewünschte Reihenfolge ziehst.",
+		"unavailable": {
+			"title": "Nicht verfügbare Karten",
+			"message": "Um alle Funktionen der App nutzen zu können, musst du dich anmelden. Tippe um mit deinem HAW Hamburg-Account fortzufahren."
+		},
+		"rueWarning": {
+			"title": "Rückmeldung ausstehend",
+			"message": "Melde dich in myHAW zurück, um im nächsten Semester eingeschrieben zu bleiben.",
+			"link": "myHAW öffnen"
+		},
+		"serviceStatus": {
+			"title": "Eingeschränkte Verfügbarkeit",
+			"messageOne": "{{service}} ist aktuell nicht verfügbar.",
+			"messageMany": "{{services}} sind aktuell nicht verfügbar.",
+			"link": "Systemstatus anzeigen",
+			"dismiss": "Statusbanner schließen",
+			"services": {
+				"campusLife": "Campus Life",
+				"map": "Campus-Karte",
+				"university": "HAW Hamburg-API",
+				"backend": "HAWConnect-API"
+			}
+		}
+	},
+	"grades": {
+		"grade": "Note",
+		"none": "(keine)",
+		"finished": "Noten",
+		"open": "Offen",
+		"average": "Durchschnitt",
+		"exactAverage": "Basierend auf {{number}} gewichteten Noten.",
+		"missingAverage": "Der genaue Durchschnitt kann nicht berechnet werden und liegt zwischen {{min}} und {{max}}.",
+		"averageError": "Noten-Durchschnitt ist derzeit nicht verfügbar.",
+		"temporarilyUnavailable": "Noten sind vorübergehend nicht verfügbar.",
+		"footer": "Diese Übersicht dient nur zur allgemeinen Information und ist rechtlich nicht bindend. Für verbindliche Informationen nutze das offizielle Notenblatt auf myHAW."
+	},
+	"infoBoxes": {
+		"printerBalance": "Druckguthaben",
+		"gradesAndSubjects": "Noten & Fächer",
+		"lecturers": "Dozenten",
+		"library": "Deine Karte",
+		"view": "Bibliothek",
+		"open": "Anzeigen"
+	},
+	"appIcon": {
+		"error": {
+			"title": "Nicht verfügbar",
+			"message": "Alternative App-Icons sind auf diesem Gerät nicht verfügbar."
+		},
+		"names": {
+			"default": "HAWConnect",
+			"retro": "HAWConnect",
+			"modernGreen": "Modern Grün",
+			"modernPink": "Modern Pink",
+			"rainbowMoonLight": "Regenbogen Hell",
+			"rainbowNeon": "Regenbogen Neon",
+			"cat": "Paradies Katze",
+			"luxury": "Goldener Luxus",
+			"rainbowGlow": "Regenbogen Leuchten",
+			"hacker": "Hacker"
+		},
+		"categories": {
+			"default": "Standard",
+			"neon": "Neon",
+			"rainbow": "Regenbogen",
+			"exclusive": "Versteckt",
+			"community": "Community"
+		},
+		"exclusive": "Finde Easter-Eggs, um exklusive App-Icons freizuschalten.",
+		"exclusivePreviewSubtitle": "Weitere Symbole freischalten.",
+		"status": {
+			"locked": "Gesperrt",
+			"unlocked": "Freigeschaltet"
+		}
+	},
+	"version": {
+		"formlist": {
+			"app": {
+				"title": "App-Informationen",
+				"version": "Version",
+				"buildNumber": "Build-Nummer",
+				"commitHash": "Commit-Hash",
+				"firstInstall": "Erste Installation",
+				"uiManager": "UI-Manager"
+			},
+			"system": {
+				"title": "System-Informationen",
+				"osVersion": "Betriebssystem-Version",
+				"deviceModel": "Gerätemodell",
+				"deviceType": "Gerätetyp",
+				"emulator": "Emulator",
+				"browser": "Browser"
+			}
+		},
+		"copyButton": "Alles kopieren",
+		"copyLabels": {
+			"appHeader": "App-Informationen:",
+			"systemHeader": "System-Informationen:",
+			"version": "Version",
+			"buildNumber": "Build-Nummer",
+			"commitHash": "Commit-Hash",
+			"firstInstall": "Erste Installation",
+			"uiManager": "UI-Manager",
+			"browser": "Browser",
+			"osVersion": "Betriebssystem-Version",
+			"deviceModel": "Gerätemodell",
+			"deviceType": "Gerätetyp",
+			"emulator": "Emulator"
+		}
+	}
+}

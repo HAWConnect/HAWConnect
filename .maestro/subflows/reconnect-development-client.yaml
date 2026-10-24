@@ -1,0 +1,20 @@
+appId: ${APP_ID}
+---
+# With expo-dev-client { skipOnboarding, showMenuAtLaunch: false }, the launcher
+# bottom sheet no longer appears. The deep link already carries the Metro URL.
+- openLink: ${DEV_CLIENT_URL}
+- waitForAnimationToEnd:
+    timeout: 10000
+# Optional: if the packager list still flashes on Android, pick the server.
+- runFlow:
+    when:
+      platform: Android
+      visible: "http://${DEV_SERVER_ADDRESS}"
+    commands:
+      - tapOn: "http://${DEV_SERVER_ADDRESS}"
+- runFlow:
+    when:
+      platform: Android
+      visible: "Reload"
+    commands:
+      - tapOn: "Reload"

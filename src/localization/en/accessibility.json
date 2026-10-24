@@ -1,0 +1,27 @@
+{
+	"button": {
+		"share": "Share",
+		"close": "Close",
+		"foodPreferences": "Food Preferences",
+		"timetableMode": "Switch Timetable View",
+		"timetableBack": "Jump to today",
+		"settingsLogo": "HAWConnect Logo",
+		"settingsDashboard": "Dashboard Settings",
+		"libraryBarcode": "Library Number as Barcode",
+		"libraryBarcodeBrightness": "Toggle brightness for barcode scanning",
+		"previous": "Previous",
+		"next": "Next"
+	},
+	"map": {
+		"centerOnCurrentLocation": "Center on current location",
+		"floorPicker": "Floor picker",
+		"floorPickerHint": "Swipe up or down to change floor. Double tap to show all floors. Long press to return to ground floor."
+	},
+	"dashboard": {
+		"moveUp": "Move up",
+		"moveDown": "Move down"
+	},
+	"formList": {
+		"copyHint": "Double tap to copy"
+	}
+}

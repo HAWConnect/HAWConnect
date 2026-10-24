@@ -1,0 +1,483 @@
+{
+	"toast": {
+		"clipboard": "in Zwischenablage kopiert",
+		"roomNotFound": "Raum nicht gefunden",
+		"mapOverlay": "Fehler beim Laden des Overlays",
+		"dashboard": "Drag & Drop zum Sortieren",
+		"tryAgain": "Versuche es erneut"
+	},
+	"showMore": "Mehr anzeigen",
+	"showLess": "Weniger anzeigen",
+	"error": {
+		"title": "Ein Fehler ist aufgetreten",
+		"description": "Beim Laden der Daten ist ein Fehler aufgetreten.",
+		"refreshPull": "Beim Laden der Daten ist ein Fehler aufgetreten.\nZum Aktualisieren nach unten ziehen.",
+		"button": "Wiederholen",
+		"noSession": "Nicht angemeldet.",
+		"pull": "Zum Aktualisieren nach unten ziehen",
+		"noData": {
+			"title": "Keine Daten verfügbar.",
+			"message": "Schau später nochmal vorbei."
+		},
+		"noEvents": "Keine Veranstaltungen verfügbar",
+		"eventNotFound": "Veranstaltung nicht gefunden",
+		"eventNotFoundDescription": "Die gesuchte Veranstaltung existiert nicht oder wurde entfernt.",
+		"backToEventList": "Zurück zu {{type}}",
+		"network": {
+			"title": "Keine Internetverbindung",
+			"description": "Bitte überprüfe deine Internetverbindung.",
+			"outageTitle": "Dienst nicht verfügbar",
+			"outageDescriptionOne": "{{service}} ist aktuell nicht verfügbar.",
+			"outageDescriptionMany": "{{services}} sind aktuell nicht verfügbar."
+		},
+		"guest": {
+			"title": "Anmeldung erforderlich",
+			"description": "Um diese Funktion zu nutzen, musst du dich mit deinem HAW Hamburg-Account anmelden.",
+			"button": "Anmelden"
+		},
+		"permission": {
+			"title": "Funktion nicht verfügbar",
+			"description": "Diese Funktion ist für deine Benutzergruppe nicht verfügbar."
+		},
+		"notLoggedIn": {
+			"title": "Nicht angemeldet",
+			"description": "Bitte melde dich an, um diese Funktion zu nutzen."
+		},
+		"map": {
+			"mapLoadError": "Fehler beim Laden der Karte",
+			"mapOverlay": "Fehler beim Laden des Overlays"
+		},
+		"noMeals": "Keine Gerichte verfügbar",
+		"crash": {
+			"title": "Interner Fehler",
+			"description": "Es ist ein unerwarteter interner Fehler aufgetreten.",
+			"steps": "Prüfe die Systemstatusseite und sende uns Feedback, um uns bei der Fehlerbehebung zu unterstützen.",
+			"reload": "App neu laden",
+			"feedback": "Feedback senden",
+			"status": "Systemstatus prüfen"
+		}
+	},
+	"dates": {
+		"allDay": "Ganztägig",
+		"until": "bis",
+		"notYet": "Termin noch nicht bekannt",
+		"ends": "endet",
+		"today": "Heute",
+		"tomorrow": "Morgen",
+		"thisWeek": "Diese Woche",
+		"nextWeek": "Nächste Woche",
+		"now": "Jetzt",
+		"weekdays": {
+			"monday": "Montag",
+			"tuesday": "Dienstag",
+			"wednesday": "Mittwoch",
+			"thursday": "Donnerstag",
+			"friday": "Freitag",
+			"saturday": "Samstag",
+			"sunday": "Sonntag"
+		}
+	},
+	"misc": {
+		"share": "Teilen",
+		"cancel": "Abbrechen",
+		"confirm": "Bestätigen",
+		"delete": "Löschen",
+		"disable": "Deaktivieren",
+		"more": "mehr",
+		"unknown": "Unbekannt",
+		"unknownError": "Unbekannter Fehler",
+		"ok": "OK",
+		"notAvailable": "k. A.",
+		"true": "Ja",
+		"false": "Nein"
+	},
+	"labels": {
+		"name": "Name",
+		"version": "Version",
+		"email": "E-Mail",
+		"universityEmail": "HAW Hamburg E-Mail",
+		"repository": "Repository",
+		"campus": "Campus",
+		"app": "App",
+		"restaurant": "Restaurant",
+		"details": "Details",
+		"wallet": "Wallet",
+		"error": "Fehler"
+	},
+	"meta": {
+		"appDescription": "Deine App für die TH Ingolstadt - HAW Hamburg",
+		"dashboardTitle": "Dashboard",
+		"dashboardDescription": "Anpassbares Dashboard",
+		"timetableDescription": "Deinen Stundenplan anzeigen",
+		"mapDescription": "Interaktive Campus-Karte",
+		"foodDescription": "Speiseplan der Mensen",
+		"settingsDescription": "Profil und Einstellungen"
+	},
+	"semesterSuffix": ". Semester",
+	"reportProblem": "Problem melden",
+	"hawEvent": "HAW Hamburg Event",
+	"buildingLabel": "Gebäude",
+	"feedbackMail": {
+		"subjectCrash": "App-Absturz",
+		"subjectError": "App-Fehler",
+		"body": "Schritte zur Reproduktion:\nSonstiges:\n\nApp-Version: {{version}}\nPlattform: {{platform}}\nSeite: {{path}}\nFehler: {{error}}"
+	},
+	"uiManager": {
+		"fabric": "Fabric",
+		"paper": "Paper"
+	},
+	"quicklinks": {
+		"primuss": "myHAW",
+		"moodle": "Moodle",
+		"webmail": "E-Mail",
+		"studVer": "AStA",
+		"viamint": "viaMINT",
+		"marketplace": "Shop",
+		"university": "HAW Website",
+		"print": "Drucken",
+		"librarySeat": "Bibliotheksplatz",
+		"libraryCatalogue": "Bibliothekskatalog",
+		"onlineServices": "Online-Services",
+		"examCollection": "Klausurensammlung (IuE)"
+	},
+	"pages": {
+		"news": {
+			"noNews": {
+				"title": "Keine Neuigkeiten gefunden",
+				"subtitle": "Schau später wieder vorbei."
+			}
+		},
+		"quicklinks": {
+			"title": "Quick Links",
+			"footer": "Die Dashboard-Karte zeigt die zuletzt besuchten Links an.",
+			"links": {
+				"primuss": "myHAW",
+				"moodle": "Moodle",
+				"webmail": "E-Mail",
+				"studVer": "AStA",
+				"viamint": "viaMINT",
+				"marketplace": "Shop",
+				"university": "HAW Website",
+				"print": "Drucken",
+				"librarySeat": "Bibliotheksplatz",
+				"libraryCatalogue": "Bibliothekskatalog",
+				"onlineServices": "Online-Services",
+				"examCollection": "Klausurensammlung (IuE)"
+			},
+			"more": "Mehr"
+		},
+		"calendar": {
+			"exams": {
+				"title": "Prüfungen",
+				"subtitle": "Deine Prüfungen",
+				"error": "Kein Studierender",
+				"errorSubtitle": "Melde dich an, um deine Prüfungen zu sehen.",
+				"noExams": {
+					"title": "Keine Prüfungen gefunden",
+					"subtitle": "Nach der Anmeldung zu Prüfungen werden sie hier angezeigt."
+				}
+			},
+			"events": {
+				"title": "Termine"
+			},
+			"calendar": {
+				"link": "https://www.haw-hamburg.de/semesterzeiten/",
+				"noData": {
+					"title": "Keine Daten gefunden",
+					"subtitle": "Bitte versuche es später erneut."
+				}
+			},
+			"footer": {
+				"part1": "Alle Informationen ohne Gewähr. Verbindliche Informationen sind direkt auf der ",
+				"part2": "Universitätswebsite",
+				"part3": " verfügbar."
+			},
+			"academic": {
+				"scope": "Vorlesungs- und Prüfungstermine können je nach Department abweichen. Bitte den offiziellen Kalender prüfen.",
+				"unavailable": "Akademischer Kalender derzeit nicht verfügbar.",
+				"empty": "Keine kommenden Termine veröffentlicht.",
+				"stale": "Gespeicherte Termine. Bitte den offiziellen Kalender prüfen.",
+				"loading": "Termine werden geladen …"
+			}
+		},
+		"lecturers": {
+			"results": "Suchergebnisse",
+			"personal": "Persönliche",
+			"faculty": "Fakultät",
+			"professors": "Professoren",
+			"error": {
+				"title": "Keine Dozenten gefunden",
+				"subtitle": "Konfiguriere deinen Stundenplan, um die persönlichen Dozenten anzuzeigen."
+			}
+		},
+		"lecturer": {
+			"details": {
+				"title": "Titel",
+				"organization": "Organisation",
+				"function": "Funktion"
+			},
+			"contact": {
+				"room": "Raum",
+				"title": "Kontakt",
+				"phone": "Telefon",
+				"office": "Sprechstunde",
+				"exam": "Einsichtnahme"
+			}
+		},
+		"exam": {
+			"details": {
+				"date": "Datum",
+				"room": "Raum",
+				"seat": "Platz",
+				"tools": "Hilfsmittel"
+			},
+			"about": {
+				"title": "Über",
+				"type": "Art",
+				"examiner": "Prüfer:in",
+				"registration": "Angemeldet",
+				"notes": "Notizen"
+			},
+			"footer": "Alle Angaben ohne Gewähr. Verbindliche Informationen sind nur direkt von der HAW Hamburg erhältlich."
+		},
+		"event": {
+			"date": "Datum",
+			"time": "Uhrzeit",
+			"weekday": "Wochentag",
+			"location": "Ort",
+			"organizer": "Veranstalter",
+			"description": "Beschreibung",
+			"begin": "Beginn",
+			"end": "Ende",
+			"registration": "Anmeldung",
+			"required": "Erforderlich",
+			"contact": "Kontakt",
+			"optional": "Optional",
+			"invitationLink": "Einladungslink",
+			"eMail": "E-Mail",
+			"shareMessage": "Schau dir dieses Event an:\n{{title}} von {{organizer}} am {{date}}\n{{link}}",
+			"details": "Details",
+			"links": "Links",
+			"registerNow": "Jetzt anmelden",
+			"eventLink": "Veranstaltungslink",
+			"organizerDetails": {
+				"clubWebsite": "Veranstalter-Website",
+				"instagram": "Instagram",
+				"linkedin": "LinkedIn",
+				"location": "Ort",
+				"registrationNumber": "Registrierungsnummer",
+				"nonProfit": {
+					"label": "Gemeinnützigkeit",
+					"yes": "Als gemeinnützig registriert",
+					"no": "Nicht als gemeinnützig registriert"
+				},
+				"info": "Standort",
+				"stats": "Rechtliches",
+				"noDescription": "Noch keine Beschreibung vorhanden.",
+				"tapHint": "Tippe auf den Veranstalter, um mehr über den Verein zu erfahren."
+			}
+		},
+		"map": {
+			"search": {
+				"hint": "Campus oder Adresse suchen…",
+				"placeholder": "Campus oder Adresse suchen",
+				"recent": "Kürzlich gesucht",
+				"clear": "Verlauf löschen",
+				"noResults": "Keine Suchergebnisse",
+				"results": "Suchergebnisse",
+				"fuzzy": "Vorschläge"
+			},
+			"easterEgg": {
+				"title": "Easter Egg",
+				"message": "Du hast das exklusive retro App-Icon \"HAWConnect\" freigeschaltet!",
+				"confirm": "Nice!"
+			},
+			"noAvailableRooms": "Keine freien Räume verfügbar",
+			"allRoomsAvailable": {
+				"title": "Alle Räume frei",
+				"subtitle": "Aktuell sind alle Räume verfügbar."
+			},
+			"details": {
+				"room": {
+					"details": "Raumdetails",
+					"title": "Raum",
+					"capacity": "Kapazität",
+					"availability": "Verfügbarkeit",
+					"timeLeft": "Verbleibende Zeit",
+					"building": "Gebäude",
+					"timeSpan": "Zeitspanne",
+					"floor": "Etage",
+					"type": "Typ",
+					"available": "Verfügbar",
+					"notAvailable": "Nicht verfügbar",
+					"nextTimeSpan": "Nächster Zeitraum",
+					"availableRooms": "Verfügbare Räume",
+					"nextLecture": "Nächste Vorlesung",
+					"availableRoomsTitle": "Verfügbare Räume",
+					"history": "Zuletzt gesucht",
+					"signIn": "Melde dich an, um verfügbare Räume anzuzeigen",
+					"equipment": "Ausstattung",
+					"lecturers": "Dozenten",
+					"report": "Fehler melden",
+					"reportMail": "mailto:feedback@HAWConnect?subject=Raum%20Fehler%20melden&body=Raum%3A%0D%0AProblem%3A%0D%0AVorschlag%3A"
+				},
+				"building": {
+					"free": "Freie Räume",
+					"total": "Räume insgesamt",
+					"floors": "Etagen"
+				},
+				"osm": "Kartendaten von OpenStreetMap"
+			},
+			"haw": {
+				"campuses": "Standorte der HAW Hamburg",
+				"directions": "Route planen",
+				"pdf": "Offizieller Lageplan",
+				"source": "Standortinformationen der HAW",
+				"locate": "Meinen Standort anzeigen",
+				"locationDenied": "Standortzugriff ist nicht verfügbar. Du kannst weiterhin einen Campus auswählen.",
+				"mapLoading": "Die Karte wird geladen. Campusinformationen sind unten bereits verfügbar.",
+				"mapUnavailable": "Die Hintergrundkarte ist nicht verfügbar. Campusdetails und offizielle Lagepläne sind unten weiterhin verfügbar.",
+				"retry": "Karte neu laden",
+				"buildingListing": "Im Gebäude",
+				"campusListing": "Am Standort"
+			}
+		},
+		"rooms": {
+			"options": {
+				"title": "Suchoptionen",
+				"building": "Gebäude",
+				"date": "Datum",
+				"time": "Zeit",
+				"duration": "Dauer",
+				"seats": "Plätze"
+			},
+			"modified": {
+				"title": "Filter angepasst",
+				"description": "Die HAW Hamburg ist derzeit geschlossen. Daher wurden die Filter auf die nächste Öffnungszeit angepasst."
+			},
+			"results": "Verfügbare Räume",
+			"noRooms": {
+				"title": "Keine Räume gefunden",
+				"subtitle": "Versuche die Filteroptionen zu ändern."
+			},
+			"report": {
+				"title": "Fehler melden",
+				"reportSentSuccess": "Bericht gesendet",
+				"reportSentError": "Fehler beim Senden",
+				"room": {
+					"title": "Raum",
+					"placeholder": "A123"
+				},
+				"description": {
+					"title": "Beschreibung",
+					"placeholder": "Problembeschreibung..."
+				},
+				"category": {
+					"title": "Kategorie",
+					"placeholder": "Problemkategorie wählen...",
+					"type": {
+						"WRONG_DESCRIPTION": "Falsche Beschreibung",
+						"WRONG_LOCATION": "Falscher Ort",
+						"NOT_EXISTING": "Existiert nicht",
+						"MISSING": "Fehlt",
+						"OTHER": "Anderer"
+					}
+				},
+				"footerText": "Wir sammeln keine persönlichen Daten. Nur der Raum, die Kategorie und die Beschreibung, die du angibst, werden gespeichert."
+			}
+		},
+		"library": {
+			"code": {
+				"number": "Nummer",
+				"footer": "Verwende diesen Barcode, um dich an den Bibliotheksterminals anzumelden und Bücher auszuleihen."
+			},
+			"timeSlot": "Zeitfenster",
+			"seatReservation": {
+				"title": "Sitzplatzreservierung",
+				"description": "Reserviere einen Sitzplatz oder einen Raum in der Bibliothek mit dem V:Scout-System."
+			},
+			"catalog": {
+				"title": "Bibliothekskatalog",
+				"description": "Suche nach Büchern, Zeitschriften und anderen Medien im Bibliothekskatalog."
+			},
+			"virtualCard": {
+				"title": "Virtuelle Bibliothekskarte",
+				"description": "Verwende die virtuelle Bibliothekskarte, um Bücher und andere Medien auszuleihen."
+			}
+		},
+		"universityEvents": {
+			"departments": {
+				"title": "Abteilungen entdecken",
+				"viewAll": "Alle Abteilungen",
+				"filterAll": "Alle",
+				"departments": "Abteilungen",
+				"missingDescription": "Keine Beschreibung verfügbar.",
+				"footerInfo": "Die Abteilungen sind nach Aktivität und Vollständigkeit des Profils sortiert.",
+				"noOrganizers": {
+					"title": "Keine Abteilungen gefunden"
+				}
+			},
+			"events": {
+				"subtitle": "HAW Hamburg-Veranstaltungen",
+				"noEvents": {
+					"title": "Keine anstehenden Veranstaltungen",
+					"subtitle": "Bitte versuche es später erneut.",
+					"filteredSubtitle": "Keine Veranstaltungen von {{organizerName}} gefunden. Bitte versuche es später erneut."
+				}
+			}
+		},
+		"clEvents": {
+			"clubs": {
+				"title": "Vereine entdecken",
+				"viewAll": "Alle Vereine",
+				"filterAll": "Alle",
+				"clubs": "Vereine",
+				"missingDescription": "Keine Beschreibung verfügbar.",
+				"footerInfo": "Die Vereine sind nach Aktivität und Vollständigkeit des Profils sortiert.",
+				"noOrganizers": {
+					"title": "Keine Vereine gefunden"
+				}
+			},
+			"events": {
+				"title": "Veranstaltungen",
+				"subtitle": "Veranstaltungen der Vereine",
+				"noEvents": {
+					"title": "Keine anstehenden Veranstaltungen",
+					"subtitle": "Bitte versuche es später erneut.",
+					"filteredSubtitle": "Keine Veranstaltungen von {{clubName}} gefunden. Bitte versuche es später erneut."
+				}
+			},
+			"organizer": {
+				"subtitle": "Anstehende Veranstaltungen"
+			}
+		},
+		"events": {
+			"title": "Events"
+		},
+		"hawEvents": {
+			"club": "Club-Veranstaltung",
+			"source": "Veranstaltungen auf der HAW-Website",
+			"unavailable": "HAW-Veranstaltungen derzeit nicht verfügbar.",
+			"empty": "Keine kommenden Veranstaltungen veröffentlicht.",
+			"cached": "Gespeicherte Veranstaltungen. Aktuelle Angaben auf der HAW-Website prüfen.",
+			"open": "Veranstaltungsdetails öffnen",
+			"more": "Weitere Veranstaltungen auf der HAW-Website",
+			"loading": "Veranstaltungen werden geladen …"
+		},
+		"clubs": {
+			"title": "Clubs",
+			"subtitle": "Studentische Projekte und Initiativen an der HAW Hamburg",
+			"unavailable": "Clubs konnten nicht geladen werden.",
+			"empty": "Keine Clubs gefunden.",
+			"open": "Weitere Informationen",
+			"source": "Studentische Projekte auf der HAW-Website",
+			"cached": "Gespeicherte Informationen"
+		},
+		"campusLifeEvents": {
+			"unavailable": "Campus-Life-Veranstaltungen konnten nicht geladen werden.",
+			"empty": "Keine anstehenden Campus-Life-Veranstaltungen.",
+			"cached": "Gespeicherte Veranstaltungen. Aktualisierung fehlgeschlagen."
+		}
+	},
+	"submit": "Absenden"
+}

@@ -1,0 +1,33 @@
+{
+	"cli": {
+		"version": ">= 15.0.15",
+		"appVersionSource": "remote"
+	},
+	"build": {
+		"development": {
+			"developmentClient": true,
+			"distribution": "internal",
+			"bun": "1.4.1"
+		},
+		"preview": {
+			"distribution": "internal",
+			"bun": "1.4.1"
+		},
+		"production": {
+			"autoIncrement": true,
+			"distribution": "store",
+			"bun": "1.4.1"
+		},
+		"testflight": {
+			"extends": "production",
+			"environment": "preview",
+			"distribution": "store",
+			"developmentClient": false
+		}
+	},
+	"submit": {
+		"testflight": {
+			"ios": {}
+		}
+	}
+}

@@ -1,0 +1,74 @@
+ci:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '.github/workflows/**'
+          - 'config/Dockerfile'
+          - 'config/nginx.conf'
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'README.md'
+          - 'AGENTS.md'
+          - 'CHANGELOG.md'
+          - 'LICENSE'
+          - 'docs/**'
+          - '.github/CONTRIBUTING.md'
+          - '.github/CODE_OF_CONDUCT.md'
+          - '.github/SECURITY.md'
+          - '.github/PULL_REQUEST_TEMPLATE.md'
+
+android:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'config/plugins/withDrawableAssets.js'
+          - 'src/assets/android/**'
+          - '**/*.android.tsx'
+
+ios:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'ios/**'
+          - 'config/ios-artifacts/**'
+          - 'config/plugins/withIosCiArtifacts.js'
+          - 'config/plugins/withCiScriptsSymlink.js'
+          - '**/*.ios.tsx'
+
+web:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/*.web.tsx'
+          - '**/*.html'
+
+i18n:
+  - changed-files:
+      - any-glob-to-any-file: 'src/localization/**'
+
+tests:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'src/utils/tests/**'
+          - '**/*.test.ts'
+
+api:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'src/api/**'
+          - 'src/__generated__/**'
+          - 'config/codegen.yml'
+
+config:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'app.config.ts'
+          - 'eas.json'
+          - 'babel.config.js'
+          - 'tsconfig.json'
+          - 'config/plugins/**'
+
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'package.json'
+          - 'bun.lock'
+          - 'patches/**'

@@ -1,0 +1,161 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  merge_group:
+    types: [checks_requested]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  changes:
+    name: Detect changed paths
+    runs-on: ubuntu-latest
+    outputs:
+      code: ${{ steps.detect.outputs.code }}
+      src: ${{ steps.detect.outputs.src }}
+      dependencies: ${{ steps.detect.outputs.dependencies }}
+      workflows: ${{ steps.detect.outputs.workflows }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Detect changes
+        uses: ./.github/actions/detect-changes
+        id: detect
+
+  static-checks:
+    name: Biome and TypeScript checks
+    needs: changes
+    if: |
+      github.event_name == 'pull_request' ||
+      needs.changes.outputs.code == 'true' ||
+      needs.changes.outputs.workflows == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: ./.github/actions/setup
+
+      - name: Check for merge conflict markers
+        run: bash config/check-merge-conflicts.sh
+
+      - name: Run TypeScript checks
+        run: bun tsc --noEmit
+
+      - name: Run Biome check
+        run: bun biome ci .
+
+      - name: Check i18n
+        run: bun i18n:check
+
+      - name: Warn if changelog missing for app version
+        run: bun changelog:check
+
+  expo-doctor:
+    name: Expo Doctor
+    needs: changes
+    if: |
+      github.event_name != 'pull_request' ||
+      needs.changes.outputs.dependencies == 'true' ||
+      needs.changes.outputs.workflows == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: ./.github/actions/setup
+
+      - name: Run Expo Doctor
+        run: |
+          set -o pipefail
+
+          doctor_log="$(mktemp)"
+          set +e
+          bun doctor 2>&1 | tee "$doctor_log"
+          doctor_status="${PIPESTATUS[0]}"
+          set -e
+
+          if [ "$doctor_status" -eq 0 ]; then
+            exit 0
+          fi
+
+          # SDK 56's Hermes V1 memory regression is fixed in SDK 57. Keep this
+          # temporary allowlist narrow so every other Expo Doctor failure still
+          # blocks CI. Remove it after the SDK 57 upgrade.
+          failed_checks="$(grep -c '^✖ ' "$doctor_log" || true)"
+          hermes_check="$(grep -Fc '✖ Check for Expo SDK versions affected by Hermes V1 regressions' "$doctor_log" || true)"
+          hermes_regression="$(grep -Fc 'known memory regression' "$doctor_log" || true)"
+
+          if [ "$failed_checks" -eq 1 ] && [ "$hermes_check" -eq 1 ] && [ "$hermes_regression" -eq 1 ]; then
+            echo '::warning::Ignoring the known SDK 56 Hermes V1 memory regression; remove this allowlist after upgrading to SDK 57.'
+            exit 0
+          fi
+
+          exit "$doctor_status"
+
+  sonarqube-analysis:
+    name: Tests and Quality Analysis
+    needs: changes
+    if: |
+      github.event_name == 'pull_request' ||
+      needs.changes.outputs.src == 'true' ||
+      needs.changes.outputs.dependencies == 'true' ||
+      needs.changes.outputs.workflows == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - uses: ./.github/actions/setup
+
+      - name: Run unit tests with coverage
+        run: bun run test:coverage
+
+      - name: SonarCloud Scan
+        if: ${{ !cancelled() }}
+        uses: SonarSource/sonarqube-scan-action@d209202bc7d53ff1cc128f7f907dac145c9d6ae9 # v8.3.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  mutation-tests:
+    name: Mutation tests
+    needs: changes
+    if: |
+      github.event_name != 'pull_request' ||
+      needs.changes.outputs.src == 'true' ||
+      needs.changes.outputs.dependencies == 'true' ||
+      needs.changes.outputs.workflows == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - uses: ./.github/actions/setup
+
+      - name: Run mutation tests
+        run: bun run test:mutation:ci
+
+      - name: Check mutation score thresholds
+        run: bun run test:mutation:check
+
+      - name: Upload mutation report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: mutation-report
+          path: reports/mutation/
+          retention-days: 14

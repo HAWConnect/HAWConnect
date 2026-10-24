@@ -1,0 +1,154 @@
+{
+	"1": {
+		"de": "Farbstoff",
+		"en": "colourings"
+	},
+	"2": {
+		"de": "Konservierungsstoff",
+		"en": "preservatives"
+	},
+	"3": {
+		"de": "Antioxidationsmittel",
+		"en": "antioxidants"
+	},
+	"4": {
+		"de": "Geschmacksverstärker",
+		"en": "flavour enhancers"
+	},
+	"5": {
+		"de": "Geschwefelt",
+		"en": "contains sulfur/sulfurated"
+	},
+	"6": {
+		"de": "Geschwärzt",
+		"en": "contains carbon/carbon treated"
+	},
+	"7": {
+		"de": "Gewachst",
+		"en": "wax-coated"
+	},
+	"8": {
+		"de": "Phosphat",
+		"en": "phosphate"
+	},
+	"9": {
+		"de": "Süßungsmittel",
+		"en": "(artificial) sweetener"
+	},
+	"10": {
+		"de": "Phenylalaninquelle",
+		"en": "source of phenylalanine"
+	},
+	"_source": {
+		"de": "https://www.stwhh.de/speiseplan",
+		"en": "https://www.stwhh.de/en/menu"
+	},
+	"Ei": {
+		"de": "Ei und Eierzeugnisse",
+		"en": "eggs/egg products"
+	},
+	"En": {
+		"de": "Erdnüsse und Erdnusserzeugnisse",
+		"en": "peanuts/peanut products"
+	},
+	"Fi": {
+		"de": "Fisch und Fischerzeugnisse",
+		"en": "fish/fish products"
+	},
+	"Kr": {
+		"de": "Krebstiere und Krebstiererzeugnisse",
+		"en": "shellfish/shellfish products"
+	},
+	"Mi": {
+		"de": "Milch und Milcherzeugnisse (einschließlich Laktose)",
+		"en": "Milk and milk products (including lactose)"
+	},
+	"Lu": {
+		"de": "Lupine und - erzeugnisse",
+		"en": "lupine and lupine products"
+	},
+	"Nu": {
+		"de": "Schalenfrüchte (z.B. Mandel, Haselnüsse, Walnuss etc.)/-erzeugnisse",
+		"en": "nuts/nuts products"
+	},
+	"Se": {
+		"de": "Sesamsamen und Sesamsamenerzeugnisse",
+		"en": "sesame seeds/sesame products"
+	},
+	"Sf": {
+		"de": "Senf und Senferzeugnisse",
+		"en": "mustard/mustard products"
+	},
+	"Sl": {
+		"de": "Sellerie und Sellerieerzeugnisse",
+		"en": "celery/celery products"
+	},
+	"So": {
+		"de": "Soja und Sojaerzeugnisse",
+		"en": "soy/soy products"
+	},
+	"Sw": {
+		"de": "Schwefeldioxid und Sulfite (Konzentration über 10mg/kg oder 10mg/l)",
+		"en": "sulfur dioxide and sulfites (concentration above 10 mg/kg or 10 mg/l)"
+	},
+	"Wt": {
+		"de": "Weichtiere (z.B. Muscheln und Weinbergschnecken) und Weichtiererzeugnisse",
+		"en": "molluscs (e.g. mussels and snails) and mollusc products"
+	},
+	"GlW": {
+		"de": "glutenhaltiges Getreide und daraus hergestellte Erzeugnisse (Weizen)",
+		"en": "Cereals containing gluten and products thereof (wheat)"
+	},
+	"GlR": {
+		"de": "glutenhaltiges Getreide und daraus hergestellte Erzeugnisse (Roggen)",
+		"en": "Cereals containing gluten and products thereof (rye)"
+	},
+	"GlG": {
+		"de": "glutenhaltiges Getreide und daraus hergestellte Erzeugnisse (Gerste)",
+		"en": "Cereals containing gluten and products thereof (barley)"
+	},
+	"GlH": {
+		"de": "glutenhaltiges Getreide und daraus hergestellte Erzeugnisse (Hafer)",
+		"en": "Cereals containing gluten and products thereof (oats)"
+	},
+	"GlD": {
+		"de": "glutenhaltiges Getreide und daraus hergestellte Erzeugnisse (Dinkel)",
+		"en": "Cereals containing gluten and products thereof (spelt)"
+	},
+	"GlK": {
+		"de": "glutenhaltiges Getreide und daraus hergestellte Erzeugnisse (Kamut)",
+		"en": "Cereals containing gluten and products thereof (khorasan wheat)"
+	},
+	"NMa": {
+		"de": "Schalenfrüchte (Mandel)/-erzeugnisse",
+		"en": "Nuts (almond) products"
+	},
+	"NHa": {
+		"de": "Schalenfrüchte (Haselnüsse)/-erzeugnisse",
+		"en": "Nuts (hazelnuts) products"
+	},
+	"NWa": {
+		"de": "Schalenfrüchte (Walnüsse)/-erzeugnisse",
+		"en": "Nuts (walnuts) products"
+	},
+	"NCa": {
+		"de": "Schalenfrüchte (Cashewnüsse)/-erzeugnisse",
+		"en": "Nuts (cashew nuts) products"
+	},
+	"NPe": {
+		"de": "Schalenfrüchte (Pecannüsse)/-erzeugnisse",
+		"en": "Nuts (pecan nuts) products"
+	},
+	"NPa": {
+		"de": "Schalenfrüchte (Paranüsse)/-erzeugnisse",
+		"en": "Nuts (Brazil nuts) products"
+	},
+	"NPi": {
+		"de": "Schalenfrüchte (Pistazien)/-erzeugnisse",
+		"en": "Nuts (pistachios) products"
+	},
+	"NMc": {
+		"de": "Schalenfrüchte (Macadamia-/Queenslandnüsse)/-erzeugnisse",
+		"en": "Nuts (macadamia/queenland nuts) products"
+	}
+}

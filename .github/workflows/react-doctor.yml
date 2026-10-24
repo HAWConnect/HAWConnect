@@ -1,0 +1,51 @@
+name: React Doctor
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  push:
+    branches: ["main"]
+  merge_group:
+    types: [checks_requested]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  statuses: write
+concurrency:
+  group: react-doctor-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  changes:
+    name: Detect source changes
+    runs-on: ubuntu-latest
+    outputs:
+      src: ${{ steps.detect.outputs.src }}
+      workflows: ${{ steps.detect.outputs.workflows }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Detect changes
+        uses: ./.github/actions/detect-changes
+        id: detect
+
+  react-doctor:
+    name: React Doctor
+    needs: changes
+    if: |
+      github.event_name != 'pull_request' ||
+      needs.changes.outputs.src == 'true' ||
+      needs.changes.outputs.workflows == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - uses: millionco/react-doctor@695e46eee203a5d1855020191aa7e9c010a1250e # v2.4.0
+        with:
+          directory: src
+          comment: false

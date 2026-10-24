@@ -1,0 +1,41 @@
+# bun
+**/node_modules
+
+# expo
+.expo/
+eas.json
+
+# production
+/build
+
+# builds
+/android
+/ios
+/dist
+
+# local env files
+.env.local
+
+
+# typescript
+*.tsbuildinfo
+
+# os
+.DS_Store
+THUMBS_DB
+thumbs.db
+
+# turbo build log
+**/.turbo/*
+
+# vscode
+.vscode/
+
+# dist
+/dist/
+
+# builds
+build*
+
+# wachtman
+.watchmanconfig

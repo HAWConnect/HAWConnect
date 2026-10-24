@@ -1,0 +1,132 @@
+import { useQuery } from '@tanstack/react-query'
+import { router } from 'expo-router'
+import Head from 'expo-router/head'
+import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Dimensions, View } from 'react-native'
+import { getFragmentData } from '@/__generated__/gql'
+import { AnnouncementFieldsFragmentDoc } from '@/__generated__/gql/graphql'
+import HAWConnectAPI from '@/api/hawconnect-api'
+import type { Card } from '@/components/all-cards'
+import AnnouncementCard from '@/components/Cards/announcement-card'
+import { DashboardContext } from '@/components/contexts'
+import RueWarningBannerContainer from '@/components/Dashboard/rue-warning-banner-container'
+import ServiceStatusBannerContainer from '@/components/Dashboard/service-status-banner-container'
+import ErrorView from '@/components/Error/error-view'
+import { FlashList } from '@/components/Universal/styled'
+
+const DASHBOARD_MASONRY_BREAKPOINT = 800
+
+const getDashboardColumnCount = (width: number): number =>
+	Math.floor(width < DASHBOARD_MASONRY_BREAKPOINT ? 1 : 2)
+
+export default function HomeRootScreen(): React.JSX.Element {
+	const { t } = useTranslation(['navigation', 'common'])
+
+	return (
+		<>
+			<Head>
+				<title>{t('meta.dashboardTitle', { ns: 'common' })}</title>
+				<meta
+					name="Dashboard"
+					content={t('meta.dashboardDescription', { ns: 'common' })}
+				/>
+				<meta property="expo:handoff" content="true" />
+				<meta property="expo:spotlight" content="true" />
+			</Head>
+			<HomeScreen />
+		</>
+	)
+}
+
+function HomeScreen(): React.JSX.Element {
+	const { shownDashboardEntries } = React.use(DashboardContext)
+	const [orientation, setOrientation] = useState(Dimensions.get('window').width)
+	const [columns, setColumns] = useState(
+		getDashboardColumnCount(Dimensions.get('window').width)
+	)
+	const { t } = useTranslation(['navigation', 'settings'])
+	const { data } = useQuery({
+		queryKey: ['announcements'],
+		queryFn: async () => await HAWConnectAPI.getAnnouncements(),
+		staleTime: 1000 * 60 * 10,
+		gcTime: 1000 * 60 * 60 * 24 * 7
+	})
+
+	useEffect(() => {
+		const handleOrientationChange = (): void => {
+			const width = Dimensions.get('window').width
+			setOrientation(width)
+			setColumns(getDashboardColumnCount(width))
+		}
+
+		const subscription = Dimensions.addEventListener(
+			'change',
+			handleOrientationChange
+		)
+
+		return () => {
+			subscription.remove()
+		}
+	}, [])
+	const announcements = getFragmentData(
+		AnnouncementFieldsFragmentDoc,
+		data?.appAnnouncements
+	)
+
+	const announcementHeader =
+		announcements != null ? <AnnouncementCard data={announcements} /> : null
+
+	const listHeader = (
+		<View className={columns > 1 ? '-mx-1.5' : undefined}>
+			<ServiceStatusBannerContainer />
+			<RueWarningBannerContainer />
+			{announcementHeader}
+		</View>
+	)
+
+	const renderItem = ({ item }: { item: Card }) => (
+		<View className={columns > 1 ? 'my-1.5 mx-1.5' : 'mx-page my-1.5'}>
+			{item.card()}
+		</View>
+	)
+
+	const keyExtractor = (item: Card) => item.key
+
+	return shownDashboardEntries === null ||
+		shownDashboardEntries.length === 0 ? (
+		<View className="flex-1 pt-[110px]">
+			<ErrorView
+				title={t('dashboard.noShown', { ns: 'settings' })}
+				message={t('dashboard.noShownDescription', { ns: 'settings' })}
+				icon={{
+					ios: 'rainbow',
+					multiColor: true,
+					android: 'dashboard_customize',
+					web: 'Cog'
+				}}
+				buttonText={t('dashboard.noShownButton', { ns: 'settings' })}
+				onButtonPress={() => {
+					router.navigate('/dashboard')
+				}}
+				isCritical={false}
+			/>
+		</View>
+	) : (
+		<FlashList
+			testID="home-screen"
+			key={orientation}
+			contentInsetAdjustmentBehavior="automatic"
+			contentContainerClassName={
+				columns > 1 ? 'px-1.5 pt-1.5 bg-background' : 'pt-1.5 bg-background'
+			}
+			showsVerticalScrollIndicator={false}
+			data={shownDashboardEntries}
+			renderItem={renderItem}
+			keyExtractor={keyExtractor}
+			ListHeaderComponent={listHeader}
+			masonry={columns > 1}
+			numColumns={columns}
+		/>
+	)
+}

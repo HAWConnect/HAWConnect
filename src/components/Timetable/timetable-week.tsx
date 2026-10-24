@@ -1,0 +1,401 @@
+import {
+	CalendarBody,
+	CalendarContainer,
+	CalendarHeader,
+	type CalendarKitHandle,
+	type LocaleConfigsProps,
+	type OnEventResponse,
+	type PackedEvent
+} from '@howljs/calendar-kit'
+import { useFocusEffect, useNavigation, useRouter } from 'expo-router'
+import React, {
+	startTransition,
+	useCallback,
+	useDeferredValue,
+	useEffect,
+	useLayoutEffect,
+	useRef
+} from 'react'
+import { useTranslation } from 'react-i18next'
+import { StyleSheet, View } from 'react-native'
+import { useCSSVariable } from 'uniwind'
+import LoadingIndicator from '@/components/Universal/loading-indicator'
+import { useAcademicCalendar } from '@/hooks/useAcademicCalendar'
+import useRouteParamsStore from '@/hooks/useRouteParamsStore'
+import { TimetableMode, useTimetableStore } from '@/hooks/useTimetableStore'
+import dayjs from '@/lib/dayjs'
+import type { ITimetableViewProps } from '@/types/timetable'
+import type {
+	Exam,
+	FriendlyExamEvent,
+	FriendlyTimetableEntry
+} from '@/types/utils'
+import { toColor } from '@/utils/uniwind-utils'
+import { HeaderRight } from './header-buttons'
+import EventComponent from './week-event-component'
+import WeekHeaderEvent from './week-header-event'
+import WeekLeftArea from './week-left-area'
+
+const renderEvent = (event: PackedEvent) => <EventComponent event={event} />
+
+const renderHeaderEvent = (event: PackedEvent) => (
+	<WeekHeaderEvent event={event} />
+)
+
+const timetableNumberDaysMap = {
+	[TimetableMode.List]: 1,
+	[TimetableMode.Timeline1]: 1,
+	[TimetableMode.Timeline3]: 3,
+	[TimetableMode.Timeline5]: 5,
+	[TimetableMode.Timeline7]: 7
+}
+
+interface CalendarEvent {
+	title: string
+	name: string
+	eventType: string
+	id: string
+	allDay: boolean
+	color?: string
+	start: {
+		dateTime: Date
+	}
+	end: {
+		dateTime: Date
+	}
+}
+
+export default function TimetableWeek({
+	timetable,
+	exams
+}: ITimetableViewProps): React.JSX.Element {
+	const { events: calendar } = useAcademicCalendar()
+	const notificationColor = String(
+		toColor(useCSSVariable('--color-notification')) ?? '#ff3b30'
+	)
+	const contrastColor = String(
+		toColor(useCSSVariable('--color-contrast')) ?? '#ffffff'
+	)
+	const backgroundColor = String(
+		toColor(useCSSVariable('--color-background')) ?? '#f2f2f2'
+	)
+	const textColor = String(toColor(useCSSVariable('--color-text')) ?? '#1c1c30')
+	const borderColor = String(
+		toColor(useCSSVariable('--color-border')) ?? '#d8d8d8'
+	)
+	const labelBackgroundColor = String(
+		toColor(useCSSVariable('--color-label-background')) ?? '#e5dede'
+	)
+	const calendarItemColor = String(
+		toColor(useCSSVariable('--color-calendar-item')) ?? '#5d5d5d'
+	)
+	const { i18n, t } = useTranslation()
+	const today = dayjs().startOf('day').toDate()
+	const calendarRef = useRef<CalendarKitHandle>(null)
+	const setSelectedLecture = useRouteParamsStore(
+		(state) => state.setSelectedLecture
+	)
+	const setSelectedExam = useRouteParamsStore((state) => state.setSelectedExam)
+	const [events, setEvents] = React.useState<PackedEvent[]>([])
+	const [calendarLoaded, setCalendarLoaded] = React.useState(false)
+	const [currentDate, setCurrentDate] = React.useState(today)
+	const router = useRouter()
+	const navigation = useNavigation()
+	const timetableMode = useTimetableStore((state) => state.timetableMode)
+	const showCalendarEvents = useTimetableStore(
+		(state) => state.showCalendarEvents
+	)
+	const showExams = useTimetableStore((state) => state.showExams)
+	const hasPendingUpdate = useTimetableStore(
+		(state) => state.hasPendingTimetableUpdate
+	)
+	const setHasPendingUpdate = useTimetableStore(
+		(state) => state.setHasPendingTimetableUpdate
+	)
+
+	// Defer the updates of timetableMode when there's a pending update
+	const deferredTimetableMode = useDeferredValue(timetableMode)
+
+	// Apply pending updates when returning to the screen
+	useFocusEffect(
+		useCallback(() => {
+			if (hasPendingUpdate) {
+				startTransition(() => {
+					setHasPendingUpdate(false)
+				})
+			}
+		}, [hasPendingUpdate])
+	)
+
+	// Use the deferred value only for timetable mode when there's no pending update
+	const effectiveTimetableMode = hasPendingUpdate
+		? timetableMode
+		: deferredTimetableMode
+
+	const calendarTheme = {
+		colors: {
+			primary: notificationColor,
+			onPrimary: contrastColor,
+			background: backgroundColor,
+			onBackground: textColor,
+			border: borderColor,
+			text: textColor,
+			surface: labelBackgroundColor
+		}
+	}
+
+	const initialLocales: Record<string, Partial<LocaleConfigsProps>> = {
+		en: {
+			weekDayShort: t('timetable:calendar.weekDayShort', {
+				returnObjects: true,
+				lng: 'en'
+			}) as string[],
+			meridiem: { ante: 'am', post: 'pm' },
+			more: t('timetable:calendar.more', { lng: 'en' })
+		},
+		de: {
+			weekDayShort: t('timetable:calendar.weekDayShort', {
+				returnObjects: true,
+				lng: 'de'
+			}) as string[],
+			meridiem: { ante: '', post: '' },
+			more: t('timetable:calendar.more', { lng: 'de' })
+		}
+	}
+
+	function showEventDetails(entry: OnEventResponse): void {
+		if (entry.eventType === 'lecture') {
+			setSelectedLecture(entry as unknown as FriendlyTimetableEntry)
+			router.navigate('/lecture')
+		} else if (entry.eventType === 'exam') {
+			setSelectedExam(entry as unknown as Exam)
+			router.navigate('/exam')
+		} else if (entry.eventType === 'calendar') {
+			router.navigate({
+				pathname: '/calendar',
+				params: { event: entry.id }
+			})
+		}
+	}
+
+	const combinedEvents = React.useMemo(() => {
+		if (timetable.length === 0) return []
+		// Process timetable lectures
+		const friendlyTimetable = timetable.map(
+			(entry: FriendlyTimetableEntry, index: number) => ({
+				...entry,
+				eventType: 'lecture',
+				id: `lecture_${index}`,
+				start: { dateTime: entry.startDate },
+				end: { dateTime: entry.endDate }
+			})
+		)
+
+		let friendlyExams: FriendlyExamEvent[] = []
+		if (showExams && exams.length > 0) {
+			friendlyExams = exams.map((entry, index) => {
+				const duration = Number(entry?.type?.match(/\d+/)?.[0] ?? 90)
+				return {
+					...entry,
+					eventType: 'exam',
+					id: `exam_${index}`,
+					start: { dateTime: entry.date },
+					end: {
+						dateTime: dayjs(entry.date).add(duration, 'minute').toDate()
+					}
+				}
+			})
+		}
+
+		// Process calendar events if enabled
+		let calendarEvents: CalendarEvent[] = []
+		if (showCalendarEvents && calendar?.length > 0) {
+			calendarEvents = calendar
+				.filter((event) => event.begin) // Filter out events without a date
+				.map((event) => {
+					let startDate: Date
+					let endDate: Date
+					const isAllDay = !event.hasHours
+					if (isAllDay) {
+						startDate = dayjs(event.begin).toDate()
+						endDate = event.end
+							? dayjs(event.end).toDate()
+							: dayjs(startDate).toDate()
+					} else {
+						startDate = dayjs(event.begin).toDate()
+						endDate = event.end
+							? dayjs(event.end).toDate()
+							: dayjs(startDate).add(2, 'hour').toDate()
+					}
+					const eventName =
+						typeof event.name === 'object'
+							? event.name[i18n.language as 'de' | 'en'] ||
+								event.name.de ||
+								event.name.en
+							: event.name
+					return {
+						title: eventName,
+						name: eventName,
+						eventType: 'calendar',
+						id: event.id,
+						allDay: isAllDay,
+						color: calendarItemColor,
+						start: { dateTime: startDate },
+						end: { dateTime: endDate }
+					}
+				})
+		}
+
+		return [
+			...friendlyTimetable,
+			...friendlyExams,
+			...calendarEvents
+		] as unknown as PackedEvent[]
+	}, [
+		timetable,
+		exams,
+		showCalendarEvents,
+		showExams,
+		i18n.language,
+		calendarItemColor,
+		calendar
+	])
+
+	useEffect(() => {
+		startTransition(() => {
+			setEvents(combinedEvents)
+			const firstFutureEvent = combinedEvents
+				.sort((a, b) => dayjs(a.start.dateTime).diff(dayjs(b.start.dateTime)))
+				.find(
+					(event) =>
+						dayjs(event.start.dateTime).startOf('day').toDate() >= today
+				)
+			if (firstFutureEvent?.start?.dateTime) {
+				setCurrentDate(new Date(firstFutureEvent.start.dateTime))
+			}
+		})
+	}, [combinedEvents])
+
+	useLayoutEffect(() => {
+		navigation.setOptions({
+			headerRight: () => (
+				<HeaderRight
+					setToday={() => {
+						const calDate = calendarRef.current?.getVisibleStart()
+						if (calDate != null) {
+							const calendarDay = dayjs(calDate).startOf('day')
+							const todayDay = dayjs().startOf('day')
+							const targetDate = calendarDay.isSame(todayDay, 'day')
+								? (currentDate ?? new Date())
+								: new Date()
+							calendarRef.current?.goToDate({ date: targetDate })
+						}
+					}}
+					onPressPreferences={() => router.navigate('/timetable-settings')}
+					onPressPrevious={onPressPrevious}
+					onPressNext={onPressNext}
+				/>
+			)
+		})
+	}, [navigation])
+
+	const onPressPrevious = (): void => {
+		calendarRef.current?.goToPrevPage()
+	}
+
+	const onPressNext = (): void => {
+		calendarRef.current?.goToNextPage()
+	}
+
+	const [timetableNumberDays, setTimetableNumberDays] = React.useState(
+		timetableNumberDaysMap[effectiveTimetableMode] ?? 3
+	)
+	useEffect(() => {
+		if (calendarLoaded) {
+			React.startTransition(() => {
+				setTimetableNumberDays(timetableNumberDaysMap[effectiveTimetableMode])
+			})
+		}
+	}, [effectiveTimetableMode, calendarLoaded])
+
+	if (hasPendingUpdate) {
+		return (
+			<View style={styles.pendingContainer}>
+				<LoadingIndicator />
+			</View>
+		)
+	}
+
+	return (
+		<View style={styles.page}>
+			{!calendarLoaded && (
+				<View style={styles.loadingContainer}>
+					<LoadingIndicator />
+				</View>
+			)}
+			<CalendarContainer
+				onLoad={() => {
+					setCalendarLoaded(true)
+				}}
+				useAllDayEvent
+				allowPinchToZoom={true}
+				start={420}
+				end={1320}
+				ref={calendarRef}
+				numberOfDays={timetableNumberDays}
+				scrollByDay={
+					effectiveTimetableMode !== TimetableMode.Timeline5 &&
+					effectiveTimetableMode !== TimetableMode.Timeline7
+				}
+				hideWeekDays={
+					effectiveTimetableMode === TimetableMode.Timeline5 ? [6, 7] : []
+				}
+				events={events}
+				theme={calendarTheme}
+				initialLocales={initialLocales}
+				locale={i18n.language}
+				onPressEvent={(event) => {
+					showEventDetails(event)
+				}}
+				onDateChanged={(date) => {
+					setCurrentDate(new Date(date))
+				}}
+				initialDate={currentDate}
+				onPressDayNumber={(date) => {
+					calendarRef.current?.goToDate({ date })
+				}}
+				showWeekNumber={false}
+				rightEdgeSpacing={3}
+				overlapEventsSpacing={1}
+				minTimeIntervalHeight={55}
+				scrollToNow={false}
+			>
+				<CalendarHeader
+					LeftAreaComponent={<WeekLeftArea />}
+					renderEvent={renderHeaderEvent}
+				/>
+				<CalendarBody renderEvent={renderEvent} hourFormat="HH:mm" />
+			</CalendarContainer>
+		</View>
+	)
+}
+
+const styles = StyleSheet.create({
+	loadingContainer: {
+		alignItems: 'center',
+		flex: 1,
+		height: '100%',
+		justifyContent: 'center',
+		position: 'absolute',
+		width: '100%',
+		zIndex: 1
+	},
+	page: {
+		flex: 1
+	},
+	pendingContainer: {
+		alignItems: 'center',
+		flex: 1,
+		justifyContent: 'center'
+	}
+})

@@ -1,0 +1,90 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": false
+	},
+	"files": {
+		"ignoreUnknown": false,
+		"includes": [
+			"src/**",
+			"!src/__generated__",
+			"!src/data/licenses.json",
+			"!**/*.svg",
+			"!src/uniwind-types.d.ts",
+			"!.stryker-tmp",
+			"patches/**",
+			"plugins/**",
+			"app.config.ts",
+			"biome.json",
+			"babel.config.js",
+			"package.json",
+			"tsconfig.json",
+			"eas.json"
+		]
+	},
+	"formatter": {
+		"enabled": true,
+		"indentStyle": "tab"
+	},
+	"assist": { "actions": { "source": { "organizeImports": "on" } } },
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"preset": "recommended",
+			"suspicious": {
+				"noArrayIndexKey": "off"
+			},
+			"correctness": {
+				"useExhaustiveDependencies": "off",
+				"noUnusedImports": "error",
+				"noUnusedVariables": "error",
+				"noNestedComponentDefinitions": "off",
+				"useUniqueElementIds": "off"
+			},
+			"style": {
+				"noParameterAssign": "error",
+				"useAsConstAssertion": "error",
+				"useDefaultParameterLast": "error",
+				"useEnumInitializers": "error",
+				"useSelfClosingElements": "error",
+				"useSingleVarDeclarator": "error",
+				"noUnusedTemplateLiteral": "error",
+				"useNumberNamespace": "error",
+				"noInferrableTypes": "error",
+				"noUselessElse": "error"
+			},
+			"performance": {
+				"noDynamicNamespaceImportAccess": "off"
+			}
+		}
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "single",
+			"trailingCommas": "none",
+			"semicolons": "asNeeded"
+		}
+	},
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
+		}
+	},
+	"overrides": [
+		{
+			"includes": ["src/global.css"],
+			"linter": {
+				"rules": {
+					"correctness": {
+						"noUnknownFunction": "off"
+					},
+					"suspicious": {
+						"noDuplicateCustomProperties": "off"
+					}
+				}
+			}
+		}
+	]
+}

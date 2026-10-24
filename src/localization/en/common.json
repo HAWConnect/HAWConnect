@@ -1,0 +1,483 @@
+{
+	"toast": {
+		"clipboard": "copied to clipboard",
+		"roomNotFound": "Room not found",
+		"mapOverlay": "Error while loading overlay",
+		"dashboard": "Drag & drop to reorder",
+		"tryAgain": "Please try again"
+	},
+	"showMore": "Show more",
+	"showLess": "Show less",
+	"error": {
+		"title": "An error occurred",
+		"description": "An error occurred while loading the data.",
+		"refreshPull": "An error occurred while loading the data.\nPull to refresh.",
+		"button": "Retry",
+		"noSession": "Not signed in.",
+		"pull": "Pull down to refresh",
+		"noData": {
+			"title": "No data available",
+			"message": "Check back later."
+		},
+		"noEvents": "No events available",
+		"eventNotFound": "Event not found",
+		"eventNotFoundDescription": "The event you're looking for doesn't exist or has been removed.",
+		"backToEventList": "Back to {{type}}",
+		"network": {
+			"title": "No internet connection",
+			"description": "Please check your internet connection.",
+			"outageTitle": "Service unavailable",
+			"outageDescriptionOne": "{{service}} is currently unavailable.",
+			"outageDescriptionMany": "{{services}} are currently unavailable."
+		},
+		"guest": {
+			"title": "Sign in required",
+			"description": "This feature requires you to sign in using your HAW Hamburg account.",
+			"button": "Sign in"
+		},
+		"permission": {
+			"title": "Feature not available",
+			"description": "This feature is not available for your user group."
+		},
+		"notLoggedIn": {
+			"title": "Not signed in",
+			"description": "Please sign in to use this feature."
+		},
+		"map": {
+			"mapLoadError": "Error while loading map",
+			"mapOverlay": "Error while loading overlay"
+		},
+		"noMeals": "No meals available",
+		"crash": {
+			"title": "Internal Error",
+			"description": "HAWConnect has encountered an internal error.",
+			"steps": "Please check the system status page and send us feedback to help us fix the issue.",
+			"reload": "Reload App",
+			"feedback": "Send Feedback",
+			"status": "Check System Status"
+		}
+	},
+	"dates": {
+		"allDay": "All day",
+		"until": "until",
+		"ends": "ends",
+		"today": "Today",
+		"notYet": "Date not yet available",
+		"tomorrow": "Tomorrow",
+		"thisWeek": "This Week",
+		"nextWeek": "Next Week",
+		"now": "Now",
+		"weekdays": {
+			"monday": "Monday",
+			"tuesday": "Tuesday",
+			"wednesday": "Wednesday",
+			"thursday": "Thursday",
+			"friday": "Friday",
+			"saturday": "Saturday",
+			"sunday": "Sunday"
+		}
+	},
+	"misc": {
+		"share": "Share",
+		"cancel": "Cancel",
+		"confirm": "Confirm",
+		"delete": "Delete",
+		"disable": "Disable",
+		"more": "more",
+		"unknown": "Unknown",
+		"unknownError": "Unknown error",
+		"ok": "OK",
+		"notAvailable": "N/A",
+		"true": "Yes",
+		"false": "No"
+	},
+	"labels": {
+		"name": "Name",
+		"version": "Version",
+		"email": "Email",
+		"universityEmail": "HAW Hamburg Email",
+		"repository": "Repository",
+		"campus": "Campus",
+		"app": "App",
+		"restaurant": "Restaurant",
+		"details": "Details",
+		"wallet": "Wallet",
+		"error": "Error"
+	},
+	"meta": {
+		"appDescription": "Your app for TH Ingolstadt - HAW Hamburg",
+		"dashboardTitle": "Dashboard",
+		"dashboardDescription": "Customizable Dashboard",
+		"timetableDescription": "View your timetable",
+		"mapDescription": "Interactive Campus Map",
+		"foodDescription": "Meal plan for the canteens",
+		"settingsDescription": "Profile and Settings"
+	},
+	"semesterSuffix": ". Semester",
+	"reportProblem": "Report a problem",
+	"hawEvent": "HAW Hamburg Event",
+	"buildingLabel": "Building",
+	"feedbackMail": {
+		"subjectCrash": "App-Crash",
+		"subjectError": "App-Error",
+		"body": "Steps to reproduce:\nOther:\n\nApp Version: {{version}}\nPlatform: {{platform}}\nPage: {{path}}\nError: {{error}}"
+	},
+	"uiManager": {
+		"fabric": "Fabric",
+		"paper": "Paper"
+	},
+	"quicklinks": {
+		"primuss": "myHAW",
+		"moodle": "Moodle",
+		"webmail": "E-Mail",
+		"studVer": "AStA",
+		"viamint": "viaMINT",
+		"marketplace": "Shop",
+		"university": "HAW Website",
+		"print": "Print",
+		"librarySeat": "Library Seat",
+		"libraryCatalogue": "Library catalogue",
+		"onlineServices": "Online Services",
+		"examCollection": "Exam collection (IuE)"
+	},
+	"pages": {
+		"news": {
+			"noNews": {
+				"title": "No news found",
+				"subtitle": "Check back later."
+			}
+		},
+		"quicklinks": {
+			"title": "Quick Links",
+			"footer": "The dashboard card shows the most recently visited links.",
+			"links": {
+				"primuss": "myHAW",
+				"moodle": "Moodle",
+				"webmail": "E-Mail",
+				"studVer": "AStA",
+				"viamint": "viaMINT",
+				"marketplace": "Shop",
+				"university": "HAW Website",
+				"print": "Print",
+				"librarySeat": "Library Seat Reservation",
+				"libraryCatalogue": "Library catalogue",
+				"onlineServices": "Online Services",
+				"examCollection": "Exam collection (IuE)"
+			},
+			"more": "more links"
+		},
+		"calendar": {
+			"exams": {
+				"title": "Exams",
+				"subtitle": "Your exams",
+				"error": "Not a student",
+				"errorSubtitle": "Sign in to see your exams.",
+				"noExams": {
+					"title": "No exams found",
+					"subtitle": "After registering for exams, they will appear here."
+				}
+			},
+			"events": {
+				"title": "Dates"
+			},
+			"calendar": {
+				"link": "https://www.haw-hamburg.de/en/study/organising-your-studies/lecture-and-semester-dates/",
+				"noData": {
+					"title": "No data found",
+					"subtitle": "Please try again later."
+				}
+			},
+			"footer": {
+				"part1": "All information without guarantee. Binding information is only available directly on the ",
+				"part2": "university website",
+				"part3": "."
+			},
+			"academic": {
+				"scope": "Class and exam dates may vary by department. Please check the official calendar.",
+				"unavailable": "Academic calendar currently unavailable.",
+				"empty": "No upcoming dates published.",
+				"stale": "Cached dates. Please check the official calendar.",
+				"loading": "Loading academic dates…"
+			}
+		},
+		"lecturers": {
+			"results": "Search results",
+			"personal": "Personal",
+			"faculty": "Faculty",
+			"professors": "Professors",
+			"error": {
+				"title": "No lecturers found",
+				"subtitle": "Setup your timetable to view your personal lecturers."
+			}
+		},
+		"lecturer": {
+			"details": {
+				"title": "Title",
+				"organization": "Organization",
+				"function": "Function"
+			},
+			"contact": {
+				"room": "Room",
+				"title": "Contact",
+				"phone": "Phone",
+				"office": "Office hours",
+				"exam": "Exam insights"
+			}
+		},
+		"exam": {
+			"details": {
+				"date": "Date",
+				"room": "Room",
+				"seat": "Seat",
+				"tools": "Tools"
+			},
+			"about": {
+				"title": "About",
+				"type": "Type",
+				"examiner": "Examiner",
+				"registration": "Registered",
+				"notes": "Notes"
+			},
+			"footer": "All information without guarantee. Binding information is only available directly from the HAW Hamburg."
+		},
+		"event": {
+			"date": "Date",
+			"time": "Time",
+			"weekday": "Weekday",
+			"location": "Location",
+			"organizer": "Organizer",
+			"description": "Description",
+			"begin": "Begin",
+			"end": "End",
+			"registration": "Registration",
+			"required": "Required",
+			"contact": "Contact",
+			"optional": "Optional",
+			"invitationLink": "Invitation link",
+			"eMail": "E-Mail",
+			"shareMessage": "Check out this event:\n{{title}} by {{organizer}} on {{date}}\n{{link}}",
+			"details": "Details",
+			"links": "Links",
+			"registerNow": "Register now",
+			"eventLink": "Event website",
+			"organizerDetails": {
+				"clubWebsite": "Organizer website",
+				"instagram": "Instagram",
+				"linkedin": "LinkedIn",
+				"location": "Location",
+				"registrationNumber": "Registration number",
+				"nonProfit": {
+					"label": "Non-profit status",
+					"yes": "Registered non-profit",
+					"no": "Not registered as non-profit"
+				},
+				"info": "Location",
+				"stats": "Legal",
+				"noDescription": "No description available yet.",
+				"tapHint": "Tap the organizer entry above to learn more about the club."
+			}
+		},
+		"map": {
+			"search": {
+				"hint": "Search campuses or addresses…",
+				"placeholder": "Search campuses or addresses",
+				"recent": "Recent searches",
+				"clear": "Clear history",
+				"noResults": "No search results",
+				"results": "Results",
+				"fuzzy": "Suggestions"
+			},
+			"easterEgg": {
+				"title": "Easter Egg",
+				"message": "You unlocked the exclusive retro app icon \"HAWConnect\"!",
+				"confirm": "Nice!"
+			},
+			"noAvailableRooms": "No free rooms available",
+			"allRoomsAvailable": {
+				"title": "All rooms available",
+				"subtitle": "Currently all rooms are available."
+			},
+			"details": {
+				"room": {
+					"details": "Room details",
+					"title": "Room",
+					"capacity": "Capacity",
+					"availability": "Availability",
+					"timeLeft": "Time left",
+					"building": "Building",
+					"timeSpan": "Time span",
+					"floor": "Floor",
+					"type": "Type",
+					"equipment": "Equipment",
+					"lecturers": "Lecturers",
+					"available": "Available",
+					"notAvailable": "Not available",
+					"nextTimeSpan": "Next time span",
+					"availableRooms": "Available rooms",
+					"nextLecture": "Next lecture",
+					"availableRoomsTitle": "Available rooms",
+					"history": "Recent searches",
+					"signIn": "Sign in to see available rooms",
+					"report": "Report an issue",
+					"reportMail": "mailto:feedback@HAWConnect?subject=Report%20room%20issue&body=Room%3A%0D%0AIssue%3A%0D%0ASuggestion%3A"
+				},
+				"building": {
+					"free": "Free rooms",
+					"total": "Total rooms",
+					"floors": "Floors"
+				},
+				"osm": "Map data from OpenStreetMap"
+			},
+			"haw": {
+				"campuses": "HAW Hamburg campuses",
+				"directions": "Directions",
+				"pdf": "Official campus map",
+				"source": "HAW location information",
+				"locate": "Show my location",
+				"locationDenied": "Location access is unavailable. You can still select a campus.",
+				"mapLoading": "Loading the map. Campus information is already available below.",
+				"mapUnavailable": "The basemap is unavailable. Campus details and official maps are still available below.",
+				"retry": "Reload map",
+				"buildingListing": "In this building",
+				"campusListing": "At this location"
+			}
+		},
+		"rooms": {
+			"options": {
+				"title": "Search options",
+				"building": "Building",
+				"date": "Date",
+				"time": "Time",
+				"duration": "Duration",
+				"seats": "seats"
+			},
+			"results": "Available rooms",
+			"modified": {
+				"title": "Filter adjusted",
+				"description": "HAW Hamburg is currently closed. The filter has been adjusted to the next valid opening time."
+			},
+			"noRooms": {
+				"title": "No available rooms found",
+				"subtitle": "Try changing the filter options."
+			},
+			"report": {
+				"title": "Report an issue",
+				"reportSentSuccess": "Report sent",
+				"reportSentError": "Error while sending report",
+				"room": {
+					"title": "Room",
+					"placeholder": "A123"
+				},
+				"description": {
+					"title": "Description",
+					"placeholder": "Problem description..."
+				},
+				"category": {
+					"title": "Category",
+					"placeholder": "Choose report category...",
+					"type": {
+						"WRONG_DESCRIPTION": "Wrong description",
+						"WRONG_LOCATION": "Wrong location",
+						"NOT_EXISTING": "Not existing",
+						"MISSING": "Missing",
+						"OTHER": "Other"
+					}
+				},
+				"footerText": "We do not collect any personal information. Only the room, category, and the description you provide are saved."
+			}
+		},
+		"library": {
+			"code": {
+				"number": "Number",
+				"footer": "Use this barcode to sign in at the library terminals to borrow books."
+			},
+			"timeSlot": "Timeslot",
+			"seatReservation": {
+				"title": "Seat Reservation",
+				"description": "Book a seat or a room in the library using the V:Scout system."
+			},
+			"catalog": {
+				"title": "Library Catalog",
+				"description": "Search for books, journals, and other media in the library catalog."
+			},
+			"virtualCard": {
+				"title": "Virtual Library Card",
+				"description": "Use the virtual library card to borrow books and other media."
+			}
+		},
+		"universityEvents": {
+			"departments": {
+				"title": "Discover departments",
+				"viewAll": "All departments",
+				"filterAll": "All",
+				"departments": "departments",
+				"missingDescription": "No description available.",
+				"footerInfo": "Departments are ordered by activity and profile completeness.",
+				"noOrganizers": {
+					"title": "No departments found"
+				}
+			},
+			"events": {
+				"subtitle": "Events of HAW Hamburg departments",
+				"noEvents": {
+					"title": "No events found",
+					"subtitle": "Check back later.",
+					"filteredSubtitle": "No events found for {{organizerName}}. Check back later."
+				}
+			}
+		},
+		"clEvents": {
+			"clubs": {
+				"title": "Discover clubs",
+				"viewAll": "All clubs",
+				"filterAll": "All",
+				"clubs": "clubs",
+				"missingDescription": "No description available.",
+				"footerInfo": "The clubs are ordered by activity and profile completeness.",
+				"noOrganizers": {
+					"title": "No clubs found"
+				}
+			},
+			"events": {
+				"title": "Events",
+				"subtitle": "Events of the clubs",
+				"noEvents": {
+					"title": "No events found",
+					"subtitle": "Check back later.",
+					"filteredSubtitle": "No events found for {{clubName}}. Check back later."
+				}
+			},
+			"organizer": {
+				"subtitle": "Upcoming events"
+			}
+		},
+		"events": {
+			"title": "Events"
+		},
+		"hawEvents": {
+			"club": "Club event",
+			"source": "Events on the HAW website",
+			"unavailable": "HAW events are currently unavailable.",
+			"empty": "No upcoming events published.",
+			"cached": "Saved events. Check current information on the HAW website.",
+			"open": "Open event details",
+			"more": "More events on the HAW website",
+			"loading": "Loading events…"
+		},
+		"clubs": {
+			"title": "Clubs",
+			"subtitle": "Student projects and initiatives at HAW Hamburg",
+			"unavailable": "Unable to load clubs.",
+			"empty": "No clubs found.",
+			"open": "More information",
+			"source": "Student projects on the HAW website",
+			"cached": "Cached information"
+		},
+		"campusLifeEvents": {
+			"unavailable": "Unable to load campus life events.",
+			"empty": "No upcoming campus life events.",
+			"cached": "Saved events. Refresh failed."
+		}
+	},
+	"submit": "Submit"
+}

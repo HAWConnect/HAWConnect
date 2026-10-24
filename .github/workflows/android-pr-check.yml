@@ -1,0 +1,47 @@
+name: Android PR check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+  merge_group:
+    types: [checks_requested]
+
+concurrency:
+  group: android-pr-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  changes:
+    name: Detect Android-related changes
+    runs-on: ubuntu-latest
+    outputs:
+      android: ${{ steps.detect.outputs.android }}
+      workflows: ${{ steps.detect.outputs.workflows }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Detect changes
+        uses: ./.github/actions/detect-changes
+        id: detect
+
+  android-compile:
+    name: Android prebuild and compile
+    needs: changes
+    if: |
+      needs.changes.outputs.android == 'true' ||
+      needs.changes.outputs.workflows == 'true' ||
+      (github.event_name == 'pull_request' &&
+        contains(toJSON(github.event.pull_request.labels.*.name), '"android"'))
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: ./.github/actions/setup
+
+      - uses: ./.github/actions/android-prepare
+
+      - name: Compile debug APK
+        working-directory: android
+        run: ./gradlew assembleDebug --no-daemon

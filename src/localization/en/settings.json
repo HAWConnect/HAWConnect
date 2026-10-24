@@ -1,0 +1,308 @@
+{
+	"menu": {
+		"guest": {
+			"title": "Sign in",
+			"subtitle": "Sign in to unlock all features of the app",
+			"banner": {
+				"title": "Get started",
+				"message": "Your calendars and preferences are stored on this device."
+			}
+		},
+		"employee": {
+			"subtitle1": "Employee account",
+			"subtitle2": "Tap to logout"
+		},
+		"error": {
+			"subtitle2": "Pull to refresh or tap to logout",
+			"noData": {
+				"title": "No data available",
+				"subtitle1": "Looks like you are no longer enrolled.",
+				"subtitle2": "Please check your myHAW account."
+			}
+		},
+		"formlist": {
+			"preferences": {
+				"title": "Preferences",
+				"dashboard": "Dashboard",
+				"food": "Food",
+				"language": "Language",
+				"timetable": "Timetable"
+			},
+			"appearance": {
+				"title": "Appearance",
+				"theme": "Design",
+				"appIcon": "App Icon"
+			},
+			"language": {
+				"title": "Change language",
+				"message": "Confirm to change the app language to German.",
+				"confirm": "Confirm"
+			},
+			"legal": {
+				"title": "App",
+				"about": "About",
+				"share": "Share the app",
+				"shareMessage": "HAWConnect",
+				"shareMessageAndroid": "HAWConnect",
+				"download": "Download the app"
+			}
+		},
+		"copyright": "© 2026 by HAWConnect.",
+		"infrastructureBy": "Infrastructure by",
+		"loadPersonalDataError": "Failed to load personal data"
+	},
+	"version": {
+		"formlist": {
+			"app": {
+				"title": "App Information",
+				"version": "Version",
+				"buildNumber": "Build Number",
+				"commitHash": "Commit Hash",
+				"firstInstall": "First Install",
+				"uiManager": "UI Manager"
+			},
+			"system": {
+				"title": "System Information",
+				"osVersion": "OS Version",
+				"deviceModel": "Device Model",
+				"deviceType": "Device Type",
+				"emulator": "Emulator",
+				"browser": "Browser"
+			}
+		},
+		"copyButton": "Copy All",
+		"copyLabels": {
+			"appHeader": "App Information:",
+			"systemHeader": "System Information:",
+			"version": "Version",
+			"buildNumber": "Build Number",
+			"commitHash": "Commit Hash",
+			"firstInstall": "First Install",
+			"uiManager": "UI Manager",
+			"browser": "Browser",
+			"osVersion": "OS Version",
+			"deviceModel": "Device Model",
+			"deviceType": "Device Type",
+			"emulator": "Emulator"
+		}
+	},
+	"about": {
+		"header": {
+			"developed": "Maintained by"
+		},
+		"formlist": {
+			"app": {
+				"title": "App",
+				"version": "Version",
+				"changelog": "Changelog"
+			},
+			"legal": {
+				"title": "Legal",
+				"button": "Legal Information"
+			},
+			"contact": {
+				"title": "Contact",
+				"feedback": "Feedback",
+				"rateAndroid": "Rate on Play Store",
+				"rateiOS": "Rate on App Store"
+			},
+			"systemStatus": "System Status",
+			"appWebsite": "Project Website",
+			"community": "HAWConnect"
+		},
+		"easterEgg": {
+			"title": "Easter Egg",
+			"message": "You unlocked the exclusive app icon \"Paradise Cat\"! 😻",
+			"messageAndroid": "You found an easter egg! 🐣",
+			"confirm": "Nice!"
+		},
+		"analytics": {
+			"title": "Analytics",
+			"toggle": "Collect Anonymous Usage Data",
+			"message": "Help us improve the app by sending anonymous usage data. It is not possible to deduce your identity at any time.",
+			"link": "About Analytics"
+		},
+		"projectTitle": "Students, for students",
+		"description": "HAWConnect is an open-source campus app for HAW Hamburg, maintained by students. Find your imported timetable, Hamburg cafeteria menus, campus maps, semester dates, events, clubs and useful university links in one place.",
+		"independence": "An independent student project. HAWConnect is not officially endorsed by HAW Hamburg.",
+		"openSource": "Open source",
+		"licenses": "Open-source licences",
+		"platform": {
+			"web": "Web app",
+			"native": "Mobile app"
+		},
+		"maintainers": "HAW Hamburg students"
+	},
+	"legal": {
+		"formlist": {
+			"legal": {
+				"title": "Legal",
+				"privacy": "Privacy Policy",
+				"imprint": "Imprint"
+			},
+			"us": {
+				"title": "Other",
+				"source": "Source code",
+				"faq": "FAQ"
+			}
+		},
+		"notConfigured": "Not available yet",
+		"loadFailed": "This document could not be loaded. Check your connection and try again.",
+		"notPublished": "This document has not been published yet.",
+		"openDocument": "Open published document"
+	},
+	"changelog": {
+		"footer": "To see the full changelog, check out the releases on "
+	},
+	"licenses": {
+		"footer": "These libraries were used to create this app. Some are platform-specific and therefore may not be included in your build.",
+		"fields": {
+			"name": "Name",
+			"version": "Version",
+			"repository": "Repository"
+		}
+	},
+	"profile": {
+		"error": {
+			"title": "No data available",
+			"message": "Looks like you are no longer enrolled. Please check your myHAW account.",
+			"button": "myHAW"
+		},
+		"formlist": {
+			"grades": {
+				"title": "Grades",
+				"button": "Grades and Subjects"
+			},
+			"user": {
+				"title": "User",
+				"matrical": "Matriculation number",
+				"library": "Library number",
+				"printer": "Printer credits",
+				"status": "Re-registration",
+				"statusInactive": "Missing"
+			},
+			"study": {
+				"title": "Study",
+				"degree": "Degree",
+				"spo": "Exam regulations",
+				"group": "Study group"
+			},
+			"contact": {
+				"title": "Contact",
+				"phone": "Phone",
+				"street": "Street",
+				"city": "City"
+			}
+		},
+		"logout": {
+			"button": "Logout",
+			"alert": {
+				"title": "Confirm",
+				"message": "This will log you out of the app and clear all your data.",
+				"cancel": "Cancel",
+				"confirm": "Logout"
+			}
+		}
+	},
+	"theme": {
+		"themes": {
+			"title": "Theme",
+			"default": "Automatic",
+			"dark": "Dark",
+			"light": "Light",
+			"footer": "Change color scheme of the app. This allows you to override the system settings."
+		},
+		"splash": {
+			"title": "Splash Screen",
+			"showSplash": "Show Animated Splash Screen"
+		},
+		"accent": {
+			"title": "Accent Color",
+			"blue": "Blue",
+			"green": "Green",
+			"purple": "Purple"
+		}
+	},
+	"dashboard": {
+		"shown": "All cards",
+		"hidden": "Hidden cards",
+		"reset": "Reset order",
+		"noShown": "Dashboard is empty",
+		"noShownDescription": "Add some cards to your dashboard to get started.",
+		"noShownButton": "Configure",
+		"footer": "Customize your dashboard by dragging and dropping the cards to your preferred order.",
+		"unavailable": {
+			"title": "Unavailable cards",
+			"message": "To use all features of the app, you need to sign in. Tap to continue with your HAW Hamburg account."
+		},
+		"rueWarning": {
+			"title": "Re-enrolment pending",
+			"message": "Please re-enrol in myHAW to remain enrolled next semester.",
+			"link": "Open myHAW"
+		},
+		"serviceStatus": {
+			"title": "Limited availability",
+			"messageOne": "{{service}} is currently unavailable.",
+			"messageMany": "{{services}} are currently unavailable.",
+			"link": "View system status",
+			"dismiss": "Dismiss status banner",
+			"services": {
+				"campusLife": "Campus Life",
+				"map": "Campus Map",
+				"university": "HAW Hamburg API",
+				"backend": "HAWConnect API"
+			}
+		}
+	},
+	"grades": {
+		"grade": "Grade",
+		"none": "(none)",
+		"finished": "Grades",
+		"open": "Open",
+		"average": "Average",
+		"averageError": "Average grade is currently not available.",
+		"missingAverage": "The exact average cannot be calculated and ranges between {{min}} and {{max}}.",
+		"exactAverage": "Based on {{number}} weighted grades.",
+		"temporarilyUnavailable": "Grades are temporarily unavailable.",
+		"footer": "This is overview is only for general information and is not legally binding. Please refer to the official grades sheet on myHAW for binding information."
+	},
+	"infoBoxes": {
+		"printerBalance": "Printer Balance",
+		"gradesAndSubjects": "Grades & Subjects",
+		"lecturers": "Lecturers",
+		"library": "Your card",
+		"view": "Library",
+		"open": "View"
+	},
+	"appIcon": {
+		"error": {
+			"title": "Not available",
+			"message": "Alternative app icons are not available on this device."
+		},
+		"names": {
+			"default": "HAWConnect",
+			"retro": "HAWConnect",
+			"modernGreen": "Modern Green",
+			"modernPink": "Modern Pink",
+			"rainbowMoonLight": "Rainbow Light",
+			"rainbowNeon": "Rainbow Neon",
+			"cat": "Paradise Cat",
+			"luxury": "Golden Luxury",
+			"rainbowGlow": "Rainbow Glow",
+			"hacker": "Hacker"
+		},
+		"categories": {
+			"default": "Default",
+			"neon": "Neon",
+			"rainbow": "Rainbow",
+			"exclusive": "Hidden",
+			"community": "Community"
+		},
+		"exclusive": "Find easter eggs to unlock exclusive app icons.",
+		"exclusivePreviewSubtitle": "Unlock more icons.",
+		"status": {
+			"locked": "Locked",
+			"unlocked": "Unlocked"
+		}
+	}
+}

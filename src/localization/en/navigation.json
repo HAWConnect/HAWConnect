@@ -1,0 +1,135 @@
+{
+	"navigation": {
+		"home": "Home",
+		"dashboardScreen": "Dashboard",
+		"loginScreen": "HAWConnect Login",
+		"changelog": "Changelog",
+		"appIcon": "App Icon",
+		"eventDetails": "Event Details",
+		"timetable": "Calendar",
+		"map": "Map",
+		"campusMap": "Campus Map",
+		"food": "Food",
+		"settings": "Settings",
+		"preferences": "Preferences",
+		"timetableSettings": "Timetable Settings",
+		"flags": "Flags",
+		"flagsSearch": "Search flags",
+		"allergensSearch": "Search allergens",
+		"allergens": "Allergens",
+		"details": "Details",
+		"theme": "Design",
+		"profile": "Profile",
+		"about": "About",
+		"version": "Version Details",
+		"advancedSearch": "Advanced Search",
+		"calendar": "Semester Dates",
+		"examDetails": "Exam Details",
+		"quicklinks": "Quick Links",
+		"dots": "Lecture Status",
+		"lecturers": {
+			"title": "Lecturers",
+			"search": "Search all lecturers"
+		},
+		"organiser": "Organizer Details",
+		"lecturer": "Lecturer Details",
+		"grades": {
+			"title": "Grades",
+			"search": "Search subjects"
+		},
+		"news": "HAW Hamburg News",
+		"library": "Library",
+		"legal": "Legal",
+		"libraryCode": "Library Number",
+		"licenses": {
+			"title": "Licenses",
+			"search": "Search licenses"
+		},
+		"license": "License",
+		"login": "Sign in",
+		"dashboard": "HAWConnect",
+		"roomReport": "Report Room Issue",
+		"clEvents": "Campus Life Events",
+		"hawEvents": "HAW Events",
+		"calendarImport": "Calendar import",
+		"clubs": "Clubs",
+		"collapseSidebar": "Collapse sidebar",
+		"expandSidebar": "Expand sidebar",
+		"privacy": "Privacy Policy",
+		"imprint": "Imprint"
+	},
+	"cards": {
+		"titles": {
+			"timetable": "Up Next",
+			"calendar": "Semester Dates",
+			"rooms": "Rooms",
+			"lecturers": "Lecturers",
+			"news": "HAW Hamburg News",
+			"library": "Library",
+			"events": "Campus Life Events",
+			"hawEvents": "HAW Events",
+			"reimanns": "Reimanns",
+			"canisius": "Canisius Konvikt",
+			"mensa": "Mensa Ingolstadt",
+			"mensaNeuburg": "Theke Neuburg",
+			"food": "Food",
+			"login": "Import calendar",
+			"links": "Quick Links",
+			"clubs": "Clubs"
+		},
+		"announcements": {
+			"readMore": "Tap to learn more."
+		},
+		"events": {
+			"by": "by {{name}}"
+		},
+		"news": {
+			"more": "Read all {{count}} articles"
+		},
+		"calendar": {
+			"exam": "Exam: {{name}}",
+			"ends": "ends ",
+			"type": {
+				"exam": "Exam",
+				"event": "HAW Hamburg Event"
+			}
+		},
+		"timetable": {
+			"startingSoon_one": "starts in {{count}} min",
+			"startingSoon_other": "starts in {{count}} mins",
+			"ongoing": "ends at {{time}}",
+			"endingSoon_one": "ends in {{count}} min",
+			"endingSoon_other": "ends in {{count}} mins",
+			"lecturesRemaining_one": "{{count}} lecture left",
+			"lecturesRemaining_other": "{{count}} lectures left",
+			"ongoingLectures_one": "{{count}} ongoing lecture",
+			"ongoingLectures_other": "{{count}} ongoing lectures",
+			"noMoreLectures": "No more lectures today",
+			"noEvents": "No upcoming lectures",
+			"enjoyDay": "Enjoy your day!",
+			"nextEvent": "Next"
+		},
+		"login": {
+			"title": "Your timetable from myHAW",
+			"message": "Import a calendar link or .ics file. No login required."
+		}
+	},
+	"contextMenu": {
+		"reset": "Reset cards",
+		"hide": "Hide card",
+		"settings": "Dashboard settings"
+	},
+	"unmatched": {
+		"title": "Not found",
+		"error": {
+			"title": "not found",
+			"message": "The requested page is not available.",
+			"button": "Back"
+		}
+	},
+	"profile": {
+		"error": {
+			"button": "myHAW"
+		}
+	}
+}

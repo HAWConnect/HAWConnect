@@ -1,0 +1,15 @@
+{
+	"version": 1,
+	"hooks": {
+		"afterFileEdit": [
+			{
+				"command": "bun run .cursor/hooks/format-file.ts"
+			}
+		],
+		"afterTabFileEdit": [
+			{
+				"command": "bun run .cursor/hooks/format-file.ts"
+			}
+		]
+	}
+}

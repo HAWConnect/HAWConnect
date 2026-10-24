@@ -1,0 +1,113 @@
+{
+	"empty": {
+		"allergens": "No matching allergens found.",
+		"noAllergens": "Allergens not available",
+		"flags": "No matching flags found.",
+		"config": "No allergens set up yet. Tap to configure your allergies to display not binding information about allergens.",
+		"title": "No meals available",
+		"description": "There are no meals available for the selected restaurants or day.",
+		"tip1": "Check if you have selected the right restaurants",
+		"tip2": "Try selecting a different day",
+		"buttonSettings": "Check Settings"
+	},
+	"preferences": {
+		"sections": {
+			"labels": "Labels",
+			"restaurants": "Restaurants",
+			"filter": "Filter"
+		},
+		"formlist": {
+			"allergens": "Allergens",
+			"flags": "Flags",
+			"static": "Static meals",
+			"language": "Food language"
+		},
+		"footer": "We are not responsible for the correctness and accuracy of the data. Please verify the data at the restaurant before consuming. You can also check the data source of each meal in the detail view.",
+		"languages": {
+			"de": "German",
+			"en": "English",
+			"auto": "Default"
+		},
+		"settings": "Settings",
+		"autoShowNextDay": "Automatically switch to next day",
+		"autoShowNextDayTime": "Time"
+	},
+	"price": {
+		"guests": "for guests",
+		"students": "for students",
+		"employees": "for employees",
+		"unknown": "price not available"
+	},
+	"dashboard": {
+		"oneMore": "and one more meal",
+		"manyMore": "and {{count}} more meals",
+		"empty": "Today's menu is empty."
+	},
+	"categories": {
+		"soup": "Soup",
+		"salad": "Salad",
+		"main": "Main course",
+		"special": "Special"
+	},
+	"details": {
+		"error": {
+			"title": "Details not available",
+			"message": "The details for this meal are currently not available."
+		},
+		"footer": "We are not responsible for the correctness of the data. Please verify the correctness of the data with the respective restaurant before consume anything.",
+		"formlist": {
+			"prices": {
+				"title": "Prices",
+				"student": "Student",
+				"employee": "Employee",
+				"guest": "Guest"
+			},
+			"nutrition": {
+				"title": "Nutrition",
+				"footer": "Values are per meal and may vary.",
+				"energy": "Energy",
+				"fat": "Fat",
+				"saturated": "Saturated Fat",
+				"carbs": "Carbohydrates",
+				"sugar": "Sugar",
+				"fiber": "Fiber",
+				"protein": "Protein",
+				"salt": "Salt"
+			},
+			"about": {
+				"title": "About",
+				"category": "Category",
+				"source": "Data source"
+			},
+			"variants": "Variations",
+			"allergenFooter": "We cannot guarantee the correctness and completeness of the information. ({{allergens}})",
+			"flagsFooter": "Tap on a flag to quickly update your preferences.",
+			"alert": {
+				"allergen": {
+					"title": "Update allergens",
+					"message": {
+						"add": "Do you want to add {{allergen}} to your allergens?",
+						"remove": "Do you want to remove {{allergen}} from your allergens?"
+					}
+				},
+				"flag": {
+					"title": "Update preferences",
+					"message": {
+						"add": "Do you want to add {{flag}} to your preferences?",
+						"remove": "Do you want to remove {{flag}} from your preferences?"
+					}
+				}
+			}
+		},
+		"share": {
+			"message": "Check out \"{{meal}}\" ({{price}}) at {{location}}.\nhttps://web.HAWConnect/food/{{id}}"
+		}
+	},
+	"source": {
+		"notice": "Source: Studierendenwerk Hamburg. Missing information is unknown.",
+		"updated": "Last successful update",
+		"stale": "Cached data. Check the actual menu date.",
+		"official": "Open official menu ↗",
+		"unavailable": "Menu data is currently unavailable. Please use the official menu."
+	}
+}

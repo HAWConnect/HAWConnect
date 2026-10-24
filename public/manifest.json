@@ -1,0 +1,32 @@
+{
+	"short_name": "HAWConnect",
+	"name": "HAWConnect",
+	"description": "Die studentische Open-Source-App für HAW Hamburg. Ein unabhängiges Projekt von Studierenden.",
+	"lang": "de",
+	"dir": "ltr",
+	"start_url": ".",
+	"display": "standalone",
+	"theme_color": "#f2f2f2",
+	"background_color": "#f2f2f2",
+	"prefer_related_applications": false,
+	"icons": [
+		{
+			"src": "/hawconnect-icon.svg",
+			"sizes": "any",
+			"type": "image/svg+xml",
+			"purpose": "any"
+		},
+		{
+			"src": "/hawconnect-icon-192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "/hawconnect-icon-512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "any"
+		}
+	]
+}

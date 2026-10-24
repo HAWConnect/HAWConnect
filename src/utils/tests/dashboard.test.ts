@@ -1,0 +1,604 @@
+import { afterAll, beforeAll, describe, expect, it, mock } from 'bun:test'
+import { Window as HappyDomWindow } from 'happy-dom'
+import React, { act } from 'react'
+import { createRoot, type Root } from 'react-dom/client'
+import { renderToString } from 'react-dom/server'
+import { USER_EMPLOYEE, USER_GUEST, USER_STUDENT } from '@/data/constants'
+import type { FeatureFlagState } from '@/lib/feature-flags'
+
+const SRC_ROOT = new URL('../../', import.meta.url).pathname
+
+function createDefaultFeatureFlagState(): FeatureFlagState {
+	return { 'news-card': false }
+}
+
+let shownDashboardEntriesState: string[] | undefined
+let hiddenAnnouncementsState: string[] | undefined
+let userKindState = USER_STUDENT
+let featureFlagsState = createDefaultFeatureFlagState()
+
+const setShownDashboardEntriesState = (
+	value:
+		| string[]
+		| undefined
+		| ((prev: string[] | undefined) => string[] | undefined)
+) => {
+	shownDashboardEntriesState =
+		typeof value === 'function' ? value(shownDashboardEntriesState) : value
+}
+
+const setHiddenAnnouncementsState = (
+	value:
+		| string[]
+		| undefined
+		| ((prev: string[] | undefined) => string[] | undefined)
+) => {
+	hiddenAnnouncementsState =
+		typeof value === 'function' ? value(hiddenAnnouncementsState) : value
+}
+
+mock.module('@/hooks/useDashboardOrderStore', () => ({
+	useDashboardOrderStore: (
+		select: (state: {
+			shown: string[] | undefined
+			setShown: typeof setShownDashboardEntriesState
+		}) => unknown
+	) =>
+		select({
+			shown: shownDashboardEntriesState,
+			setShown: setShownDashboardEntriesState
+		})
+}))
+
+mock.module('react-native-mmkv', () => ({
+	useMMKVObject: (key: string) => {
+		if (key === 'shownDashboardEntriesV7') {
+			return [shownDashboardEntriesState, setShownDashboardEntriesState]
+		}
+
+		return [hiddenAnnouncementsState, setHiddenAnnouncementsState]
+	}
+}))
+
+const mockCards = [
+	{
+		key: 'timetable',
+		removable: true,
+		initial: [USER_STUDENT, USER_EMPLOYEE],
+		allowed: [USER_STUDENT, USER_EMPLOYEE],
+		card: () => null
+	},
+	{
+		key: 'flaggedEarly',
+		removable: true,
+		initial: [USER_STUDENT],
+		allowed: [USER_STUDENT],
+		featureFlag: 'flagged-early',
+		card: () => null
+	},
+	{
+		key: 'events',
+		removable: true,
+		initial: [USER_STUDENT, USER_EMPLOYEE, USER_GUEST],
+		allowed: [USER_STUDENT, USER_EMPLOYEE, USER_GUEST],
+		card: () => null
+	},
+	{
+		key: 'hawEvents',
+		removable: true,
+		initial: [USER_STUDENT, USER_EMPLOYEE, USER_GUEST],
+		allowed: [USER_STUDENT, USER_EMPLOYEE, USER_GUEST],
+		card: () => null
+	},
+	{
+		key: 'clubs',
+		removable: true,
+		initial: [USER_STUDENT, USER_EMPLOYEE, USER_GUEST],
+		allowed: [USER_STUDENT, USER_EMPLOYEE, USER_GUEST],
+		card: () => null
+	},
+	{
+		key: 'calendar',
+		removable: true,
+		initial: [USER_STUDENT, USER_EMPLOYEE, USER_GUEST],
+		allowed: [USER_STUDENT, USER_EMPLOYEE, USER_GUEST],
+		card: () => null
+	},
+	{
+		key: 'links',
+		removable: true,
+		initial: [USER_STUDENT, USER_EMPLOYEE, USER_GUEST],
+		allowed: [USER_STUDENT, USER_EMPLOYEE, USER_GUEST],
+		card: () => null
+	},
+	{
+		key: 'news',
+		removable: true,
+		initial: [USER_STUDENT, USER_EMPLOYEE],
+		allowed: [USER_STUDENT, USER_EMPLOYEE],
+		featureFlag: 'news-card',
+		card: () => null
+	},
+	{
+		key: 'login',
+		removable: false,
+		initial: [USER_GUEST],
+		stillVisible: false,
+		allowed: [USER_GUEST],
+		card: () => null
+	},
+	{
+		key: 'employeeOnly',
+		removable: true,
+		initial: [USER_EMPLOYEE],
+		allowed: [USER_EMPLOYEE],
+		card: () => null
+	},
+	{
+		key: 'flaggedCard',
+		removable: true,
+		initial: [USER_STUDENT, USER_EMPLOYEE],
+		allowed: [USER_STUDENT, USER_EMPLOYEE],
+		featureFlag: 'flagged-card',
+		card: () => null
+	}
+]
+
+mock.module('@/components/all-cards', () => ({
+	AllCards: mockCards
+}))
+
+mock.module(`${SRC_ROOT}contexts/feature-flags.tsx`, () => ({
+	useFeatureFlags: () => featureFlagsState
+}))
+
+mock.module(`${SRC_ROOT}contexts/userKind.ts`, () => ({
+	useUserKind: () => ({ userKind: userKindState })
+}))
+
+function renderDashboardHookWithEffects() {
+	let dashboardValue: ReturnType<typeof dashboard.useDashboard> | undefined
+	let root: Root | undefined
+	const container = document.createElement('div')
+
+	function TestComponent() {
+		dashboardValue = dashboard.useDashboard()
+		return null
+	}
+
+	act(() => {
+		root = createRoot(container)
+		root.render(React.createElement(TestComponent))
+	})
+
+	act(() => {
+		root?.render(React.createElement(TestComponent))
+	})
+
+	if (dashboardValue == null) {
+		throw new Error('useDashboard did not return a value')
+	}
+
+	return {
+		value: dashboardValue,
+		unmount: () => {
+			act(() => {
+				root?.unmount()
+			})
+		}
+	}
+}
+
+function renderDashboardHook() {
+	let dashboardValue: ReturnType<typeof dashboard.useDashboard> | undefined
+
+	function TestComponent() {
+		dashboardValue = dashboard.useDashboard()
+		return null
+	}
+
+	renderToString(React.createElement(TestComponent))
+
+	if (dashboardValue == null) {
+		throw new Error('useDashboard did not return a value')
+	}
+
+	return dashboardValue
+}
+
+let dashboard: typeof import('@/contexts/dashboard')
+
+let happyDomWindow: HappyDomWindow | undefined
+
+beforeAll(async () => {
+	happyDomWindow = new HappyDomWindow()
+	globalThis.document = happyDomWindow.document as unknown as Document
+	globalThis.window = happyDomWindow as unknown as Window &
+		typeof globalThis.window
+	dashboard = await import('@/contexts/dashboard')
+})
+
+afterAll(() => {
+	happyDomWindow?.close()
+	delete (globalThis as { document?: Document }).document
+	delete (globalThis as { window?: Window }).window
+})
+
+describe('dashboard context', () => {
+	it('replaces the retired sports card in place without duplicating clubs', () => {
+		expect(
+			dashboard.normalizeShownDashboardEntries(
+				['events', 'sports', 'clubs', 'hawEvents'],
+				createDefaultFeatureFlagState()
+			)
+		).toEqual(['events', 'clubs', 'hawEvents'])
+	})
+
+	it('getDefaultDashboardOrder - Should include always-on cards for students', () => {
+		const flags = createDefaultFeatureFlagState()
+
+		const { shown } = dashboard.getDefaultDashboardOrder(USER_STUDENT, flags)
+
+		expect(shown).toContain('hawEvents')
+		expect(shown).toContain('timetable')
+		expect(shown).toContain('events')
+	})
+
+	it('getDefaultDashboardOrder - Should include login only in shown for guests', () => {
+		const flags = createDefaultFeatureFlagState()
+		const guestOrder = dashboard.getDefaultDashboardOrder(USER_GUEST, flags)
+
+		expect(guestOrder.shown).toContain('login')
+		expect(guestOrder.shown).not.toContain('timetable')
+		expect(guestOrder.unavailable).not.toContain('login')
+	})
+
+	it('mergeNewFlaggedCardsIntoDashboard - Should leave order unchanged when no flagged cards are enabled', () => {
+		const flags = createDefaultFeatureFlagState()
+		const customOrder = [
+			'timetable',
+			'events',
+			'clubs',
+			'calendar',
+			'links',
+			'news'
+		]
+
+		const merged = dashboard.mergeNewFlaggedCardsIntoDashboard(
+			customOrder,
+			USER_STUDENT,
+			flags
+		)
+
+		expect(merged).toEqual(customOrder)
+	})
+
+	it('mergeNewFlaggedCardsIntoDashboard - Should insert newly enabled flagged cards near neighbors', () => {
+		const flags = {
+			...createDefaultFeatureFlagState(),
+			'flagged-card': true,
+			'flagged-early': true
+		}
+		const customOrder = ['events', 'clubs', 'hawEvents']
+
+		const merged = dashboard.mergeNewFlaggedCardsIntoDashboard(
+			customOrder,
+			USER_STUDENT,
+			flags
+		)
+
+		expect(merged).toContain('flaggedEarly')
+		expect(merged).toContain('flaggedCard')
+		expect(merged.indexOf('flaggedEarly')).toBeLessThan(
+			merged.indexOf('events')
+		)
+		expect(merged.indexOf('flaggedCard')).toBeGreaterThan(
+			merged.indexOf('news')
+		)
+	})
+
+	it('mergeNewFlaggedCardsIntoDashboard - Should skip flagged cards already present or disabled', () => {
+		const flags = {
+			...createDefaultFeatureFlagState(),
+			'flagged-card': true,
+			'flagged-early': false
+		}
+		const customOrder = ['events', 'flaggedCard', 'news']
+
+		const merged = dashboard.mergeNewFlaggedCardsIntoDashboard(
+			customOrder,
+			USER_STUDENT,
+			flags
+		)
+
+		expect(merged).toEqual(customOrder)
+	})
+
+	it('isCardEnabled - Should treat cards without flags as enabled', () => {
+		expect(
+			dashboard.isCardEnabled(
+				{ featureFlag: undefined },
+				createDefaultFeatureFlagState()
+			)
+		).toBe(true)
+	})
+
+	it('isCardEnabled - Should read feature flag state for flagged cards', () => {
+		expect(
+			dashboard.isCardEnabled(
+				{ featureFlag: 'news-card' },
+				{
+					'news-card': true
+				}
+			)
+		).toBe(true)
+		expect(
+			dashboard.isCardEnabled(
+				{ featureFlag: 'news-card' },
+				{
+					'news-card': false
+				}
+			)
+		).toBe(false)
+	})
+
+	it('isCardKeyEnabled - Should return false for unknown card keys', () => {
+		expect(
+			dashboard.isCardKeyEnabled(
+				'unknown-card',
+				createDefaultFeatureFlagState()
+			)
+		).toBe(false)
+	})
+
+	it('isCardKeyEnabled - Should enable known cards without feature flags', () => {
+		expect(
+			dashboard.isCardKeyEnabled('hawEvents', createDefaultFeatureFlagState())
+		).toBe(true)
+		expect(
+			dashboard.isCardKeyEnabled('timetable', createDefaultFeatureFlagState())
+		).toBe(true)
+	})
+
+	it('getDefaultDashboardOrder - Should list disallowed cards in unavailable when still visible', () => {
+		const flags = createDefaultFeatureFlagState()
+		const { shown, unavailable } = dashboard.getDefaultDashboardOrder(
+			USER_STUDENT,
+			flags
+		)
+
+		expect(shown).not.toContain('employeeOnly')
+		expect(unavailable).toContain('employeeOnly')
+	})
+
+	it('syncDashboardEntriesWithFlags - Should return null when order is already up to date', () => {
+		const flags = createDefaultFeatureFlagState()
+
+		const merged = dashboard.syncDashboardEntriesWithFlags(
+			['events', 'timetable', 'hawEvents'],
+			USER_STUDENT,
+			flags
+		)
+
+		expect(merged).toBeNull()
+	})
+
+	it('syncDashboardEntriesWithFlags - Should return a merged order when flagged cards are newly enabled', () => {
+		const flags = {
+			...createDefaultFeatureFlagState(),
+			'flagged-card': true
+		}
+
+		const merged = dashboard.syncDashboardEntriesWithFlags(
+			['events', 'timetable'],
+			USER_STUDENT,
+			flags
+		)
+
+		expect(merged).not.toBeNull()
+		expect(merged).toContain('flaggedCard')
+	})
+
+	it('normalizeShownDashboardEntries - Should drop unknown cards', () => {
+		const flags = createDefaultFeatureFlagState()
+		const normalized = dashboard.normalizeShownDashboardEntries(
+			['unknown-card', 'hawEvents', 'timetable'],
+			flags
+		)
+
+		expect(normalized).toEqual(['hawEvents', 'timetable'])
+	})
+
+	it('resolveDashboardCards - Should map keys to cards and ignore unknown keys', () => {
+		const cards = dashboard.resolveDashboardCards(['timetable', 'unknown-card'])
+
+		expect(cards.map((card) => card.key)).toEqual(['timetable'])
+	})
+
+	it('useDashboard - Should resolve stored entries and fall back to defaults', () => {
+		shownDashboardEntriesState = ['events', 'unknown-card', 'hawEvents']
+		hiddenAnnouncementsState = undefined
+		userKindState = USER_STUDENT
+		featureFlagsState = createDefaultFeatureFlagState()
+
+		const value = renderDashboardHook()
+
+		expect(value.shownDashboardEntries.map((card) => card.key)).toEqual([
+			'events',
+			'hawEvents'
+		])
+		expect(value.hiddenAnnouncements).toEqual([])
+	})
+
+	it('useDashboard - Should skip merge effect when no stored order exists', () => {
+		shownDashboardEntriesState = undefined
+		hiddenAnnouncementsState = undefined
+		userKindState = USER_STUDENT
+		featureFlagsState = createDefaultFeatureFlagState()
+
+		const { value, unmount } = renderDashboardHookWithEffects()
+
+		expect(value.shownDashboardEntries.map((card) => card.key)).toEqual(
+			dashboard.getDefaultDashboardOrder(USER_STUDENT, featureFlagsState).shown
+		)
+		expect(shownDashboardEntriesState).toBeUndefined()
+
+		unmount()
+	})
+
+	it('useDashboard - Should leave stored order unchanged when no flagged cards are missing', () => {
+		shownDashboardEntriesState = ['events', 'timetable']
+		hiddenAnnouncementsState = undefined
+		userKindState = USER_STUDENT
+		featureFlagsState = createDefaultFeatureFlagState()
+
+		const { value, unmount } = renderDashboardHookWithEffects()
+
+		expect(value.shownDashboardEntries.map((card) => card.key)).toEqual([
+			'events',
+			'timetable'
+		])
+		expect(shownDashboardEntriesState).toEqual(['events', 'timetable'])
+
+		unmount()
+	})
+
+	it('useDashboard - Should persist a merged order when flagged cards are newly enabled', () => {
+		shownDashboardEntriesState = ['events', 'timetable']
+		hiddenAnnouncementsState = undefined
+		userKindState = USER_STUDENT
+		featureFlagsState = {
+			...createDefaultFeatureFlagState(),
+			'flagged-card': true
+		} as FeatureFlagState
+
+		const { unmount } = renderDashboardHookWithEffects()
+
+		expect(shownDashboardEntriesState).toContain('flaggedCard')
+
+		unmount()
+	})
+
+	it.each([USER_STUDENT, USER_EMPLOYEE])(
+		'useDashboard - Should restore news after %s resets the order while disabled',
+		(userKind) => {
+			shownDashboardEntriesState = ['links', 'events']
+			hiddenAnnouncementsState = undefined
+			userKindState = userKind
+			featureFlagsState = createDefaultFeatureFlagState()
+
+			const disabled = renderDashboardHookWithEffects()
+			disabled.value.resetOrder(userKind)
+			const savedWhileDisabled = [...(shownDashboardEntriesState ?? [])]
+			expect(savedWhileDisabled).not.toContain('news')
+			disabled.unmount()
+
+			featureFlagsState = { 'news-card': true }
+			const enabled = renderDashboardHookWithEffects()
+			const expected = [...savedWhileDisabled]
+			expected.splice(expected.indexOf('links') + 1, 0, 'news')
+
+			expect(shownDashboardEntriesState).toEqual(expected)
+			expect(
+				enabled.value.shownDashboardEntries.map((card) => card.key)
+			).toEqual(expected)
+			expect(
+				dashboard.syncDashboardEntriesWithFlags(
+					expected,
+					userKind,
+					featureFlagsState
+				)
+			).toBeNull()
+			enabled.unmount()
+		}
+	)
+
+	it('useDashboard - Should hide disabled news without losing its saved position', () => {
+		const savedOrder = ['news', 'calendar', 'links', 'events']
+		shownDashboardEntriesState = [...savedOrder]
+		hiddenAnnouncementsState = undefined
+		userKindState = USER_STUDENT
+		featureFlagsState = createDefaultFeatureFlagState()
+
+		const disabled = renderDashboardHookWithEffects()
+		expect(
+			disabled.value.shownDashboardEntries.map((card) => card.key)
+		).toEqual(['calendar', 'links', 'events'])
+		expect(shownDashboardEntriesState).toEqual(savedOrder)
+		expect(
+			dashboard.getDefaultDashboardOrder(USER_STUDENT, featureFlagsState).shown
+		).not.toContain('news')
+		disabled.unmount()
+
+		featureFlagsState = { 'news-card': true }
+		const enabled = renderDashboardHookWithEffects()
+		expect(enabled.value.shownDashboardEntries.map((card) => card.key)).toEqual(
+			savedOrder
+		)
+		expect(shownDashboardEntriesState).toEqual(savedOrder)
+		enabled.unmount()
+	})
+
+	it('mergeNewFlaggedCardsIntoDashboard - Should restore news without reordering customized cards', () => {
+		const customOrder = ['calendar', 'events', 'links']
+		const merged = dashboard.mergeNewFlaggedCardsIntoDashboard(
+			customOrder,
+			USER_STUDENT,
+			{ 'news-card': true }
+		)
+
+		expect(merged).toEqual(['calendar', 'events', 'links', 'news'])
+		expect(customOrder).toEqual(['calendar', 'events', 'links'])
+	})
+
+	it('getDefaultDashboardOrder - Should show enabled news only to students and employees', () => {
+		const flags = { 'news-card': true }
+		for (const userKind of [USER_STUDENT, USER_EMPLOYEE]) {
+			expect(
+				dashboard.getDefaultDashboardOrder(userKind, flags).shown
+			).toContain('news')
+		}
+		expect(
+			dashboard.getDefaultDashboardOrder(USER_GUEST, flags).shown
+		).not.toContain('news')
+		expect(
+			dashboard.mergeNewFlaggedCardsIntoDashboard(
+				['events', 'login'],
+				USER_GUEST,
+				flags
+			)
+		).toEqual(['events', 'login'])
+	})
+
+	it('useDashboard - Should expose dashboard actions', () => {
+		shownDashboardEntriesState = undefined
+		hiddenAnnouncementsState = undefined
+		userKindState = USER_STUDENT
+		featureFlagsState = createDefaultFeatureFlagState()
+
+		const value = renderDashboardHook()
+
+		value.updateDashboardOrder(['events', 'timetable'])
+		if (shownDashboardEntriesState == null) {
+			throw new Error('expected shown dashboard entries to be set')
+		}
+		expect(shownDashboardEntriesState as string[]).toEqual([
+			'events',
+			'timetable'
+		])
+
+		value.hideAnnouncement('announcement-1')
+		if (hiddenAnnouncementsState == null) {
+			throw new Error('expected hidden announcements to be set')
+		}
+		expect(hiddenAnnouncementsState as string[]).toEqual(['announcement-1'])
+
+		value.resetOrder(USER_STUDENT)
+		if (shownDashboardEntriesState == null) {
+			throw new Error('expected shown dashboard entries to be reset')
+		}
+		expect(shownDashboardEntriesState as string[]).toEqual(
+			dashboard.getDefaultDashboardOrder(USER_STUDENT, featureFlagsState).shown
+		)
+	})
+})

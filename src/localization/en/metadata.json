@@ -1,0 +1,10 @@
+{
+	"ios": {
+		"CFBundleDisplayName": "HAWConnect",
+		"NSFaceIDUsageDescription": "Allow HAWConnect to use Face ID.",
+		"NSLocationWhenInUseUsageDescription": "Allow HAWConnect to access your location to show your location on the map."
+	},
+	"android": {
+		"app_name": "HAWConnect"
+	}
+}

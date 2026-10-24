@@ -1,0 +1,38 @@
+{
+	"_source": {
+		"de": "https://www.stwhh.de/speiseplan",
+		"en": "https://www.stwhh.de/en/menu"
+	},
+	"V": {
+		"de": "Vegetarisch",
+		"en": "Vegetarian"
+	},
+	"veg": {
+		"de": "Vegan",
+		"en": "Vegan"
+	},
+	"F": {
+		"de": "mit Fisch",
+		"en": "With fish"
+	},
+	"favorite": {
+		"de": "Lieblingsessen",
+		"en": "Favorite dish"
+	},
+	"R": {
+		"de": "Rind",
+		"en": "Beef"
+	},
+	"S": {
+		"de": "Schwein",
+		"en": "Pork"
+	},
+	"A": {
+		"de": "Alkohol",
+		"en": "Alcohol"
+	},
+	"Gf": {
+		"de": "Glutenfrei · vom Anbieter nicht ausgewiesen",
+		"en": "Gluten-free · not provided by source"
+	}
+}

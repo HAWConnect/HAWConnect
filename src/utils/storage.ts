@@ -1,0 +1,131 @@
+import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister'
+import * as SecureStore from 'expo-secure-store'
+import { Platform } from 'react-native'
+import { createMMKV } from 'react-native-mmkv'
+import type { StateStorage } from 'zustand/middleware'
+import { createProfileStorage } from './account-profile-storage'
+import CredentialStorage from './credentialStorage'
+
+export const storage = createMMKV({
+	id: 'hawconnect-query-cache-v1'
+})
+
+// Initialize the credential storage for web
+let webCredentialStorage: CredentialStorage | null = null
+if (Platform.OS === 'web' && typeof window !== 'undefined') {
+	try {
+		webCredentialStorage = new CredentialStorage('hawconnect-secure-storage-v1')
+	} catch (error) {
+		console.error('Failed to initialize IndexedDB credential storage:', error)
+	}
+}
+
+export async function saveSecureAsync(
+	key: string,
+	value: string
+): Promise<void> {
+	if (Platform.OS === 'web') {
+		if (!webCredentialStorage) {
+			// Don't save at all if webCredentialStorage is not available
+			console.error('Web credential storage is not initialized.')
+			return
+		}
+
+		try {
+			await webCredentialStorage.write(key, { value })
+		} catch (error) {
+			console.error('Failed to write to IndexedDB:', error)
+		}
+
+		return
+	}
+	await SecureStore.setItemAsync(key, value)
+}
+
+export async function loadSecureAsync(key: string): Promise<string | null> {
+	try {
+		if (Platform.OS === 'web') {
+			if (!webCredentialStorage) {
+				console.error('Web credential storage is not initialized.')
+				return null
+			}
+
+			try {
+				const data = await webCredentialStorage.read(key)
+				if (!data || 'value' in data === false) {
+					return null
+				}
+
+				return data.value as string
+			} catch (error) {
+				console.error('Failed to read from IndexedDB:', error)
+			}
+
+			return null
+		}
+		return await SecureStore.getItemAsync(key)
+	} catch (error) {
+		console.error(`Failed to load secure item with key ${key}:`, error)
+		return null
+	}
+}
+
+export async function deleteSecure(key: string): Promise<void> {
+	if (Platform.OS === 'web') {
+		if (!webCredentialStorage) {
+			console.error('Web credential storage is not initialized.')
+			return
+		}
+
+		try {
+			await webCredentialStorage.delete(key)
+		} catch (error) {
+			console.error('Failed to delete from IndexedDB:', error)
+		}
+
+		return
+	}
+	await SecureStore.deleteItemAsync(key)
+}
+
+const clientStorage = {
+	setItem: (key: string, value: string | number | boolean | ArrayBuffer) => {
+		storage.set(key, value)
+	},
+	getItem: (key: string) => {
+		const value = storage.getString(key)
+		return value ?? null
+	},
+	removeItem: (key: string) => {
+		storage.remove(key)
+	}
+}
+
+export const syncStoragePersister = createSyncStoragePersister({
+	storage: clientStorage
+})
+
+export const appStorage = createMMKV({
+	id: 'hawconnect-user-settings-v1'
+})
+
+export const accountProfileStorage = createProfileStorage({
+	getString: (key) => appStorage.getString(key),
+	set: (key, value) => appStorage.set(key, value),
+	remove: (key) => appStorage.remove(key),
+	keys: () => appStorage.getAllKeys()
+})
+export const zustandStorage: StateStorage = accountProfileStorage.adapter
+
+export function readLegacyDashboardOrder(): string[] | undefined {
+	const value = createMMKV().getString('shownDashboardEntriesV7')
+	if (!value) return undefined
+	try {
+		const order = JSON.parse(value)
+		return Array.isArray(order) && order.every((key) => typeof key === 'string')
+			? order
+			: undefined
+	} catch {
+		return undefined
+	}
+}

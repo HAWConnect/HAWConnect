@@ -1,0 +1,129 @@
+@import "tailwindcss";
+@import "uniwind";
+
+@theme {
+	--spacing-page: 12px;
+	--spacing-card: 16px;
+	--spacing-bottom-safe: 90px;
+	--spacing-modal-bottom: 32px;
+	--spacing-row: 5px;
+	--spacing-section: 30px;
+	--spacing-copy-button-min: 165px;
+
+	--radius-xs: 4px;
+	--radius-base: 6px;
+	--radius-sm: 8px;
+	--radius-md: 17px;
+	--radius-mg: 17px;
+	--radius-lg: 22px;
+	--radius-ios: 26px;
+	--radius-infinite: 9999px;
+}
+
+@layer theme {
+	:root {
+		@variant light {
+			--color-background: rgb(242, 242, 242);
+			--color-text: rgb(28, 28, 30);
+			--color-typography: #000000;
+			--color-card: rgb(255, 255, 255);
+			--color-card-sheet: rgb(255, 255, 255);
+			--color-card-button: #f2f2f2;
+			--color-card-contrast: #eeeeee;
+			--color-border: rgb(216, 216, 216);
+			--color-primary: #007aff;
+			--color-secondary: #0a61be;
+			--color-primary-background: #007aff15;
+			--color-label: #606062;
+			--color-label-secondary: #777778;
+			--color-label-tertiary: #99999a;
+			--color-label-background: #e5dede;
+			--color-tabbar-inactive: #999999;
+			--color-success: #21bc21;
+			--color-community-green: #24ff88;
+			--color-community-green-accent: #0a9a52;
+			--color-warning: #f48e00;
+			--color-notification: rgb(255, 59, 48);
+			--color-input-background: #e9e9e9;
+			--color-contrast: #ffffff;
+			--color-sheet-button: #ffffff;
+			--color-veg-green: #18b91e;
+			--color-date-picker-background: #ebebec;
+			--color-plate-outer: #edebeb;
+			--color-plate-outer-border: #d0d0d0;
+			--color-plate-rim: #f5f5f5;
+			--color-plate-rim-border: #d1d1d1;
+			--color-plate-inner: #eaeaea;
+			--color-plate-inner-border: #cccccc;
+			--color-plate-shadow: #444444;
+			--color-plate-inner-shadow: #777777;
+			--color-calendar-item: #5d5d5d;
+			--color-completed-dot: #157a15;
+			--color-soon-dot: #dfdfdf;
+			--color-white: #f2f0ef;
+		}
+
+		@variant dark {
+			--color-background: rgb(1, 1, 1);
+			--color-text: rgb(229, 229, 231);
+			--color-typography: #ffffff;
+			--color-card: rgb(18, 18, 18);
+			--color-card-sheet: rgb(18, 18, 18);
+			--color-card-button: #262626;
+			--color-card-contrast: #1c1c1d;
+			--color-border: rgb(39, 39, 41);
+			--color-primary: #0e83fd;
+			--color-secondary: #1578e1;
+			--color-primary-background: #0e83fd25;
+			--color-label: #a4a4a5;
+			--color-label-secondary: #8e8e8f;
+			--color-label-tertiary: #4b4b4c;
+			--color-label-background: #444444;
+			--color-tabbar-inactive: #757575;
+			--color-success: #37d837;
+			--color-community-green: #24ff88;
+			--color-community-green-accent: #24ff88;
+			--color-warning: #ff9900;
+			--color-notification: rgb(255, 69, 58);
+			--color-input-background: #383838;
+			--color-contrast: #000000;
+			--color-sheet-button: #262626;
+			--color-veg-green: #1ccd22;
+			--color-date-picker-background: #2a2a2c;
+			--color-plate-outer: #2a2a2b;
+			--color-plate-outer-border: #303032;
+			--color-plate-rim: #373739;
+			--color-plate-rim-border: #444448;
+			--color-plate-inner: #262626;
+			--color-plate-inner-border: #474749;
+			--color-plate-shadow: #777777;
+			--color-plate-inner-shadow: #3d3d3d;
+			--color-calendar-item: #676767;
+			--color-completed-dot: #157a15;
+			--color-soon-dot: #4b4b4b;
+			--color-white: #f2f0ef;
+		}
+
+		@variant ios {
+			@variant dark {
+				--color-card-sheet: rgb(6, 6, 6);
+			}
+		}
+	}
+}
+
+@utility border-hairline {
+	border-width: hairlineWidth();
+}
+
+@utility border-b-hairline {
+	border-bottom-width: hairlineWidth();
+}
+
+@utility border-r-hairline {
+	border-right-width: hairlineWidth();
+}
+
+@utility h-hairline {
+	height: hairlineWidth();
+}
