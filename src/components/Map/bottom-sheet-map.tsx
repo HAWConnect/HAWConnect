@@ -54,7 +54,7 @@ const MapBottomSheet = ({
 	const handleSearchChange = (text: string): void => {
 		setSearchQuery(text)
 		if (params.room != null && params.room !== '') {
-			router.setParams(undefined)
+			router.setParams({ room: undefined })
 		}
 	}
 

@@ -113,6 +113,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      issues: write
     steps:
       - name: Summarize fingerprint
         id: fingerprint-summary
@@ -127,25 +128,16 @@ jobs:
             echo "previous-digest=n/a" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Generate GitHub App token
-        id: app-token
-        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
-        with:
-          client-id: ${{ vars.HAWCONNECT_ACTIONS_CLIENT_ID }}
-          private-key: ${{ secrets.HAWCONNECT_ACTIONS_APP_PRIVATE_KEY }}
-
       - name: Create or update stale dev client issue
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           CURRENT_DIGEST: ${{ steps.fingerprint-summary.outputs.current-digest }}
           PREVIOUS_DIGEST: ${{ steps.fingerprint-summary.outputs.previous-digest }}
         with:
-          github-token: ${{ steps.app-token.outputs.token }}
           script: |
             const staleLabel = 'dev-client-stale'
             const issueTitle = 'Dev client rebuild needed'
             const marker = '<!-- dev-client-stale -->'
-            const workflowUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/workflows/dev-client-build.yml`
             const fingerprintRunUrl = `${context.payload.repository.html_url}/actions/runs/${context.runId}`
             const commitUrl = `${context.payload.repository.html_url}/commit/${context.sha}`
 
@@ -166,11 +158,11 @@ jobs:
               '',
               '### Rebuild',
               '',
-              `Run the [**Build dev client**](${workflowUrl}) workflow manually (Actions → Build dev client → Run workflow).`,
+              'Run `npx eas-cli build --profile development --platform all` from the app repository with the club Expo account.',
               '',
-              'Choose **both** platforms when distributing to the team. Uncheck **Close stale alert** if you only rebuild one platform for now.',
+              'Install the new development builds on the devices used for testing.',
               '',
-              'This issue is closed automatically when a dev client build finishes with **Close stale alert** enabled.',
+              'Close this issue after both development builds have completed successfully.',
             ].join('\n')
 
             const { data: issues } = await github.rest.issues.listForRepo({

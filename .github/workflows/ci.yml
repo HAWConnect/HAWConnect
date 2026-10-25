@@ -101,6 +101,8 @@ jobs:
 
   sonarqube-analysis:
     name: Tests and Quality Analysis
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     needs: changes
     if: |
       github.event_name == 'pull_request' ||
@@ -124,10 +126,17 @@ jobs:
         run: bun run test:coverage
 
       - name: SonarCloud Scan
-        if: ${{ !cancelled() }}
+        if: ${{ success() && env.SONAR_TOKEN != '' && vars.SONAR_ORGANIZATION != '' && vars.SONAR_PROJECT_KEY != '' }}
         uses: SonarSource/sonarqube-scan-action@d209202bc7d53ff1cc128f7f907dac145c9d6ae9 # v8.3.0
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >-
+            -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
+            -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
+
+      - name: Explain optional SonarCloud setup
+        if: ${{ success() && (env.SONAR_TOKEN == '' || vars.SONAR_ORGANIZATION == '' || vars.SONAR_PROJECT_KEY == '') }}
+        run: |
+          echo 'SonarCloud scan skipped. Configure SONAR_TOKEN secret and SONAR_ORGANIZATION / SONAR_PROJECT_KEY repository variables to enable it. Unit tests and coverage still run.' >> "$GITHUB_STEP_SUMMARY"
 
   mutation-tests:
     name: Mutation tests
