@@ -91,11 +91,21 @@ The planned Cloudflare/Coolify addresses are:
 
 | Service | Target address | Container port |
 | --- | --- | --- |
-| Web app | `https://hawconnect.raju.app` | 3000 |
-| Backend | `https://hawconnect-api.raju.app` | 4000 |
-| Dashboard | `https://hawconnect-dash.raju.app` | 3000 |
+| Web app | `https://hawconnect.de` | 3000 |
+| Backend | `https://api.hawconnect.de` | 4000 |
+| Dashboard | `https://dash.hawconnect.de` | 3000 |
 
 These are configuration targets, not a claim that deployments are live. Use the app Dockerfile at `config/Dockerfile`, with repository root as build context. Public endpoint variables are **build-time** values; rebuild the web/mobile app after changing them. First-level subdomains avoid the standard wildcard-certificate limitation of nested hostnames. Backend and dashboard runtime configuration is documented in their READMEs.
+
+Set these public variables at **build time** in Coolify and in the EAS environment used for each native build:
+
+```dotenv
+EXPO_PUBLIC_HAWCONNECT_GRAPHQL_ENDPOINT=https://api.hawconnect.de/graphql
+EXPO_PUBLIC_HAWCONNECT_AUTH_URL=https://api.hawconnect.de/api/accounts
+EXPO_PUBLIC_WEBSITE_URL=https://hawconnect.de
+```
+
+Changing the website address does not transfer browser-local guest calendars or preferences. Export or retain the original ICS files before moving, or sync an account on the old site before the cutover and sign in again on the new site. Keep the old API hostname serving the backend while installed native builds still use it; do not redirect API requests as a migration substitute.
 
 ## Verification
 
