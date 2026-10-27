@@ -1,3 +1,5 @@
+import { router, useFocusEffect } from 'expo-router'
+import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, Linking, Pressable, Text, View } from 'react-native'
 import ErrorView from '@/components/Error/error-view'
@@ -5,9 +7,15 @@ import LoadingIndicator from '@/components/Universal/loading-indicator'
 import RowEntry from '@/components/Universal/row-entry'
 import { useHawClubs } from '@/hooks/useHawClubs'
 import { useTransparentHeaderPadding } from '@/hooks/useTransparentHeader'
+import { safeClubUrl } from '@/utils/club-rich-text'
 export default function ClubsScreen(): React.JSX.Element {
 	const { t } = useTranslation('common')
-	const { data, isLoading, isFetching, refetch } = useHawClubs()
+	const { data, isLoading, isFetching, refetch, dataUpdatedAt } = useHawClubs()
+	useFocusEffect(
+		useCallback(() => {
+			if (Date.now() - dataUpdatedAt > 60_000) void refetch()
+		}, [dataUpdatedAt, refetch])
+	)
 	const paddingTop = useTransparentHeaderPadding() + 12
 	if (isLoading)
 		return (
@@ -46,9 +54,11 @@ export default function ClubsScreen(): React.JSX.Element {
 				}
 				renderItem={({ item }) => (
 					<RowEntry
-						rightChildren={<Text className="text-primary">↗</Text>}
+						rightChildren={<Text className="text-primary">›</Text>}
 						title={item.title}
-						onPress={() => void Linking.openURL(item.sourceUrl)}
+						onPress={() =>
+							router.push({ pathname: '/clubs/[id]', params: { id: item.id } })
+						}
 						leftChildren={
 							<View className="w-full">
 								<Text numberOfLines={5} className="text-label text-sm">
@@ -60,7 +70,8 @@ export default function ClubsScreen(): React.JSX.Element {
 										accessibilityRole="link"
 										onPress={(event) => {
 											event.stopPropagation()
-											void Linking.openURL(link.url)
+											const url = safeClubUrl(link.url)
+											if (url) void Linking.openURL(url).catch(() => {})
 										}}
 										className="py-2"
 									>
@@ -71,15 +82,6 @@ export default function ClubsScreen(): React.JSX.Element {
 						}
 					/>
 				)}
-				ListFooterComponent={
-					<Pressable
-						accessibilityRole="link"
-						onPress={() => void Linking.openURL(data.sourceUrl)}
-						className="py-4"
-					>
-						<Text className="text-primary">{t('pages.clubs.source')} ↗</Text>
-					</Pressable>
-				}
 			/>
 		</View>
 	)

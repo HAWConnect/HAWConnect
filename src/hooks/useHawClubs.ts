@@ -7,7 +7,8 @@ export function useHawClubs() {
 	return useQuery({
 		queryKey: ['haw-clubs', language],
 		queryFn: () => HAWConnectAPI.getHawClubs(language),
-		staleTime: 3600000,
+		// Refetch stale directory data when a screen mounts/focuses, without polling.
+		staleTime: 60_000,
 		gcTime: 86400000,
 		retry: 1
 	})

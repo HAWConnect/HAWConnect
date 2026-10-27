@@ -14,6 +14,6 @@ export async function getLegalDocuments() {
 	})
 	if (!response.ok) throw Error('LegalUnavailable')
 	const text = await response.text()
-	if (text.length > 160000) throw Error('InvalidLegalDocuments')
+	if (text.length > 1_048_576) throw Error('InvalidLegalDocuments')
 	return parseLegalDocuments(JSON.parse(text))
 }

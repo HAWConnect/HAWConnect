@@ -112,6 +112,11 @@
 		"login": {
 			"title": "Dein Stundenplan aus myHAW",
 			"message": "Kalenderlink oder .ics-Datei importieren. Ohne Anmeldung."
+		},
+		"importedClasses": {
+			"ongoing": "Laufende Vorlesung",
+			"empty": "Keine kommenden Veranstaltungen in deinen importierten Kalendern.",
+			"unavailable": "Dein Kalender konnte nicht gelesen werden. Öffne den Kalender, um deine Importe zu verwalten."
 		}
 	},
 	"contextMenu": {

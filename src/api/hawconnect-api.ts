@@ -17,12 +17,14 @@ import {
 	type PublicOrganizerResponse
 } from '@/types/campus-life'
 import { guardedFetch } from '@/utils/integration-utils'
+import { loadCompatibleClubs } from './clubs-compatibility'
 import {
 	ACADEMIC_CALENDAR_QUERY,
 	ANNOUNCEMENT_QUERY,
 	CAMPUS_LIFE_QUERY,
 	CREATE_ROOM_REPORT,
 	FOOD_QUERY,
+	HAW_CLUBS_LEGACY_QUERY,
 	HAW_CLUBS_QUERY,
 	HAW_EVENTS_QUERY
 } from './gql-documents'
@@ -248,8 +250,13 @@ class HAWConnectAPIClient {
 	}
 
 	async getHawClubs(language: string): Promise<HawClubsQuery['hawClubs']> {
-		return (await this.executeGql(HAW_CLUBS_QUERY, false, { language }))
-			.hawClubs
+		return loadCompatibleClubs(
+			async () =>
+				(await this.executeGql(HAW_CLUBS_QUERY, false, { language })).hawClubs,
+			async () =>
+				(await this.executeGql(HAW_CLUBS_LEGACY_QUERY, false, { language }))
+					.hawClubs
+		)
 	}
 
 	/**

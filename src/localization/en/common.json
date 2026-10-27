@@ -466,12 +466,13 @@
 		},
 		"clubs": {
 			"title": "Clubs",
-			"subtitle": "Student projects and initiatives at HAW Hamburg",
+			"subtitle": "Discover student clubs and initiatives",
 			"unavailable": "Unable to load clubs.",
 			"empty": "No clubs found.",
 			"open": "More information",
-			"source": "Student projects on the HAW website",
-			"cached": "Cached information"
+			"cached": "Saved club information. Refresh failed.",
+			"notFound": "This club is no longer available.",
+			"image": "Club image"
 		},
 		"campusLifeEvents": {
 			"unavailable": "Unable to load campus life events.",

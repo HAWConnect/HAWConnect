@@ -466,12 +466,13 @@
 		},
 		"clubs": {
 			"title": "Clubs",
-			"subtitle": "Studentische Projekte und Initiativen an der HAW Hamburg",
+			"subtitle": "Entdecke studentische Clubs und Initiativen",
 			"unavailable": "Clubs konnten nicht geladen werden.",
 			"empty": "Keine Clubs gefunden.",
 			"open": "Weitere Informationen",
-			"source": "Studentische Projekte auf der HAW-Website",
-			"cached": "Gespeicherte Informationen"
+			"cached": "Gespeicherte Clubinformationen. Aktualisierung fehlgeschlagen.",
+			"notFound": "Dieser Verein ist nicht mehr verfügbar.",
+			"image": "Bild des Vereins"
 		},
 		"campusLifeEvents": {
 			"unavailable": "Campus-Life-Veranstaltungen konnten nicht geladen werden.",

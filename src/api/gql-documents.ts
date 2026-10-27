@@ -107,6 +107,16 @@ export const HAW_CLUBS_QUERY = graphql(/* GraphQL */ `
  query HawClubs($language: String) {
   hawClubs(language: $language) {
    available stale updatedAt sourceUrl
+   clubs { id title description descriptionHtml contentLanguage sourceUrl links { title url } }
+  }
+ }
+`)
+
+// Older public servers do not yet expose the optional rich content fields.
+export const HAW_CLUBS_LEGACY_QUERY = graphql(/* GraphQL */ `
+ query HawClubsLegacy($language: String) {
+  hawClubs(language: $language) {
+   available stale updatedAt sourceUrl
    clubs { id title description sourceUrl links { title url } }
   }
  }

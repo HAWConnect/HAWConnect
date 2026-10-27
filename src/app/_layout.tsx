@@ -340,6 +340,10 @@ function RootLayout(): React.JSX.Element {
 					}}
 				/>
 				<Stack.Screen
+					name="(screens)/clubs/[id]"
+					options={{ title: t('navigation.clubs'), ...transparentHeaderStyle }}
+				/>
+				<Stack.Screen
 					name="(screens)/calendar"
 					options={{
 						title: t('navigation.calendar'),

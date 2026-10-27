@@ -112,6 +112,11 @@
 		"login": {
 			"title": "Your timetable from myHAW",
 			"message": "Import a calendar link or .ics file. No login required."
+		},
+		"importedClasses": {
+			"ongoing": "Ongoing class",
+			"empty": "No upcoming classes in your imported calendars.",
+			"unavailable": "Unable to read your calendar. Open Calendar to manage your imports."
 		}
 	},
 	"contextMenu": {

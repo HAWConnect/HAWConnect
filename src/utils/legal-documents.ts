@@ -5,6 +5,7 @@ export interface PublicLegalDocument {
 	published: {
 		mode: 'internal' | 'external'
 		body: { de: string; en: string }
+		bodyHtml?: { de: string; en: string } | null
 		url: { de: string; en: string }
 	} | null
 	publishedAt: string | null
@@ -39,6 +40,12 @@ export function parseLegalDocuments(value: unknown): PublicLegalDocument[] {
 					p.url[language].length > 2048
 				)
 					throw Error('InvalidLegalDocuments')
+				if (
+					p.bodyHtml != null &&
+					(typeof p.bodyHtml[language] !== 'string' ||
+						p.bodyHtml[language].length > 20000)
+				)
+					throw Error('InvalidLegalDocuments')
 				if (p.mode === 'external' && !safeURL(p.url[language]))
 					throw Error('InvalidLegalDocuments')
 			}
@@ -59,7 +66,7 @@ export function legalTarget(
 	language: string,
 	fallback = ''
 ):
-	| { mode: 'internal'; body: string }
+	| { mode: 'internal'; body: string; bodyHtml?: string }
 	| { mode: 'external'; url: string }
 	| null {
 	if (!document) return null
@@ -69,6 +76,12 @@ export function legalTarget(
 			: null
 	const lang = language.startsWith('de') ? 'de' : 'en'
 	return document.published.mode === 'internal'
-		? { mode: 'internal', body: document.published.body[lang] }
+		? {
+				mode: 'internal',
+				body: document.published.body[lang],
+				...(document.published.bodyHtml != null
+					? { bodyHtml: document.published.bodyHtml[lang] }
+					: {})
+			}
 		: { mode: 'external', url: document.published.url[lang] }
 }

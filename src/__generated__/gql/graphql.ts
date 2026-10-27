@@ -71,7 +71,14 @@ export type HawClubsQueryVariables = Exact<{
 }>;
 
 
-export type HawClubsQuery = { hawClubs: { available: boolean, stale: boolean, updatedAt: string | null, sourceUrl: string, clubs: Array<{ id: string, title: string, description: string, sourceUrl: string, links: Array<{ title: string, url: string }> }> } };
+export type HawClubsQuery = { hawClubs: { available: boolean, stale: boolean, updatedAt: string | null, sourceUrl: string, clubs: Array<{ id: string, title: string, description: string, descriptionHtml: string | null, contentLanguage: string | null, sourceUrl: string, links: Array<{ title: string, url: string }> }> } };
+
+export type HawClubsLegacyQueryVariables = Exact<{
+  language?: string | null | undefined;
+}>;
+
+
+export type HawClubsLegacyQuery = { hawClubs: { available: boolean, stale: boolean, updatedAt: string | null, sourceUrl: string, clubs: Array<{ id: string, title: string, description: string, sourceUrl: string, links: Array<{ title: string, url: string }> }> } };
 
 export type CreateRoomReportMutationVariables = Exact<{
   input: RoomReportInput;
@@ -300,6 +307,8 @@ export const HawClubsDocument = new TypedDocumentString(`
       id
       title
       description
+      descriptionHtml
+      contentLanguage
       sourceUrl
       links {
         title
@@ -309,6 +318,26 @@ export const HawClubsDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<HawClubsQuery, HawClubsQueryVariables>;
+export const HawClubsLegacyDocument = new TypedDocumentString(`
+    query HawClubsLegacy($language: String) {
+  hawClubs(language: $language) {
+    available
+    stale
+    updatedAt
+    sourceUrl
+    clubs {
+      id
+      title
+      description
+      sourceUrl
+      links {
+        title
+        url
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<HawClubsLegacyQuery, HawClubsLegacyQueryVariables>;
 export const CreateRoomReportDocument = new TypedDocumentString(`
     mutation CreateRoomReport($input: RoomReportInput!) {
   createRoomReport(input: $input) {

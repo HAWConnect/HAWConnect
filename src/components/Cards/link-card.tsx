@@ -4,14 +4,16 @@ import { useTranslation } from 'react-i18next'
 import { Linking, Platform, Pressable, Text, View } from 'react-native'
 import { useCSSVariable } from 'uniwind'
 import PlatformIcon, { type LucideIcon } from '@/components/Universal/icon'
-import { quicklinks, quicklinkUrl } from '@/data/constants'
+import { quicklinkUrl } from '@/data/constants'
 import { usePreferencesStore } from '@/hooks/usePreferencesStore'
+import { useQuickLinks } from '@/hooks/useQuickLinks'
 import type { MaterialIcon } from '@/types/material-icons'
 import { normalizePreferenceKey } from '@/utils/legacy-preferences'
 import { toColor } from '@/utils/uniwind-utils'
 import BaseCard from './base-card'
 
 const LinkCard = (): React.JSX.Element => {
+	const quicklinks = useQuickLinks()
 	const textColor = toColor(useCSSVariable('--color-text'))
 	const { t, i18n } = useTranslation('common')
 
@@ -71,10 +73,11 @@ const LinkCard = (): React.JSX.Element => {
 								minimumFontScale={0.8}
 								ellipsizeMode="tail"
 							>
-								{t(
-									// @ts-expect-error Type cannot be verified
-									[`quicklinks.${link.key}`, link.key]
-								)}
+								{link.title?.[i18n.language.startsWith('en') ? 'en' : 'de'] ??
+									t(
+										// @ts-expect-error Type cannot be verified
+										[`quicklinks.${link.key}`, link.key]
+									)}
 							</Text>
 						</Pressable>
 					)

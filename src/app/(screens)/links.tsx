@@ -4,19 +4,19 @@ import type React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, View } from 'react-native'
 import FormList from '@/components/Universal/form-list'
-import type { LucideIcon } from '@/components/Universal/icon'
-import { quicklinks, quicklinkUrl } from '@/data/constants'
+import { quicklinkUrl } from '@/data/constants'
 import { usePreferencesStore } from '@/hooks/usePreferencesStore'
+import { useQuickLinks } from '@/hooks/useQuickLinks'
 import { useFormSheetHeaderPadding } from '@/hooks/useTransparentHeader'
 import type { FormListSections } from '@/types/components'
-import type { MaterialIcon } from '@/types/material-icons'
+import type { AppQuickLink } from '@/utils/managed-quick-links'
 
 const LinkScreen = (): React.JSX.Element => {
 	const { t, i18n } = useTranslation('common')
 	const addRecentQuicklink = usePreferencesStore(
 		(state) => state.addRecentQuicklink
 	)
-	const typedQuicklinks = quicklinks as Quicklink[]
+	const typedQuicklinks = useQuickLinks()
 	const formSheetHeaderPadding = useFormSheetHeaderPadding()
 
 	const linkPress = async (key: string, url: string): Promise<void> => {
@@ -25,21 +25,12 @@ const LinkScreen = (): React.JSX.Element => {
 		trackEvent('Quicklink', { link: key })
 		await Linking.openURL(url)
 	}
-	interface Quicklink {
-		key: string
-		url: string
-		urlEn?: string
-		icon: {
-			ios: string
-			android: MaterialIcon
-			web: LucideIcon
-		}
-	}
-	function generateSections(links: Quicklink[]): FormListSections[] {
+	function generateSections(links: AppQuickLink[]): FormListSections[] {
 		return [
 			{
 				items: links.map((link) => ({
 					title:
+						link.title?.[i18n.language.startsWith('en') ? 'en' : 'de'] ??
 						// @ts-expect-error Type cannot be verified
 						t([`pages.quicklinks.links.${link.key}`, link.key]),
 					icon: { ...link.icon, androidVariant: 'outlined' },

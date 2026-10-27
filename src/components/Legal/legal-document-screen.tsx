@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { Linking, ScrollView, Text, View } from 'react-native'
+import RichClubDescription from '@/components/Clubs/rich-club-description'
 import Button from '@/components/Universal/button'
 import LoadingIndicator from '@/components/Universal/loading-indicator'
 import { projectLinks } from '@/data/project-links'
@@ -37,6 +38,15 @@ export default function LegalDocumentScreen({
 				<Button onPress={() => void Linking.openURL(target.url)}>
 					{t('legal.openDocument')}
 				</Button>
+			) : target.bodyHtml !== undefined ? (
+				<View testID="legal-document-body">
+					<RichClubDescription
+						html={target.bodyHtml}
+						fallback={target.body}
+						allowImages={false}
+						selectable
+					/>
+				</View>
 			) : (
 				<Text
 					testID="legal-document-body"

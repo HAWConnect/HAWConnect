@@ -4,9 +4,11 @@ import { useTranslation } from 'react-i18next'
 import { Text, View } from 'react-native'
 import { useCSSVariable } from 'uniwind'
 import BaseCard from '@/components/Cards/base-card'
+import ImportedClassesCard from '@/components/Cards/imported-classes-card'
 import { UserKindContext } from '@/components/contexts'
 import Divider from '@/components/Universal/divider'
 import { USER_GUEST } from '@/data/constants'
+import { useImportedCalendarStore } from '@/hooks/useImportedCalendarStore'
 import { useNow } from '@/hooks/useNow'
 import { formatFriendlyTime } from '@/utils/date-utils'
 import {
@@ -27,7 +29,7 @@ import EventStatusText from './event-status-text'
 import NextEventPreview from './next-event-preview'
 import TodayStatsRow from './today-stats-row'
 
-export default function UpNextCard(): React.JSX.Element {
+function LegacyUpNextCard(): React.JSX.Element {
 	const borderColor = toColor(useCSSVariable('--color-border'))
 	const { userKind = USER_GUEST } = use(UserKindContext)
 	const { t } = useTranslation(['navigation', 'timetable'])
@@ -140,4 +142,11 @@ export default function UpNextCard(): React.JSX.Element {
 				))}
 		</BaseCard>
 	)
+}
+
+export default function UpNextCard(): React.JSX.Element {
+	const hasCalendar = useImportedCalendarStore(
+		(state) => state.calendars.length > 0
+	)
+	return hasCalendar ? <ImportedClassesCard /> : <LegacyUpNextCard />
 }
